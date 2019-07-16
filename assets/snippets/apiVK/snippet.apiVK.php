@@ -9,6 +9,25 @@ $vk = new Vk($access_token, $v);
 
 switch ($api_method) {
 
+    case 'market.getAlbums':
+
+        /* Возвращает список подборок =======================
+        
+        Метод API           |  market.getAlbums
+        -----------------------------------------------------
+        & api_method        |  метод API
+        & access_token      |  ключ доступа к API
+        & v                 |  версия API [по-умолчанию: 5.101]
+        & group_id          |  ID сообщества
+        ----------------------------------------------------- */
+
+        $result = $vk->getAlbums([
+            'owner_id' => "-$group_id"
+        ]);
+
+        return json_encode($result);
+        break;
+
     case 'market.add':
 
         /* Добавляет новый товар ============================

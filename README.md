@@ -1,6 +1,6 @@
 # apiVK
 
-_Сниппет для Evolution CMS_
+Сниппет для Evolution CMS
 
 Работа с API ВКонтакте<br>
 Ссылка на документацию API: <https://vk.com/dev/manuals>
@@ -23,10 +23,8 @@ _Сниппет для Evolution CMS_
   https://oauth.vk.com/authorize?client_id=______&v=5.101&redirect_uri=https://oauth.vk.com/blank.html&scope=market,photos&response_type=code
 
   # 2 По полученному коду получить ключ доступа
-  https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=______&redirect_uri=https://oauth.vk.com/blank.html
+  https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=______&v=5.101&redirect_uri=https://oauth.vk.com/blank.html
   ```
-
-<https://oauth.vk.com/access_token?v=5.101&client_id=7055519&client_secret=D9H519poXvk2Ys6DZS8X&redirect_uri=https://oauth.vk.com/blank.html&code=2a4f7a9fc920af31cb>
 
 ## Методы market
 

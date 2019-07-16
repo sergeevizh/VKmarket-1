@@ -11,53 +11,31 @@ class Vk
         $this->v = $v;
     }
 
+    // Возвращает список подборок =======================
     public function market__getAlbums($data)
     {
         return $this->request('market.getAlbums', $data);
     }
 
+    // Добавляет новый товар =======================
     public function add($data)
     {
         return $this->request('market.add', $data);
     }
 
+    // Добавляет новую подборку =======================
     public function addAlbum($data)
     {
         return $this->request('market.addAlbum', $data);
     }
 
+    // Добавляет товар в одну или несколько подборок =======================
     public function addToAlbum($data)
     {
         return $this->request('market.addToAlbum', $data);
     }
 
-    public function getMarketUploadServer($group_id, $main)
-    {
-        $params = [
-            'group_id' => $group_id,
-            'main_photo' => $main
-        ];
-        return $this->request('photos.getMarketUploadServer', $params);
-    }
-
-    public function getMarketAlbumUploadServer($group_id)
-    {
-        $params = [
-            'group_id' => $group_id
-        ];
-        return $this->request('photos.getMarketAlbumUploadServer', $params);
-    }
-
-    public function saveMarketPhoto($params)
-    {
-        return $this->request('photos.saveMarketPhoto', $params);
-    }
-
-    public function saveMarketAlbumPhoto($params)
-    {
-        return $this->request('photos.saveMarketAlbumPhoto', $params);
-    }
-
+    // Осуществляет загрузку фотографии на адрес сервера =======================
     public function uploadFile($link, $path)
     {
         $ch = curl_init($link);
@@ -77,6 +55,38 @@ class Vk
         return json_decode($data, true);
     }
 
+    // Возвращает адрес сервера для загрузки фотографии товара =======================
+    public function getMarketUploadServer($group_id, $main)
+    {
+        $params = [
+            'group_id' => $group_id,
+            'main_photo' => $main
+        ];
+        return $this->request('photos.getMarketUploadServer', $params);
+    }
+
+    // Сохраняет фотографию товара после успешной загрузки =======================
+    public function saveMarketPhoto($params)
+    {
+        return $this->request('photos.saveMarketPhoto', $params);
+    }
+
+    // Возвращает адрес сервера для загрузки фотографии подборки =======================
+    public function getMarketAlbumUploadServer($group_id)
+    {
+        $params = [
+            'group_id' => $group_id
+        ];
+        return $this->request('photos.getMarketAlbumUploadServer', $params);
+    }
+
+    // Сохраняет фотографию подборки после успешной загрузки =======================
+    public function saveMarketAlbumPhoto($params)
+    {
+        return $this->request('photos.saveMarketAlbumPhoto', $params);
+    }
+
+    // Вызов методов API ВКонтакте =======================
     private function request($method, array $params)
     {
         $params['v'] = $this->v;
