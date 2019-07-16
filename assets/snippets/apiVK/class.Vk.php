@@ -18,19 +18,19 @@ class Vk
     }
 
     // Добавляет новый товар =======================
-    public function add($data)
+    public function market__add($data)
     {
         return $this->request('market.add', $data);
     }
 
     // Добавляет новую подборку =======================
-    public function addAlbum($data)
+    public function market__addAlbum($data)
     {
         return $this->request('market.addAlbum', $data);
     }
 
     // Добавляет товар в одну или несколько подборок =======================
-    public function addToAlbum($data)
+    public function market__addToAlbum($data)
     {
         return $this->request('market.addToAlbum', $data);
     }
@@ -56,7 +56,7 @@ class Vk
     }
 
     // Возвращает адрес сервера для загрузки фотографии товара =======================
-    public function getMarketUploadServer($group_id, $main)
+    public function photos__getMarketUploadServer($group_id, $main)
     {
         $params = [
             'group_id' => $group_id,
@@ -66,13 +66,13 @@ class Vk
     }
 
     // Сохраняет фотографию товара после успешной загрузки =======================
-    public function saveMarketPhoto($params)
+    public function photos__saveMarketPhoto($params)
     {
         return $this->request('photos.saveMarketPhoto', $params);
     }
 
     // Возвращает адрес сервера для загрузки фотографии подборки =======================
-    public function getMarketAlbumUploadServer($group_id)
+    public function photos__getMarketAlbumUploadServer($group_id)
     {
         $params = [
             'group_id' => $group_id
@@ -81,7 +81,7 @@ class Vk
     }
 
     // Сохраняет фотографию подборки после успешной загрузки =======================
-    public function saveMarketAlbumPhoto($params)
+    public function photos__saveMarketAlbumPhoto($params)
     {
         return $this->request('photos.saveMarketAlbumPhoto', $params);
     }

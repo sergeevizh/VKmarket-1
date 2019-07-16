@@ -21,7 +21,7 @@ switch ($api_method) {
         & group_id          |  ID сообщества
         ----------------------------------------------------- */
 
-        $result = $vk->getAlbums([
+        $result = $vk->market__getAlbums([
             'owner_id' => "-$group_id"
         ]);
 
@@ -50,11 +50,11 @@ switch ($api_method) {
         $image_path = 'image.jpg';
         copy($image, 'image.jpg');
 
-        $upload_server = $vk->getMarketUploadServer($group_id, 1);
+        $upload_server = $vk->photos__getMarketUploadServer($group_id, 1);
 
         $upload = $vk->uploadFile($upload_server['upload_url'], $image_path);
 
-        $save = $vk->saveMarketPhoto(
+        $save = $vk->photos__saveMarketPhoto(
             [
                 'group_id' => $group_id,
                 'photo' => $upload['photo'],
@@ -67,7 +67,7 @@ switch ($api_method) {
 
         $main_photo_id = $save[0]['id'];
 
-        $add = $vk->add([
+        $add = $vk->market__add([
             'owner_id' => "-$group_id",
             'name' => $name,
             'description' => $description,
@@ -82,7 +82,7 @@ switch ($api_method) {
 
             $item_id = $add['market_item_id'];
 
-            $result = $vk->addToAlbum([
+            $result = $vk->market__addToAlbum([
                 'owner_id' => "-$group_id",
                 'item_id' => $item_id,
                 'album_ids' => $album_ids
@@ -111,11 +111,11 @@ switch ($api_method) {
         $image_path = "image.png";
         copy($image, "image.png");
 
-        $upload_server = $vk->getMarketAlbumUploadServer($group_id);
+        $upload_server = $vk->photos__getMarketAlbumUploadServer($group_id);
 
         $upload = $vk->uploadFile($upload_server['upload_url'], $image_path);
 
-        $save = $vk->saveMarketAlbumPhoto(
+        $save = $vk->photos__saveMarketAlbumPhoto(
             [
                 'group_id' => $group_id,
                 'photo' => $upload['photo'],
@@ -126,7 +126,7 @@ switch ($api_method) {
 
         $photo_id = $save[0]['id'];
 
-        $add = $vk->addAlbum([
+        $add = $vk->market__addAlbum([
             'owner_id' => "-$group_id",
             'title' => $title,
             'photo_id' => $photo_id
