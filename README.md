@@ -8,8 +8,7 @@ _Сниппет для Evolution CMS_
 Перед работой с API VK необходимо получить access_token
 
 - **[Implicit flow](https://vk.com/dev/implicit_flow_user)**<br>
-  Такой ключ может быть использован только для запросов непосредственно с устройства пользователя (например, для выполнения вызовов из Javascript на веб-сайте или из мобильного приложения).<br>
-  [Быстрый запрос](https://oauth.vk.com/authorize?client_id=7055519&v=5.101&redirect_uri=https://oauth.vk.com/blank.html&scope=market,photos,offline&response_type=token)
+  Такой ключ может быть использован только для запросов непосредственно с устройства пользователя (например, для выполнения вызовов из Javascript на веб-сайте или из мобильного приложения).
 
   ```bash
   # Для запроса перейти по ссылке, подставив свой client_id
@@ -17,8 +16,7 @@ _Сниппет для Evolution CMS_
   ```
 
 - **[Authorization Code Flow](https://vk.com/dev/authcode_flow_user)**<br>
-  Для работы с API от имени пользователя с серверной стороны Вашего сайта.<br>
-  [Быстрый запрос 1](https://oauth.vk.com/authorize?client_id=7055519&v=5.101&redirect_uri=https://oauth.vk.com/blank.html&scope=market,photos,offline&response_type=code) [Быстрый запрос 2](https://oauth.vk.com/access_token?code=______&client_id=7055519&client_secret=D9H519poXvk2Ys6DZS8X&redirect_uri=https://oauth.vk.com/blank.html)
+  Для работы с API от имени пользователя с серверной стороны Вашего сайта.
 
   ```bash
   # 1 Для запроса кода перейти по ссылке, подставив свой client_id
