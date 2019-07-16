@@ -31,6 +31,20 @@
   [Ссылка #1 из примера](https://oauth.vk.com/authorize?client_id=______&v=5.101&redirect_uri=https://oauth.vk.com/blank.html&scope=market,photos&response_type=code)<br>
   [Ссылка #2 из примера](https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=______&v=5.101&redirect_uri=https://oauth.vk.com/blank.html)
 
+## Общие параметры
+
+**Обязательные:**
+
+- **api_method** - вызываемый метод API<br>
+  _например: `market.add`_
+
+- **access_token** - ключ доступа к API
+
+**Дополнительные:**
+
+- **v** - версия API<br>
+  _по умолчанию: `5.101`_
+
 ## Поддерживаемые сниппетом методы
 
 ### [Раздел "Market"](https://vk.com/dev/market)
@@ -40,11 +54,6 @@
 Добавляет новый товар
 
 **Обязательные параметры:**
-
-- **api_method** - вызываемый метод API<br>
-  _указать: `market.add`_
-
-- **access_token** - ключ доступа к API
 
 - **group_id** - ID сообщества
 
@@ -58,18 +67,15 @@
   ['%0A','\n','<br>','& #13;','& #10;','& #013;','& #010;']
   ```
 
-- **category_id** : идентификатор категории товара<br>
+- **category_id** - идентификатор категории товара<br>
   _cписок получается методом [market.getCategories](https://vk.com/dev/market.getCategories)_
 
-- **price** : цена товара
+- **price** - цена товара
 
-- **image** : путь к файлу изображения<br>
+- **image** - путь к файлу изображения<br>
   _мин. размер: 400х400px_
 
 **Дополнительные параметры:**
-
-- **v** - версия API<br>
-  _по умолчанию: `5.101`_
 
 - **album_ids** - ID подборок, к которым относится товар<br>
   _через запятую_
@@ -79,8 +85,22 @@
   _`0` - не удалён_<br>
   _по умолчанию: `0`_<br>
 
-- **url**<br>
-  ссылка на сайт товара
+- **url** - ссылка на сайт товара
+
+#### [market.addAlbum](https://vk.com/dev/market.addAlbum)
+
+Добавляет новую подборку с товарами
+
+**Обязательные параметры:**
+
+- **group_id** - ID сообщества
+
+- **title** - название подборки
+
+**Дополнительные параметры:**
+
+- **image** - путь к файлу изображения<br>
+  _мин. размер: 1280х720px_
 
 #### [market.getAlbums](https://vk.com/dev/market.getAlbums)
 
@@ -93,18 +113,6 @@
 - **extended**<br>
   возвращать ли дополнительные поля<br>
   _1 -- будут возвращены поля `likes, can_comment, can_repost, photos, views_count`_
-
-### Добавление подборок / товаров
-
-#### [market.addAlbum](https://vk.com/dev/market.addAlbum)
-
-Добавляет новую подборку с товарами
-
-- **title**<br>
-  название подборки
-
-- **photo_id**<br>
-  идентификатор фотографии-обложки подборки
 
 #### [market.addToAlbum](https://vk.com/dev/market.addToAlbum)
 
