@@ -91,7 +91,7 @@ class Vk
         curl_close($ch);
         $json = json_decode($data, true);
         if (!isset($json['response'])) {
-            throw new \Exception($data);
+            return json_encode($json);
         }
         usleep(mt_rand(1000000, 2000000));
         return $json['response'];
