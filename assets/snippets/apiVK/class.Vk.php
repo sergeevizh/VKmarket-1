@@ -23,16 +23,16 @@ class Vk
         return $this->request('market.addAlbum', $data);
     }
 
-    // Возвращает список подборок =======================
-    public function market__getAlbums($data)
-    {
-        return $this->request('market.getAlbums', $data);
-    }
-
     // Добавляет товар в одну или несколько подборок =======================
     public function market__addToAlbum($data)
     {
         return $this->request('market.addToAlbum', $data);
+    }
+
+    // Возвращает список подборок =======================
+    public function market__getAlbums($data)
+    {
+        return $this->request('market.getAlbums', $data);
     }
 
     // Осуществляет загрузку фотографии на адрес сервера =======================
