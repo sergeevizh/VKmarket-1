@@ -1,11 +1,11 @@
 # apiVK
 
-Сниппет для Evolution CMS
+-- _Сниппет для Evolution CMS_ --
 
 Работа с API ВКонтакте<br>
 Ссылка на документацию API: <https://vk.com/dev/manuals>
 
-Перед работой с API VK необходимо получить access_token
+Перед работой с API ВКонтакте необходимо получить access_token
 
 - **[Implicit flow](https://vk.com/dev/implicit_flow_user)**<br>
   Такой ключ может быть использован только для запросов непосредственно с устройства пользователя (например, для выполнения вызовов из Javascript на веб-сайте или из мобильного приложения).
@@ -14,6 +14,8 @@
   # Для запроса перейти по ссылке, подставив свой client_id
   https://oauth.vk.com/authorize?client_id=______&v=5.101&redirect_uri=https://oauth.vk.com/blank.html&scope=market,photos&response_type=token
   ```
+
+  [Ссылка из примера](https://oauth.vk.com/authorize?client_id=______&v=5.101&redirect_uri=https://oauth.vk.com/blank.html&scope=market,photos&response_type=token)
 
 - **[Authorization Code Flow](https://vk.com/dev/authcode_flow_user)**<br>
   Для работы с API от имени пользователя с серверной стороны Вашего сайта.
@@ -26,9 +28,59 @@
   https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=______&v=5.101&redirect_uri=https://oauth.vk.com/blank.html
   ```
 
-## Методы market
+  [Ссылка #1 из примера](https://oauth.vk.com/authorize?client_id=______&v=5.101&redirect_uri=https://oauth.vk.com/blank.html&scope=market,photos&response_type=code)<br>
+  [Ссылка #2 из примера](https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=______&v=5.101&redirect_uri=https://oauth.vk.com/blank.html)
 
-### Получение информации
+## Поддерживаемые сниппетом методы
+
+### [Раздел "Market"](https://vk.com/dev/market)
+
+#### [market.add](https://vk.com/dev/market.add)
+
+Добавляет новый товар
+
+**Обязательные параметры:**
+
+- **api_method** - вызываемый метод API<br>
+  _указать: `market.add`_
+
+- **access_token** - ключ доступа к API
+
+- **group_id** - ID сообщества
+
+- **name** - название товара
+
+- **description** - описание товара<br>
+  _перенос строки передать не получилось. Проверены символы:_
+
+  ```javascript
+  // В '& #__;' нужно убрать пробел
+  ['%0A','\n','<br>','& #13;','& #10;','& #013;','& #010;']
+  ```
+
+- **category_id** : идентификатор категории товара<br>
+  _cписок получается методом [market.getCategories](https://vk.com/dev/market.getCategories)_
+
+- **price** : цена товара
+
+- **image** : путь к файлу изображения<br>
+  _мин. размер: 400х400px_
+
+**Дополнительные параметры:**
+
+- **v** - версия API<br>
+  _по умолчанию: `5.101`_
+
+- **album_ids** - ID подборок, к которым относится товар<br>
+  _через запятую_
+
+- **deleted** - статус товара<br>
+  _`1` - удалён_<br>
+  _`0` - не удалён_<br>
+  _по умолчанию: `0`_<br>
+
+- **url**<br>
+  ссылка на сайт товара
 
 #### [market.getAlbums](https://vk.com/dev/market.getAlbums)
 
@@ -53,30 +105,6 @@
 
 - **photo_id**<br>
   идентификатор фотографии-обложки подборки
-
-#### [market.add](https://vk.com/dev/market.add)
-
-Добавляет новый товар
-
-- **name**<br>
-  название товара
-
-- **description**<br>
-  описание товара<br>
-  _для переноса строки НЕ ПОДХОДЯТ: `%0A , \n , <br> , ,`_
-
-- **category_id**<br>
-  идентификатор категории товара<br>
-  _Получить список можно [тут](https://vk.com/dev/market.getCategories)_
-
-- **price**<br>
-  цена товара
-
-- **main_photo_id**<br>
-  идентификатор фотографии обложки товара
-
-- **url**<br>
-  ссылка на сайт товара
 
 #### [market.addToAlbum](https://vk.com/dev/market.addToAlbum)
 
@@ -110,49 +138,6 @@
 - **main_photo**<br>
   является ли фотография обложкой товара<br>
   _1 -- фотография для обложки_
-
-### Загрузка фото
-
-#### [Фото для подборки](https://vk.com/dev/upload_files_2?f=7.%20%D0%97%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B0%20%D1%84%D0%BE%D1%82%D0%BE%D0%B3%D1%80%D0%B0%D1%84%D0%B8%D0%B8%20%D0%B4%D0%BB%D1%8F%20%D0%BF%D0%BE%D0%B4%D0%B1%D0%BE%D1%80%D0%BA%D0%B8%20%D1%82%D0%BE%D0%B2%D0%B0%D1%80%D0%BE%D0%B2)
-
-_Минимальный размер фотографии -- 1280x720 пикселей_<br>
-Передача файла производится через сниппет VKphotos
-
-```php
-[[VKphotos? &method=`getMarketAlbumUploadServer` &img=`___`]]
-```
-
-Сниппет возвращает JSON
-
-```json
-{
-    "server": ______,
-    "photo": ______,
-    "gid": ______,
-    "hash": ______
-}
-```
-
-#### [Фото для товара](https://vk.com/dev/upload_files_2?f=6.%20%D0%97%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B0%20%D1%84%D0%BE%D1%82%D0%BE%D0%B3%D1%80%D0%B0%D1%84%D0%B8%D0%B8%20%D0%B4%D0%BB%D1%8F%20%D1%82%D0%BE%D0%B2%D0%B0%D1%80%D0%B0)
-
-_Минимальный размер фотографии -- 400х400 пикселей_<br>
-Передача файла производится через сниппет VKphotos
-
-```php
-[[VKphotos? &method=`getMarketUploadServer` &main=`1 | 0` &img=`___`]]
-```
-
-Сниппет возвращает JSON
-
-```json
-{
-    "server": ______,
-    "photo": "[{\"photo\":\"8387ec5d69:x\",\"sizes\":,\"latitude\":0,\"longitude\":0,\"kid\":\"8fe601bf5bdb63ef1f03f00362380402\"}]",
-    "hash": ______,
-    "crop_data": ______,
-    "crop_hash": ______
-}
-```
 
 ### Сохранение загруженного фото
 
