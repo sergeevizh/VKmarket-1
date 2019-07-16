@@ -17,12 +17,74 @@ switch ($api_method) {
         -----------------------------------------------------
         & api_method        |  метод API
         & access_token      |  ключ доступа к API
-        & v                 |  версия API [по-умолчанию: 5.101]
+        & v                 |  версия API -- [5.101]
         & group_id          |  ID сообщества
         ----------------------------------------------------- */
 
         $result = $vk->market__getAlbums([
             'owner_id' => "-$group_id"
+        ]);
+
+        return json_encode($result);
+        break;
+
+    case 'market.addAlbum':
+
+        /* Добавляет новую подборку =========================
+        
+        Метод API           |  market.addAlbum
+        -----------------------------------------------------
+        & api_method        |  метод API
+        & access_token      |  ключ доступа к API
+        & v                 |  версия API -- [5.101]
+        & group_id          |  ID сообщества
+        & image             |  путь к изображению
+        & title             |  название подборки
+        ----------------------------------------------------- */
+
+        $image_path = "image.png";
+        copy($image, "image.png");
+
+        $upload_server = $vk->photos__getMarketAlbumUploadServer($group_id);
+
+        $upload = $vk->uploadFile($upload_server['upload_url'], $image_path);
+
+        $save = $vk->photos__saveMarketAlbumPhoto(
+            [
+                'group_id' => $group_id,
+                'photo' => $upload['photo'],
+                'server' => $upload['server'],
+                'hash' => $upload['hash']
+            ]
+        );
+
+        $photo_id = $save[0]['id'];
+
+        $add = $vk->market__addAlbum([
+            'owner_id' => "-$group_id",
+            'title' => $title,
+            'photo_id' => $photo_id
+        ]);
+
+        return json_encode($add);
+        break;
+
+    case 'market.get':
+
+        /* Возвращает список товаров ========================
+    
+        Метод API           |  market.get
+        -----------------------------------------------------
+        & api_method        |  метод API
+        & access_token      |  ключ доступа к API
+        & v                 |  версия API -- [5.101]
+        & group_id          |  ID сообщества
+        & extended          |  возвращать ли дополнительные поля -- [0] | 1 
+        ----------------------------------------------------- */
+
+        $result = $vk->market__get([
+            'owner_id' => "-$group_id",
+            'extended' => isset($extended) ? $extended : 0
         ]);
 
         return json_encode($result);
@@ -36,7 +98,7 @@ switch ($api_method) {
         -----------------------------------------------------
         & api_method        |  метод API
         & access_token      |  ключ доступа к API
-        & v                 |  версия API [по-умолчанию: 5.101]
+        & v                 |  версия API -- [5.101]
         & group_id          |  ID сообщества
         & image             |  путь к изображению
         & name              |  название товара
@@ -92,46 +154,5 @@ switch ($api_method) {
         } else {
             return json_encode($add);
         }
-        break;
-
-    case 'market.addAlbum':
-
-        /* Добавляет новую подборку =========================
-    
-        Метод API           |  market.addAlbum
-        -----------------------------------------------------
-        & api_method        |  метод API
-        & access_token      |  ключ доступа к API
-        & v                 |  версия API [по-умолчанию: 5.101]
-        & group_id          |  ID сообщества
-        & image             |  путь к изображению
-        & title             |  название подборки
-        ----------------------------------------------------- */
-
-        $image_path = "image.png";
-        copy($image, "image.png");
-
-        $upload_server = $vk->photos__getMarketAlbumUploadServer($group_id);
-
-        $upload = $vk->uploadFile($upload_server['upload_url'], $image_path);
-
-        $save = $vk->photos__saveMarketAlbumPhoto(
-            [
-                'group_id' => $group_id,
-                'photo' => $upload['photo'],
-                'server' => $upload['server'],
-                'hash' => $upload['hash']
-            ]
-        );
-
-        $photo_id = $save[0]['id'];
-
-        $add = $vk->market__addAlbum([
-            'owner_id' => "-$group_id",
-            'title' => $title,
-            'photo_id' => $photo_id
-        ]);
-
-        return json_encode($add);
         break;
 }

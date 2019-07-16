@@ -17,16 +17,22 @@ class Vk
         return $this->request('market.getAlbums', $data);
     }
 
-    // Добавляет новый товар =======================
-    public function market__add($data)
-    {
-        return $this->request('market.add', $data);
-    }
-
     // Добавляет новую подборку =======================
     public function market__addAlbum($data)
     {
         return $this->request('market.addAlbum', $data);
+    }
+
+    // Добавляет новый товар =======================
+    public function market__get($data)
+    {
+        return $this->request('market.get', $data);
+    }
+
+    // Добавляет новый товар =======================
+    public function market__add($data)
+    {
+        return $this->request('market.add', $data);
     }
 
     // Добавляет товар в одну или несколько подборок =======================
