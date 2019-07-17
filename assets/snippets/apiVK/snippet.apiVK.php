@@ -4,10 +4,10 @@ require_once("assets/snippets/apiVK/class.Vk.php");
 
 // Проверяем наличие обязательных параметров
 if (!isset($api_method)) {
-    return '{"error":{"error_code":"required","error_msg":"Not found: api_method."}}';
+    return '{"error":{"error_code":"required","error_msg":"Not found: api_method"}}';
 }
 if (!isset($access_token)) {
-    return '{"error":{"error_code":"required","error_msg":"Not found: access_token."}}';
+    return '{"error":{"error_code":"required","error_msg":"Not found: access_token"}}';
 }
 
 $v = isset($v) ? $v : '5.101';
@@ -38,22 +38,22 @@ switch ($api_method) {
 
         // Проверяем наличие обязательных параметров
         if (!isset($group_id)) {
-            return '{"error":{"error_code":"required","error_msg":"Not found: group_id."}}';
+            return '{"error":{"error_code":"required","error_msg":"Not found: group_id"}}';
         }
         if (!isset($name)) {
-            return '{"error":{"error_code":"required","error_msg":"Not found: name."}}';
+            return '{"error":{"error_code":"required","error_msg":"Not found: name"}}';
         }
         if (!isset($description)) {
-            return '{"error":{"error_code":"required","error_msg":"Not found: description."}}';
+            return '{"error":{"error_code":"required","error_msg":"Not found: description"}}';
         }
         if (!isset($category_id)) {
-            return '{"error":{"error_code":"required","error_msg":"Not found: category_id."}}';
+            return '{"error":{"error_code":"required","error_msg":"Not found: category_id"}}';
         }
         if (!isset($price)) {
-            return '{"error":{"error_code":"required","error_msg":"Not found: price."}}';
+            return '{"error":{"error_code":"required","error_msg":"Not found: price"}}';
         }
         if (!isset($image)) {
-            return '{"error":{"error_code":"required","error_msg":"Not found: image."}}';
+            return '{"error":{"error_code":"required","error_msg":"Not found: image"}}';
         }
 
         $image_path = 'image.jpg';
@@ -118,7 +118,7 @@ switch ($api_method) {
         // Генерируем отчёт об успешном создании товара
         $json_add = array(
             'success' => array(
-                'message' => 'Item successfully created',
+                'message' => 'Item created',
                 'request_params' => array(
                     array(
                         'key' => 'name',
@@ -175,38 +175,36 @@ switch ($api_method) {
                 $error['success'] = $json_add['success']; // добавляем в него отчёт об успешном создании товара
                 return json_encode($error, JSON_UNESCAPED_UNICODE); // выводим отчёт об ошибке
 
-            } else {
-
-                // Генерируем отчёт об успешном добавлении товара в подборки
-                $json_addToAlbum = array(
-                    'success' => array(
-                        'message' => 'Item successfully added to albums',
-                        'request_params' => array(
-                            array(
-                                'key' => 'item_id',
-                                'value' => $market_item_id
-                            ),
-                            array(
-                                'key' => 'album_ids',
-                                'value' => $album_ids
-                            )
-                        ),
-                        'response' => $addToAlbum
-                    )
-                );
-
-                $success = array();
-                $success[0] = $json_add;
-                $success[1] = $json_addToAlbum;
-                $success = json_encode($success, JSON_UNESCAPED_UNICODE);
-
-                return $success; // Выводим отчёт об успешном создании товара и добавлении его в подборки
             }
+
+            // Генерируем отчёт об успешном добавлении товара в подборки
+            $json_addToAlbum = array(
+                'success' => array(
+                    'message' => 'Item added to albums',
+                    'request_params' => array(
+                        array(
+                            'key' => 'item_id',
+                            'value' => $market_item_id
+                        ),
+                        array(
+                            'key' => 'album_ids',
+                            'value' => $album_ids
+                        )
+                    ),
+                    'response' => $addToAlbum
+                )
+            );
+
+            $success = array();
+            $success[0] = $json_add;
+            $success[1] = $json_addToAlbum;
+            $success = json_encode($success, JSON_UNESCAPED_UNICODE);
+
+            return $success; // Выводим отчёт об успешном создании товара и добавлении его в подборки
         }
 
         $success = json_encode($json_add, JSON_UNESCAPED_UNICODE);
         return $success; // Выводим отчёт об успешном создании товара
-
         break;
 
     case 'market.addAlbum':
@@ -226,10 +224,10 @@ switch ($api_method) {
 
         // Проверяем наличие обязательных параметров
         if (!isset($group_id)) {
-            return '{"error":{"error_code":"required","error_msg":"Not found: group_id."}}';
+            return '{"error":{"error_code":"required","error_msg":"Not found: group_id"}}';
         }
         if (!isset($title)) {
-            return '{"error":{"error_code":"required","error_msg":"Not found: title."}}';
+            return '{"error":{"error_code":"required","error_msg":"Not found: title"}}';
         }
 
         // Если при вызове было указано изображение
@@ -291,7 +289,7 @@ switch ($api_method) {
         // Генерируем отчёт об успешном создании товара
         $json_addAlbum = array(
             'success' => array(
-                'message' => 'Album successfully created',
+                'message' => 'Album created',
                 'request_params' => array(
                     array(
                         'key' => 'title',
@@ -332,13 +330,13 @@ switch ($api_method) {
 
         // Проверяем наличие обязательных параметров
         if (!isset($group_id)) {
-            return '{"error":{"error_code":"required","error_msg":"Not found: group_id."}}';
+            return '{"error":{"error_code":"required","error_msg":"Not found: group_id"}}';
         }
         if (!isset($item_id)) {
-            return '{"error":{"error_code":"required","error_msg":"Not found: item_id."}}';
+            return '{"error":{"error_code":"required","error_msg":"Not found: item_id"}}';
         }
         if (!isset($album_ids)) {
-            return '{"error":{"error_code":"required","error_msg":"Not found: album_ids."}}';
+            return '{"error":{"error_code":"required","error_msg":"Not found: album_ids"}}';
         }
 
         // Добавляем товар в указанные подборки
@@ -350,13 +348,13 @@ switch ($api_method) {
 
         // Если товар не добавлен в какую-либо подборку
         if ($addToAlbum !== 1) {
-            return json_encode($addToAlbum, true); // выводим отчёт об ошибке
+            return $addToAlbum; // выводим отчёт об ошибке
         }
 
         // Генерируем отчёт об успешном добавлении
         $json_addToAlbum = array(
             'success' => array(
-                'message' => 'Item successfully added to albums',
+                'message' => 'Item added to albums',
                 'request_params' => array(
                     array(
                         'key' => 'item_id',
@@ -391,25 +389,39 @@ switch ($api_method) {
 
         // Проверяем наличие обязательных параметров
         if (!isset($group_id)) {
-            return '{"error":{"error_code":"required","error_msg":"Not found: group_id."}}';
+            return '{"error":{"error_code":"required","error_msg":"Not found: group_id"}}';
         }
         if (!isset($item_id)) {
-            return '{"error":{"error_code":"required","error_msg":"Not found: item_id."}}';
+            return '{"error":{"error_code":"required","error_msg":"Not found: item_id"}}';
         }
 
         // Удаляем товар из сообщества
-        $res = $vk->market__delete([
+        $delete = $vk->market__delete([
             'owner_id' => "-$group_id",
             'item_id' => $item_id
         ]);
 
         // Если товар не удалён
-        if ($res !== 1) {
-            return $res; // выводим отчёт об ошибке
+        if ($delete !== 1) {
+            return $delete; // выводим отчёт об ошибке
         }
 
-        $res = '{"success":{"report":"Item successfully added to albums.","item_id":' . $item_id . ',"album_ids":"' . $album_ids . '"}}';
-        return $res; // Выводим отчёт об успешном добавлении товара в подборки
+        // Генерируем отчёт об успешном добавлении товара в подборки
+        $json_delete = array(
+            'success' => array(
+                'message' => 'Item deleted',
+                'request_params' => array(
+                    array(
+                        'key' => 'item_id',
+                        'value' => $item_id
+                    )
+                ),
+                'response' => $delete
+            )
+        );
+
+        $success = json_encode($json_delete, JSON_UNESCAPED_UNICODE);
+        return $success; // Выводим отчёт об успешном удалении товара
         break;
 
     case 'market.getAlbums':
