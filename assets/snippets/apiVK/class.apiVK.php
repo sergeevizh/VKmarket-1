@@ -41,6 +41,12 @@ class apiVK
         return $this->request('market.deleteAlbum', $data);
     }
 
+    // Редактирует товар ===================================================
+    public function market__edit($data)
+    {
+        return $this->request('market.edit', $data);
+    }
+
     // Возвращает список подборок ==========================================
     public function market__getAlbums($data)
     {
