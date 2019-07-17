@@ -77,6 +77,12 @@ class apiVK
         return $this->request('market.removeFromAlbum', $data);
     }
 
+    // Ищет товары в сообществе ============================================
+    public function market__search($data)
+    {
+        return $this->request('market.search', $data);
+    }
+
     // Осуществляет загрузку фотографии на адрес сервера ===================
     public function uploadFile($link, $path)
     {
