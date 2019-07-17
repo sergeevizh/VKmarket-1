@@ -22,9 +22,6 @@
 ============================================================= */
 
 // Проверяем наличие обязательных параметров
-if (!isset($group_id)) {
-    return '{"error":{"error_code":"required","error_msg":"Not found: group_id"}}';
-}
 if (!isset($item_id)) {
     return '{"error":{"error_code":"required","error_msg":"Not found: item_id"}}';
 }
@@ -136,7 +133,7 @@ $json_edit = array(
             ),
             array(
                 'key' => 'deleted',
-                'value' => $deleted ? $deleted : 0
+                'value' => $deleted
             ),
             array(
                 'key' => 'main_photo_id',

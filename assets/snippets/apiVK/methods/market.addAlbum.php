@@ -16,9 +16,6 @@
 ============================================================= */
 
 // Проверяем наличие обязательных параметров
-if (!isset($group_id)) {
-    return '{"error":{"error_code":"required","error_msg":"Not found: group_id"}}';
-}
 if (!isset($title)) {
     return '{"error":{"error_code":"required","error_msg":"Not found: title"}}';
 }

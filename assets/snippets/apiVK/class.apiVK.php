@@ -53,6 +53,12 @@ class apiVK
         return $this->request('market.editAlbum', $data);
     }
 
+    // Возвращает список товаров ===========================================
+    public function market__get($data)
+    {
+        return $this->request('market.get', $data);
+    }
+
     // Возвращает список подборок ==========================================
     public function market__getAlbums($data)
     {
