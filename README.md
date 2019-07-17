@@ -115,7 +115,7 @@
 - **album_ids** - идентификаторы подборок, в которые нужно добавить товар<br>
   _через запятую_
 
-### [market.delete](https://vk.com/dev/market.delete)
+#### [market.delete](https://vk.com/dev/market.delete)
 
 Удаляет товар из сообщества
 
