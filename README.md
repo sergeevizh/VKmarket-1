@@ -125,6 +125,16 @@
 
 - **item_id** - идентификатор товара в сообществе
 
+#### [market.deleteAlbum](https://vk.com/dev/market.deleteAlbum)
+
+Удаляет подборку с товарами
+
+**Обязательные параметры:**
+
+- **group_id** - идентификатор сообщества
+
+- **album_id** - идентификатор подборки
+
 #### [market.getAlbums](https://vk.com/dev/market.getAlbums)
 
 Возвращает список подборок в сообществе

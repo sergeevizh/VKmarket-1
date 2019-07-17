@@ -35,6 +35,12 @@ class Vk
         return $this->request('market.delete', $data);
     }
 
+    // Удаляет подборку ====================================================
+    public function market__deleteAlbum($data)
+    {
+        return $this->request('market.deleteAlbum', $data);
+    }
+
     // Возвращает список подборок ==========================================
     public function market__getAlbums($data)
     {
