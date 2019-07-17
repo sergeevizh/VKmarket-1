@@ -288,7 +288,6 @@ switch ($api_method) {
         // Получаем ID созданной подборки
         $market_album_id = $addAlbum['market_album_id'];
 
-
         // Генерируем отчёт об успешном создании товара
         $json_addAlbum = array(
             'success' => array(
@@ -343,19 +342,37 @@ switch ($api_method) {
         }
 
         // Добавляем товар в указанные подборки
-        $res = $vk->market__addToAlbum([
+        $addToAlbum = $vk->market__addToAlbum([
             'owner_id' => "-$group_id",
             'item_id' => $item_id,
             'album_ids' => $album_ids
         ]);
 
         // Если товар не добавлен в какую-либо подборку
-        if ($res !== 1) {
-            return $res; // выводим отчёт об ошибке
+        if ($addToAlbum !== 1) {
+            return json_encode($addToAlbum, true); // выводим отчёт об ошибке
         }
 
-        $res = '{"success":{"report":"Item successfully added to albums.","item_id":' . $item_id . ',"album_ids":"' . $album_ids . '"}}';
-        return $res; // Выводим отчёт об успешном добавлении товара в подборки
+        // Генерируем отчёт об успешном добавлении
+        $json_addToAlbum = array(
+            'success' => array(
+                'message' => 'Item successfully added to albums',
+                'request_params' => array(
+                    array(
+                        'key' => 'item_id',
+                        'value' => $item_id
+                    ),
+                    array(
+                        'key' => 'album_ids',
+                        'value' => $album_ids
+                    )
+                ),
+                'response' => $addToAlbum
+            )
+        );
+
+        $success = json_encode($json_addToAlbum, JSON_UNESCAPED_UNICODE);
+        return $success; // Выводим отчёт об успешном добавлении товара в подборки
         break;
 
     case 'market.delete':
