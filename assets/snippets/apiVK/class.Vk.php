@@ -11,13 +11,13 @@ class Vk
         $this->v = $v;
     }
 
-    // Добавляет новый товар =======================
+    // Добавляет новый товар ===============================================
     public function market__add($data)
     {
         return $this->request('market.add', $data);
     }
 
-    // Добавляет новую подборку =======================
+    // Добавляет новую подборку ============================================
     public function market__addAlbum($data)
     {
         return $this->request('market.addAlbum', $data);
@@ -29,13 +29,19 @@ class Vk
         return $this->request('market.addToAlbum', $data);
     }
 
-    // Возвращает список подборок =======================
+    // Удаляет товар =======================================================
+    public function market__delete($data)
+    {
+        return $this->request('market.delete', $data);
+    }
+
+    // Возвращает список подборок ==========================================
     public function market__getAlbums($data)
     {
         return $this->request('market.getAlbums', $data);
     }
 
-    // Осуществляет загрузку фотографии на адрес сервера =======================
+    // Осуществляет загрузку фотографии на адрес сервера ===================
     public function uploadFile($link, $path)
     {
         $ch = curl_init($link);
@@ -55,7 +61,7 @@ class Vk
         return json_decode($data, true);
     }
 
-    // Возвращает адрес сервера для загрузки фотографии товара =======================
+    // Возвращает сервер для загрузки фотографии товара ====================
     public function photos__getMarketUploadServer($group_id, $main)
     {
         $params = [
@@ -65,13 +71,13 @@ class Vk
         return $this->request('photos.getMarketUploadServer', $params);
     }
 
-    // Сохраняет фотографию товара после успешной загрузки =======================
+    // Сохраняет фотографию товара после успешной загрузки ==================
     public function photos__saveMarketPhoto($params)
     {
         return $this->request('photos.saveMarketPhoto', $params);
     }
 
-    // Возвращает адрес сервера для загрузки фотографии подборки =======================
+    // Возвращает сервер для загрузки фотографии подборки ===================
     public function photos__getMarketAlbumUploadServer($group_id)
     {
         $params = [
@@ -80,13 +86,13 @@ class Vk
         return $this->request('photos.getMarketAlbumUploadServer', $params);
     }
 
-    // Сохраняет фотографию подборки после успешной загрузки =======================
+    // Сохраняет фотографию подборки после успешной загрузки ================
     public function photos__saveMarketAlbumPhoto($params)
     {
         return $this->request('photos.saveMarketAlbumPhoto', $params);
     }
 
-    // Вызов методов API ВКонтакте =======================
+    // Вызов методов API ВКонтакте ==========================================
     private function request($method, array $params)
     {
         $params['v'] = $this->v;
