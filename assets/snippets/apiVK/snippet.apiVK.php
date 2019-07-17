@@ -4,10 +4,10 @@ require_once("assets/snippets/apiVK/class.Vk.php");
 
 // Проверяем наличие обязательных параметров
 if (!isset($api_method)) {
-    return '{"error":{"error_type":"required","error_msg":"Not found: api_method."}}';
+    return '{"error":{"error_code":"required","error_msg":"Not found: api_method."}}';
 }
 if (!isset($access_token)) {
-    return '{"error":{"error_type":"required","error_msg":"Not found: access_token."}}';
+    return '{"error":{"error_code":"required","error_msg":"Not found: access_token."}}';
 }
 
 $v = isset($v) ? $v : '5.101';
@@ -38,22 +38,22 @@ switch ($api_method) {
 
         // Проверяем наличие обязательных параметров
         if (!isset($group_id)) {
-            return '{"error":{"error_type":"required","error_msg":"Not found: group_id."}}';
+            return '{"error":{"error_code":"required","error_msg":"Not found: group_id."}}';
         }
         if (!isset($name)) {
-            return '{"error":{"error_type":"required","error_msg":"Not found: name."}}';
+            return '{"error":{"error_code":"required","error_msg":"Not found: name."}}';
         }
         if (!isset($description)) {
-            return '{"error":{"error_type":"required","error_msg":"Not found: description."}}';
+            return '{"error":{"error_code":"required","error_msg":"Not found: description."}}';
         }
         if (!isset($category_id)) {
-            return '{"error":{"error_type":"required","error_msg":"Not found: category_id."}}';
+            return '{"error":{"error_code":"required","error_msg":"Not found: category_id."}}';
         }
         if (!isset($price)) {
-            return '{"error":{"error_type":"required","error_msg":"Not found: price."}}';
+            return '{"error":{"error_code":"required","error_msg":"Not found: price."}}';
         }
         if (!isset($image)) {
-            return '{"error":{"error_type":"required","error_msg":"Not found: image."}}';
+            return '{"error":{"error_code":"required","error_msg":"Not found: image."}}';
         }
 
         $image_path = 'image.jpg';
@@ -226,10 +226,10 @@ switch ($api_method) {
 
         // Проверяем наличие обязательных параметров
         if (!isset($group_id)) {
-            return '{"error":{"error_type":"required","error_msg":"Not found: group_id."}}';
+            return '{"error":{"error_code":"required","error_msg":"Not found: group_id."}}';
         }
         if (!isset($title)) {
-            return '{"error":{"error_type":"required","error_msg":"Not found: title."}}';
+            return '{"error":{"error_code":"required","error_msg":"Not found: title."}}';
         }
 
         // Если при вызове было указано изображение
@@ -333,13 +333,13 @@ switch ($api_method) {
 
         // Проверяем наличие обязательных параметров
         if (!isset($group_id)) {
-            return '{"error":{"error_type":"required","error_msg":"Not found: group_id."}}';
+            return '{"error":{"error_code":"required","error_msg":"Not found: group_id."}}';
         }
         if (!isset($item_id)) {
-            return '{"error":{"error_type":"required","error_msg":"Not found: item_id."}}';
+            return '{"error":{"error_code":"required","error_msg":"Not found: item_id."}}';
         }
         if (!isset($album_ids)) {
-            return '{"error":{"error_type":"required","error_msg":"Not found: album_ids."}}';
+            return '{"error":{"error_code":"required","error_msg":"Not found: album_ids."}}';
         }
 
         // Добавляем товар в указанные подборки
@@ -374,10 +374,10 @@ switch ($api_method) {
 
         // Проверяем наличие обязательных параметров
         if (!isset($group_id)) {
-            return '{"error":{"error_type":"required","error_msg":"Not found: group_id."}}';
+            return '{"error":{"error_code":"required","error_msg":"Not found: group_id."}}';
         }
         if (!isset($item_id)) {
-            return '{"error":{"error_type":"required","error_msg":"Not found: item_id."}}';
+            return '{"error":{"error_code":"required","error_msg":"Not found: item_id."}}';
         }
 
         // Удаляем товар из сообщества
