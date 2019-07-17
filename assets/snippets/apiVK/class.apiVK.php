@@ -65,6 +65,12 @@ class apiVK
         return $this->request('market.getAlbums', $data);
     }
 
+    // Возвращает список категорий для товаров =============================
+    public function market__getCategories($data)
+    {
+        return $this->request('market.getCategories', $data);
+    }
+
     // Осуществляет загрузку фотографии на адрес сервера ===================
     public function uploadFile($link, $path)
     {

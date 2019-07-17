@@ -53,4 +53,8 @@ switch ($api_method) {
     case 'market.getAlbums':
         return require_once MODX_BASE_PATH . "assets/snippets/apiVK/methods/market.getAlbums.php";
         break;
+
+    case 'market.getCategories':
+        return require_once MODX_BASE_PATH . "assets/snippets/apiVK/methods/market.getCategories.php";
+        break;
 }
