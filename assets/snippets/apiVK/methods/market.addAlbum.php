@@ -104,4 +104,3 @@ $json_addAlbum = array(
 
 $success = json_encode($json_addAlbum, JSON_UNESCAPED_UNICODE);
 return $success; // Выводим отчёт об успешном создании подборки
-break;
