@@ -71,6 +71,12 @@ class apiVK
         return $this->request('market.getCategories', $data);
     }
 
+    // Удаляет товар из подборок ===========================================
+    public function market__removeFromAlbum($data)
+    {
+        return $this->request('market.removeFromAlbum', $data);
+    }
+
     // Осуществляет загрузку фотографии на адрес сервера ===================
     public function uploadFile($link, $path)
     {
