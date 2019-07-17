@@ -1,6 +1,6 @@
 <?php
 
-class Vk
+class apiVK
 {
     private $access_token;
     private $v;
