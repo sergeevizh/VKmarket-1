@@ -1,6 +1,6 @@
 <?php
 
-require_once("assets/snippets/apiVK/class.Vk.php");
+require_once MODX_BASE_PATH . "assets/snippets/apiVK/class.Vk.php";
 
 // Проверяем наличие обязательных параметров
 if (!isset($api_method)) {
@@ -35,7 +35,7 @@ switch ($api_method) {
         & deleted           |  статус товара (удалён или не удалён)
         & url               |  ссылка на сайт товара
         ------------------------------------------------------------- */
-        require_once("assets/snippets/apiVK/methods/market.add.php");
+        return require_once MODX_BASE_PATH . "assets/snippets/apiVK/methods/market.add.php";
 
         break;
 
