@@ -71,6 +71,7 @@ if (isset($image)) {
 // Редактируем подборку в сообществе
 $editAlbum = $vk->market__editAlbum([
     'owner_id' => "-$group_id",
+    'album_id' => $album_id,
     'title' => $title,
     'photo_id' => $photo_id
 ]);
@@ -85,6 +86,10 @@ $json_editAlbum = array(
     'success' => array(
         'message' => 'Album edited',
         'request_params' => array(
+            array(
+                'key' => 'album_id',
+                'value' => $album_id
+            ),
             array(
                 'key' => 'title',
                 'value' => $title
