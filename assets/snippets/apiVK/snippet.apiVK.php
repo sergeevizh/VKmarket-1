@@ -432,13 +432,31 @@ switch ($api_method) {
         -------------------------------------------------------------
         & api_method        |  метод API
         & access_token      |  ключ доступа к API
-        & v                 |  версия API [по-умолчанию: 5.101]
-        & group_id          |  ID сообщества
+        & group_id          |  идентификатор сообщества
+        -------------------------------------------------------------
+        & v                 |  версия API
+        & offset            |  смещение относительно первой найденной подборки
+        & count             |  количество возвращаемых подборок
         ------------------------------------------------------------- */
-        $res = $vk->market__getAlbums([
-            'owner_id' => "-$group_id"
+
+        // Проверяем наличие обязательных параметров
+        if (!isset($group_id)) {
+            return '{"error":{"error_code":"required","error_msg":"Not found: group_id"}}';
+        }
+
+        // Запрашиваем список подборок
+        $getAlbums = $vk->market__getAlbums([
+            'owner_id' => "-$group_id",
+            'offset' => $offset ? $offset : 0,
+            'count' => $count ? $count : 100
         ]);
 
-        return json_encode($res, true);
+        // Если список не получен
+        if (!isset($getAlbums['count'])) {
+            return $getAlbums; // выводим отчёт об ошибке
+        }
+
+        $success = json_encode($getAlbums, JSON_UNESCAPED_UNICODE);
+        return $success; // Выводим отчёт об успешном удалении товара
         break;
 }
