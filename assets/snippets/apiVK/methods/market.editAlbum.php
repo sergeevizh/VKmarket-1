@@ -68,13 +68,20 @@ if (isset($image)) {
     $photo_id = $file_saved[0]['id'];
 }
 
-// Редактируем подборку в сообществе
-$editAlbum = $vk->market__editAlbum([
+// Генерируем запрос обязательных параметров
+$request_params = array(
     'owner_id' => "-$group_id",
     'album_id' => $album_id,
-    'title' => $title,
-    'photo_id' => $photo_id
-]);
+    'title' => $title
+);
+
+// Добавляем к запросу доп. параметры
+if (isset($image)) {
+    $request_params['photo_id'] = $photo_id;
+}
+
+// Редактируем подборку в сообществе
+$editAlbum = $vk->market__editAlbum($request_params);
 
 // Если подборка не отредактирована
 if ($editAlbum !== 1) {

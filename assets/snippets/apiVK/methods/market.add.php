@@ -80,17 +80,24 @@ if (!isset($file_saved[0]['id'])) {
 // Получаем ID загруженного изображения
 $main_photo_id = $file_saved[0]['id'];
 
-// Создаём товар в сообществе
-$add = $vk->market__add([
+// Генерируем запрос обязательных параметров
+$request_params = array(
     'owner_id' => "-$group_id",
     'name' => $name,
     'description' => $description,
     'category_id' => $category_id,
     'price' => $price,
     'main_photo_id' => $main_photo_id,
-    'deleted' => $deleted ? $deleted : 0,
-    'url' => $url
-]);
+    'deleted' => isset($deleted) ? $deleted : 0,
+);
+
+// Добавляем к запросу доп. параметры
+if (isset($url)) {
+    $request_params['url'] = $url;
+}
+
+// Создаём товар в сообществе
+$add = $vk->market__add($request_params);
 
 // Если товар не создан
 if (!isset($add['market_item_id'])) {

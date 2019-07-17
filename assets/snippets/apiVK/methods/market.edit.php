@@ -72,18 +72,37 @@ if (isset($image)) {
     $main_photo_id = $file_saved[0]['id'];
 }
 
-// Редактируем товар в сообществе
-$edit = $vk->market__edit([
+// Генерируем запрос обязательных параметров
+$request_params = array(
     'owner_id' => "-$group_id",
-    'item_id' => $item_id,
-    'name' => $name,
-    'description' => $description,
-    'category_id' => $category_id,
-    'price' => $price,
-    'deleted' => $deleted ? $deleted : 0,
-    'main_photo_id' => $main_photo_id,
-    'url' => $url
-]);
+    'item_id' => $item_id
+);
+
+// Добавляем к запросу доп. параметры
+if (isset($name)) {
+    $request_params['name'] = $name;
+}
+if (isset($description)) {
+    $request_params['description'] = $description;
+}
+if (isset($category_id)) {
+    $request_params['category_id'] = $category_id;
+}
+if (isset($price)) {
+    $request_params['price'] = $price;
+}
+if (isset($deleted)) {
+    $request_params['deleted'] = $deleted;
+}
+if (isset($image)) {
+    $request_params['main_photo_id'] = $main_photo_id;
+}
+if (isset($url)) {
+    $request_params['url'] = $url;
+}
+
+// Редактируем товар в сообществе
+$edit = $vk->market__edit($request_params);
 
 // Если товар не отредактирован
 if ($edit !== 1) {

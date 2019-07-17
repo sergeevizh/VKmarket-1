@@ -64,12 +64,19 @@ if (isset($image)) {
     $photo_id = $file_saved[0]['id'];
 }
 
-// Создаём подборку в сообществе
-$addAlbum = $vk->market__addAlbum([
+// Генерируем запрос обязательных параметров
+$request_params = array(
     'owner_id' => "-$group_id",
-    'title' => $title,
-    'photo_id' => $photo_id
-]);
+    'title' => $title
+);
+
+// Добавляем к запросу доп. параметры
+if (isset($image)) {
+    $request_params['photo_id'] = $photo_id;
+}
+
+// Создаём подборку в сообществе
+$addAlbum = $vk->market__addAlbum($request_params);
 
 // Если подборка не создана
 if (!isset($addAlbum['market_album_id'])) {
