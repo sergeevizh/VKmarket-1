@@ -40,6 +40,8 @@
 
 - **access_token** - ключ доступа к API
 
+- **group_id** - идентификатор сообщества
+
 ### Дополнительные
 
 - **v** - версия API<br>
@@ -47,15 +49,11 @@
 
 ## Поддерживаемые сниппетом методы
 
-### [Раздел "Market"](https://vk.com/dev/market)
-
-#### [market.add](https://vk.com/dev/market.add)
+### [market.add](https://vk.com/dev/market.add)
 
 Добавляет новый товар
 
 **Обязательные параметры:**
-
-- **group_id** - идентификатор сообщества
 
 - **name** - название товара
 
@@ -87,13 +85,11 @@
 
 - **url** - ссылка на сайт товара
 
-#### [market.addAlbum](https://vk.com/dev/market.addAlbum)
+### [market.addAlbum](https://vk.com/dev/market.addAlbum)
 
 Добавляет новую подборку с товарами
 
 **Обязательные параметры:**
-
-- **group_id** - идентификатор сообщества
 
 - **title** - название подборки
 
@@ -102,46 +98,38 @@
 - **image** - путь к файлу изображения<br>
   _мин. размер: 1280х720px_
 
-#### [market.addToAlbum](https://vk.com/dev/market.addToAlbum)
+### [market.addToAlbum](https://vk.com/dev/market.addToAlbum)
 
 Добавляет товар в одну или несколько подборок
 
 **Обязательные параметры:**
-
-- **group_id** - идентификатор сообщества
 
 - **item_id** - идентификатор товара в сообществе
 
 - **album_ids** - идентификаторы подборок, в которые нужно добавить товар<br>
   _через запятую_
 
-#### [market.delete](https://vk.com/dev/market.delete)
+### [market.delete](https://vk.com/dev/market.delete)
 
 Удаляет товар из сообщества
 
 **Обязательные параметры:**
 
-- **group_id** - идентификатор сообщества
-
 - **item_id** - идентификатор товара в сообществе
 
-#### [market.deleteAlbum](https://vk.com/dev/market.deleteAlbum)
+### [market.deleteAlbum](https://vk.com/dev/market.deleteAlbum)
 
 Удаляет подборку с товарами
 
 **Обязательные параметры:**
 
-- **group_id** - идентификатор сообщества
-
 - **album_id** - идентификатор подборки
 
-#### [market.edit](https://vk.com/dev/market.edit)
+### [market.edit](https://vk.com/dev/market.edit)
 
 Добавляет новый товар
 
 **Обязательные параметры:**
-
-- **group_id** - идентификатор сообщества
 
 - **item_id** - идентификатор товара в сообществе
 
@@ -171,13 +159,11 @@
 
 - **url** - новая ссылка на сайт товара
 
-#### [market.editAlbum](https://vk.com/dev/market.editAlbum)
+### [market.editAlbum](https://vk.com/dev/market.editAlbum)
 
 Редактирует подборку с товарами
 
 **Обязательные параметры:**
-
-- **group_id** - идентификатор сообщества
 
 - **album_id** - идентификатор подборки
 
@@ -188,13 +174,9 @@
 - **image** - путь к файлу нового изображения<br>
   _мин. размер: 1280х720px_
 
-#### [market.getAlbums](https://vk.com/dev/market.getAlbums)
+### [market.getAlbums](https://vk.com/dev/market.getAlbums)
 
 Возвращает список подборок в сообществе
-
-**Обязательные параметры:**
-
-- **group_id** - идентификатор сообщества
 
 **Дополнительные параметры:**
 
