@@ -1,23 +1,27 @@
 <?php
 
-/* Добавляет новую подборку =================================
+/* Редактирует подборку с товарами ==========================
 -------------------------------------------------------------
 Обязательные параметры
 -------------------------------------------------------------
 & api_method        |  метод API
 & access_token      |  ключ доступа к API
 & group_id          |  идентификатор сообщества
-& title             |  название подборки
+& album_id          |  идентификатор подборки
+& title             |  новое название подборки
 -------------------------------------------------------------
 Дополнительные параметры
 -------------------------------------------------------------
 & v                 |  версия API
-& image             |  путь к изображению
+& image             |  путь к новому изображению
 ============================================================= */
 
 // Проверяем наличие обязательных параметров
 if (!isset($group_id)) {
     return '{"error":{"error_code":"required","error_msg":"Not found: group_id"}}';
+}
+if (!isset($album_id)) {
+    return '{"error":{"error_code":"required","error_msg":"Not found: album_id"}}';
 }
 if (!isset($title)) {
     return '{"error":{"error_code":"required","error_msg":"Not found: title"}}';
@@ -64,25 +68,22 @@ if (isset($image)) {
     $photo_id = $file_saved[0]['id'];
 }
 
-// Создаём подборку в сообществе
-$addAlbum = $vk->market__addAlbum([
+// Редактируем подборку в сообществе
+$editAlbum = $vk->market__editAlbum([
     'owner_id' => "-$group_id",
     'title' => $title,
     'photo_id' => $photo_id
 ]);
 
-// Если подборка не создана
-if (!isset($addAlbum['market_album_id'])) {
-    return $addAlbum; // выводим отчёт об ошибке
+// Если подборка не отредактирована
+if ($editAlbum !== 1) {
+    return $editAlbum; // выводим отчёт об ошибке
 }
 
-// Получаем ID созданной подборки
-$market_album_id = $addAlbum['market_album_id'];
-
-// Генерируем отчёт об успешном создании подборки
-$json_addAlbum = array(
+// Генерируем отчёт об успешном редактировании подборки
+$json_editAlbum = array(
     'success' => array(
-        'message' => 'Album created',
+        'message' => 'Album edited',
         'request_params' => array(
             array(
                 'key' => 'title',
@@ -93,14 +94,9 @@ $json_addAlbum = array(
                 'value' => $photo_id
             )
         ),
-        'response' => array(
-            array(
-                'key' => 'market_album_id',
-                'value' => $market_album_id
-            )
-        )
+        'response' => 1
     )
 );
 
-$success = json_encode($json_addAlbum, JSON_UNESCAPED_UNICODE);
-return $success; // Выводим отчёт об успешном создании подборки
+$success = json_encode($json_editAlbum, JSON_UNESCAPED_UNICODE);
+return $success; // Выводим отчёт об успешном редактировании подборки
