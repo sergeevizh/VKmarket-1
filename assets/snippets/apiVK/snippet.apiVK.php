@@ -70,7 +70,7 @@ switch ($api_method) {
         // Загружаем изображение на сервер VK
         $file_uploaded = $vk->uploadFile($upload_server['upload_url'], $image_path);
 
-        // Если изображение не загружено на сервер VK
+        // Если изображение не загружено
         if (!isset($file_uploaded['photo'])) {
             return json_encode($file_uploaded, true); // выводим отчёт об ошибке
         }
@@ -89,7 +89,7 @@ switch ($api_method) {
 
         // Если изображение не сохранено на сервере VK
         if (!isset($file_saved[0]['id'])) {
-            return $file_saved; // выводим отчёт об ошибке
+            return json_encode($file_saved, true); // выводим отчёт об ошибке
         }
 
         // Получаем ID загруженного изображения
@@ -103,7 +103,7 @@ switch ($api_method) {
             'category_id' => $category_id,
             'price' => $price,
             'main_photo_id' => $main_photo_id,
-            'deleted' => $deleted,
+            'deleted' => $deleted ? $deleted : 0,
             'url' => $url
         ]);
 
@@ -142,7 +142,7 @@ switch ($api_method) {
                     ),
                     array(
                         'key' => 'deleted',
-                        'value' => $deleted
+                        'value' => $deleted ? $deleted : 0
                     ),
                     array(
                         'key' => 'url',
@@ -243,53 +243,77 @@ switch ($api_method) {
 
             // Если сервер VK не получен
             if (!isset($upload_server['upload_url'])) {
-                return $upload_server; // выводим отчёт об ошибке
+                return json_encode($upload_server, true); // выводим отчёт об ошибке
             }
 
             // Загружаем изображение на сервер VK
-            $upload = $vk->uploadFile($upload_server['upload_url'], $image_path);
+            $file_uploaded = $vk->uploadFile($upload_server['upload_url'], $image_path);
 
-            // Если изображение не загружено на сервер VK
-            if (!isset($upload['photo'])) {
-                return json_encode($upload, true); // выводим отчёт об ошибке
+            // Если изображение не загружено
+            if (!isset($file_uploaded['photo'])) {
+                return json_encode($file_uploaded, true); // выводим отчёт об ошибке
             }
 
             // Сохраняем изображение на сервере VK
-            $save = $vk->photos__saveMarketAlbumPhoto(
+            $file_saved = $vk->photos__saveMarketAlbumPhoto(
                 [
                     'group_id' => $group_id,
-                    'photo' => $upload['photo'],
-                    'server' => $upload['server'],
-                    'hash' => $upload['hash']
+                    'photo' => $file_uploaded['photo'],
+                    'server' => $file_uploaded['server'],
+                    'hash' => $file_uploaded['hash']
                 ]
             );
 
             // Если изображение не сохранено на сервере VK
-            if (!isset($save[0]['id'])) {
-                return $save; // выводим отчёт об ошибке
+            if (!isset($file_saved[0]['id'])) {
+                return json_encode($file_saved, true); // выводим отчёт об ошибке
             }
 
             // Получаем ID загруженного изображения
-            $photo_id = $save[0]['id'];
+            $photo_id = $file_saved[0]['id'];
         }
 
         // Создаём подборку в сообществе
-        $add = $vk->market__addAlbum([
+        $addAlbum = $vk->market__addAlbum([
             'owner_id' => "-$group_id",
             'title' => $title,
             'photo_id' => $photo_id
         ]);
 
         // Если подборка не создана
-        if (!isset($add['market_album_id'])) {
-            return $add; // выводим отчёт об ошибке
+        if (!isset($addAlbum['market_album_id'])) {
+            return $addAlbum; // выводим отчёт об ошибке
         }
 
         // Получаем ID созданной подборки
-        $market_album_id = $add['market_album_id'];
-        $res = '{"success":{"report":"Album successfully created in VK.","title":"' . addslashes($title) . '","market_album_id":' . $market_album_id . '}}';
+        $market_album_id = $addAlbum['market_album_id'];
 
-        return $res; // Выводим отчёт об успешном создании подборки
+
+        // Генерируем отчёт об успешном создании товара
+        $json_addAlbum = array(
+            'success' => array(
+                'message' => 'Album successfully created',
+                'request_params' => array(
+                    array(
+                        'key' => 'title',
+                        'value' => $title
+                    ),
+                    array(
+                        'key' => 'photo_id',
+                        'value' => $photo_id
+                    )
+                ),
+                'response' => array(
+                    array(
+                        'key' => 'market_album_id',
+                        'value' => $market_album_id
+                    )
+                )
+            )
+        );
+
+        $success = json_encode($json_addAlbum, JSON_UNESCAPED_UNICODE);
+        return $success; // Выводим отчёт об успешном создании подборки
         break;
 
     case 'market.addToAlbum':
