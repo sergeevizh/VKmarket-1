@@ -1,9 +1,9 @@
-# apiVK
+# VKmarket
 
 -- _Сниппет для Evolution CMS_ --
 
-Работа с API ВКонтакте<br>
-Ссылка на документацию API: <https://vk.com/dev/manuals>
+Работа с API для товаров ВКонтакте<br>
+Документация API для товаров: <https://vk.com/dev/goods_docs>
 
 ## Ключ доступа к API
 

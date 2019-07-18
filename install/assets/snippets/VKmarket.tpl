@@ -1,13 +1,13 @@
 <?php
 /**
- * apiVK
+ * VKmarket
  *
- * API ВКонтакте
+ * Работа API для товаров ВКонтакте
  *
  * @category    snippet
  * @version     1.0.0
  * @author      cgehuzi <mail.cgehuzi@yandex.ru>
- * @reportissues https://github.com/cgehuzi/apiVK
+ * @reportissues https://github.com/cgehuzi/VKmarket
 
  * @internal    @properties
  * @internal    @modx_category API ВКонтакте
@@ -16,19 +16,19 @@
  */
  
 /**
- * apiVK
+ * VKmarket
  *
- * API ВКонтакте
+ * Работа API для товаров ВКонтакте
  *
  * @category    snippet
  * @version     1.0.0
  * @author      cgehuzi <mail.cgehuzi@yandex.ru>
- * @reportissues https://github.com/cgehuzi/apiVK
+ * @reportissues https://github.com/cgehuzi/VKmarket
 
  * @documentation Необходим для работы с API ВКонтакте
  * @documentation 
- * @documentation Документация: https://github.com/cgehuzi/apiVK
+ * @documentation Документация: https://github.com/cgehuzi/VKmarket
 
  */
 
-return require MODX_BASE_PATH . 'assets/snippets/apiVK/snippet.apiVK.php';
+return require MODX_BASE_PATH . 'assets/snippets/VKmarket/snippet.VKmarket.php';
