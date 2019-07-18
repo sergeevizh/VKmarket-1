@@ -7,35 +7,35 @@
 
 ## Ключ доступа к API
 
-Перед началом работы с API ВКонтакте необходимо получить ключ доступа access_token
+Перед началом работы необходимо получить ключ доступа access_token
 
-- **[Implicit flow](https://vk.com/dev/implicit_flow_user)**<br>
+### [Implicit flow](https://vk.com/dev/implicit_flow_user)
 
-  - [x] Для запросов с устройства пользователя (например через Javascript на веб-сайте)
-  - [ ] Для запросов с серверной стороны
+- [x] для запросов с устройства пользователя (например через Javascript на веб-сайте)
+- [ ] для запросов с серверной стороны
 
 --------------------------------------------------------------------------------
 
 ```bash
 # Для запроса перейти по ссылке, подставив свой client_id
-  https://oauth.vk.com/authorize?client_id=______&v=5.101&redirect_uri=https://oauth.vk.com/blank.html&scope=market,photos&response_type=token
+https://oauth.vk.com/authorize?client_id=______&v=5.101&redirect_uri=https://oauth.vk.com/blank.html&scope=market,photos&response_type=token
 ```
 
 [Ссылка из примера](https://oauth.vk.com/authorize?client_id=______&v=5.101&redirect_uri=https://oauth.vk.com/blank.html&scope=market,photos&response_type=token)
 
-- **[Authorization Code Flow](https://vk.com/dev/authcode_flow_user)**<br>
+### [Authorization Code Flow](https://vk.com/dev/authcode_flow_user)
 
-  - [x] Для запросов с устройства пользователя (например через Javascript на веб-сайте)
-  - [x] Для запросов с серверной стороны
+- [x] для запросов с устройства пользователя (например через Javascript на веб-сайте)
+- [x] для запросов с серверной стороны
 
 --------------------------------------------------------------------------------
 
 ```bash
 # 1 Для запроса кода перейти по ссылке, подставив свой client_id
-  https://oauth.vk.com/authorize?client_id=______&v=5.101&redirect_uri=https://oauth.vk.com/blank.html&scope=market,photos&response_type=code
+https://oauth.vk.com/authorize?client_id=______&v=5.101&redirect_uri=https://oauth.vk.com/blank.html&scope=market,photos&response_type=code
 
-  # 2 По полученному коду получить ключ доступа
-  https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=______&v=5.101&redirect_uri=https://oauth.vk.com/blank.html
+# 2 По полученному коду получить ключ доступа
+https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=______&v=5.101&redirect_uri=https://oauth.vk.com/blank.html
 ```
 
 [Ссылка #1 из примера](https://oauth.vk.com/authorize?client_id=______&v=5.101&redirect_uri=https://oauth.vk.com/blank.html&scope=market,photos&response_type=code)<br>
@@ -55,15 +55,16 @@
 - [market.removeFromAlbum](#marketremovefromalbum) - удаляет товар из подборок
 - [market.search](#marketsearch) - ищет товары в каталоге сообщества
 
-## Передача файлов
+## Передача изображений
 
-Передача файлов производится через специальные параметры:<br>
+Передача изображений производится через специальный параметр:<br>
 
-- **image** - путь к файлу изображения (абсолютный или относительно доменного имени)
+- **image** - путь к файлу изображения<br>
+  _абсолютный или относительный (от доменного имени)_
 
 ### Процесс загрузки
 
-Сниппет в фоновом режиме реализует полный [процесс загрузки файлов](https://vk.com/dev/upload_files):
+Сниппет в фоновом режиме реализует полный [процесс загрузки](https://vk.com/dev/upload_files):
 
 1. Получает адрес для загрузки файла;
 2. Передаёт файл на полученный адрес;
@@ -76,7 +77,8 @@
 - **api_method** - вызываемый метод API<br>
   _например: `market.add`_
 
-- **access_token** - ключ доступа к API
+- **access_token** - ключ доступа к API<br>
+  _тип ключа: [Authorization Code Flow](#authorization-code-flow)_
 
 - **group_id** - идентификатор сообщества
 

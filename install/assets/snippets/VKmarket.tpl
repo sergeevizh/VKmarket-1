@@ -2,7 +2,7 @@
 /**
  * VKmarket
  *
- * Работа API для товаров ВКонтакте
+ * Работа с API для товаров ВКонтакте
  *
  * @category    snippet
  * @version     1.0.0
@@ -18,7 +18,7 @@
 /**
  * VKmarket
  *
- * Работа API для товаров ВКонтакте
+ * Работа с API для товаров ВКонтакте
  *
  * @category    snippet
  * @version     1.0.0
