@@ -72,7 +72,9 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 
 ## Общие параметры
 
-### Обязательные
+Данные параметры указываются для каждого из нижеприведённых методов
+
+**Обязательные параметры:**
 
 - **api_method** - вызываемый метод API<br>
   _например: `market.add`_
@@ -82,7 +84,7 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 
 - **group_id** - идентификатор сообщества
 
-### Дополнительные
+**Дополнительные параметры:**
 
 - **v** - версия API<br>
   _по умолчанию: `5.101`_
@@ -175,6 +177,8 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 ### [market.addToAlbum](https://vk.com/dev/market.addToAlbum)
 
 Добавляет товар в одну или несколько подборок
+
+**[Общие параметры](#общие-параметры)**
 
 **Обязательные параметры:**
 
