@@ -55,9 +55,9 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 - [market.removeFromAlbum](#marketremovefromalbum) - удаляет товар из подборок
 - [market.search](#marketsearch) - ищет товары в каталоге сообщества
 
-## Передача изображений
+## Загрузка изображений
 
-Передача изображений производится через специальный параметр:<br>
+Загрузка изображений производится через специальный параметр:<br>
 
 - **image** - путь к файлу изображения<br>
   _абсолютный или относительный (от доменного имени)_
@@ -108,7 +108,7 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
   ```
 
 - **category_id** - идентификатор категории товара<br>
-  _cписок получается методом [market.getCategories](https://vk.com/dev/market.getCategories)_
+  _cписок получается методом [market.getCategories](#marketgetcategories)_
 
 - **price** - цена товара
 
@@ -281,7 +281,7 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
   ```
 
 - **category_id** - идентификатор новой категории товара<br>
-  _cписок получается методом [market.getCategories](https://vk.com/dev/market.getCategories)_
+  _cписок получается методом [market.getCategories](#marketgetcategories)_
 
 - **price** - новая цена товара
 
