@@ -5,31 +5,69 @@
 Работа с API ВКонтакте<br>
 Ссылка на документацию API: <https://vk.com/dev/manuals>
 
-Перед работой с API ВКонтакте необходимо получить access_token
+## Ключ доступа к API
+
+Перед началом работы с API ВКонтакте необходимо получить ключ доступа access_token
 
 - **[Implicit flow](https://vk.com/dev/implicit_flow_user)**<br>
-  Такой ключ может быть использован только для запросов непосредственно с устройства пользователя (например, для выполнения вызовов из Javascript на веб-сайте или из мобильного приложения).
 
-  ```bash
-  # Для запроса перейти по ссылке, подставив свой client_id
+  - [x] Для запросов с устройства пользователя (например через Javascript на веб-сайте)
+  - [ ] Для запросов с серверной стороны
+
+--------------------------------------------------------------------------------
+
+```bash
+# Для запроса перейти по ссылке, подставив свой client_id
   https://oauth.vk.com/authorize?client_id=______&v=5.101&redirect_uri=https://oauth.vk.com/blank.html&scope=market,photos&response_type=token
-  ```
+```
 
-  [Ссылка из примера](https://oauth.vk.com/authorize?client_id=______&v=5.101&redirect_uri=https://oauth.vk.com/blank.html&scope=market,photos&response_type=token)
+[Ссылка из примера](https://oauth.vk.com/authorize?client_id=______&v=5.101&redirect_uri=https://oauth.vk.com/blank.html&scope=market,photos&response_type=token)
 
 - **[Authorization Code Flow](https://vk.com/dev/authcode_flow_user)**<br>
-  Для работы с API от имени пользователя с серверной стороны Вашего сайта.
 
-  ```bash
-  # 1 Для запроса кода перейти по ссылке, подставив свой client_id
+  - [x] Для запросов с устройства пользователя (например через Javascript на веб-сайте)
+  - [x] Для запросов с серверной стороны
+
+--------------------------------------------------------------------------------
+
+```bash
+# 1 Для запроса кода перейти по ссылке, подставив свой client_id
   https://oauth.vk.com/authorize?client_id=______&v=5.101&redirect_uri=https://oauth.vk.com/blank.html&scope=market,photos&response_type=code
 
   # 2 По полученному коду получить ключ доступа
   https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=______&v=5.101&redirect_uri=https://oauth.vk.com/blank.html
-  ```
+```
 
-  [Ссылка #1 из примера](https://oauth.vk.com/authorize?client_id=______&v=5.101&redirect_uri=https://oauth.vk.com/blank.html&scope=market,photos&response_type=code)<br>
-  [Ссылка #2 из примера](https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=______&v=5.101&redirect_uri=https://oauth.vk.com/blank.html)
+[Ссылка #1 из примера](https://oauth.vk.com/authorize?client_id=______&v=5.101&redirect_uri=https://oauth.vk.com/blank.html&scope=market,photos&response_type=code)<br>
+[Ссылка #2 из примера](https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=______&v=5.101&redirect_uri=https://oauth.vk.com/blank.html)
+
+## Поддерживаемые сниппетом методы
+
+- [market.add](#marketadd) - добавляет новый товар
+- [market.addAlbum](#marketaddalbum) - добавляет новую подборку с товарами
+- [market.delete](#marketdelete) - удаляет товар
+- [market.deleteAlbum](#marketdeletealbum) - удаляет подборку с товарами
+- [market.edit](#marketedit) - редактирует товар
+- [market.editAlbum](#marketeditalbum) - редактирует подборку с товарами
+- [market.get](#marketget) - возвращает список товаров в сообществе
+- [market.getAlbums](#marketgetalbums) - возвращает список подборок в сообществе
+- [market.getCategories](#marketgetcategories) - возвращает список категорий для товаров
+- [market.removeFromAlbum](#marketremovefromalbum) - удаляет товар из подборок
+- [market.search](#marketsearch) - ищет товары в каталоге сообщества
+
+## Передача файлов
+
+Передача файлов производится через специальные параметры:<br>
+
+- **image** - путь к файлу изображения (абсолютный или относительно доменного имени)
+
+### Процесс загрузки
+
+Сниппет в фоновом режиме реализует полный [процесс загрузки файлов](https://vk.com/dev/upload_files):
+
+1. Получает адрес для загрузки файла;
+2. Передаёт файл на полученный адрес;
+3. Сохраняет информацию о загруженном файле.
 
 ## Общие параметры
 
@@ -47,7 +85,7 @@
 - **v** - версия API<br>
   _по умолчанию: `5.101`_
 
-## Поддерживаемые сниппетом методы
+## Параметры методов
 
 ### [market.add](https://vk.com/dev/market.add)
 
@@ -127,7 +165,7 @@
 
 ### [market.edit](https://vk.com/dev/market.edit)
 
-Добавляет новый товар
+Редактирует товар
 
 **Обязательные параметры:**
 
