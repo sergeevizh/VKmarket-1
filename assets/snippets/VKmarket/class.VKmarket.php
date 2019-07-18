@@ -149,7 +149,8 @@ class VKmarket
         curl_close($ch);
         $json = json_decode($data, true);
         if (!isset($json['response'])) {
-            return json_encode($json, JSON_UNESCAPED_UNICODE);
+            $json = json_encode($json, JSON_UNESCAPED_UNICODE);
+            return mb_convert_encoding($json, 'utf-8', mb_detect_encoding($json));
         }
         usleep(mt_rand(1000000, 2000000));
         return $json['response'];
