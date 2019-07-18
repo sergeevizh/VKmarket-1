@@ -50,7 +50,7 @@ $result = array(
         'request_params' => array(
             array(
                 'key' => 'item_id',
-                'value' => $item_id
+                'value' => (int)$item_id
             ),
             array(
                 'key' => 'album_ids',

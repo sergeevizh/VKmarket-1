@@ -119,7 +119,7 @@ $result = array(
         'request_params' => array(
             array(
                 'key' => 'item_id',
-                'value' => $item_id
+                'value' => (int)$item_id
             )
         )
     )
@@ -149,7 +149,7 @@ if (isset($category_id)) {
         $result['success']['request_params'],
         array(
             'key' => 'category_id',
-            'value' => $category_id
+            'value' => (int)$category_id
         )
     );
 }
@@ -158,7 +158,7 @@ if (isset($price)) {
         $result['success']['request_params'],
         array(
             'key' => 'price',
-            'value' => $price
+            'value' => (int)$price
         )
     );
 }
@@ -167,7 +167,7 @@ if (isset($deleted)) {
         $result['success']['request_params'],
         array(
             'key' => 'deleted',
-            'value' => $deleted
+            'value' => (int)$deleted
         )
     );
 }

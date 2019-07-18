@@ -43,7 +43,7 @@ $result = array(
         'request_params' => array(
             array(
                 'key' => 'album_id',
-                'value' => $album_id
+                'value' => (int)$album_id
             )
         )
     )
