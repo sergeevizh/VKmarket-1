@@ -119,7 +119,7 @@ if (!isset($request['market_item_id'])) {
 $market_item_id = $request['market_item_id'];
 
 // Генерируем отчёт об успешном создании товара
-$resultAdd = array(
+$result = array(
     'success' => array(
         'message' => 'Item created',
         'response' => $market_item_id,
@@ -134,11 +134,11 @@ $resultAdd = array(
             ),
             array(
                 'key' => 'category_id',
-                'value' => (int)$category_id
+                'value' => (int) $category_id
             ),
             array(
                 'key' => 'price',
-                'value' => (int)$price
+                'value' => (int) $price
             ),
             array(
                 'key' => 'main_photo_id',
@@ -146,7 +146,7 @@ $resultAdd = array(
             ),
             array(
                 'key' => 'deleted',
-                'value' => isset($deleted) ? (int)$deleted : 0
+                'value' => isset($deleted) ? (int) $deleted : 0
             )
         )
     )
@@ -155,7 +155,7 @@ $resultAdd = array(
 // Добавляем к отчёту доп. параметры
 if (isset($url)) {
     array_push(
-        $resultAdd['success']['request_params'],
+        $result['success']['request_params'],
         array(
             'key' => 'url',
             'value' => $url
@@ -177,37 +177,19 @@ if (isset($album_ids)) {
     if ($request !== 1) {
 
         $error = json_decode($request, true); // копируем отчет об ошибке добавления в подборки
-        $error['success'] = $resultAdd['success']; // добавляем в него отчёт об успешном создании товара
+        $error['success'] = $result['success']; // добавляем в него отчёт об успешном создании товара
         return json_encode($error, JSON_UNESCAPED_UNICODE); // выводим отчёт об ошибке
 
     }
 
-    // Генерируем отчёт об успешном добавлении товара в подборки
-    $resultAddToAlbum = array(
-        'success' => array(
-            'message' => 'Item added to albums',
-            'response' => $request,
-            'request_params' => array(
-                array(
-                    'key' => 'item_id',
-                    'value' => $market_item_id
-                ),
-                array(
-                    'key' => 'album_ids',
-                    'value' => $album_ids
-                )
-            )
+    // Добавляем параметр в отчёт
+    array_push(
+        $result['success']['request_params'],
+        array(
+            'key' => 'album_ids',
+            'value' => $album_ids
         )
     );
-}
-
-// Формируем отчёт об успешном создании товара
-if (isset($resultAddToAlbum)) {
-    $result = array();
-    $result[0] = $resultAdd;
-    $result[1] = $resultAddToAlbum;
-} else {
-    $result = $resultAdd;
 }
 
 // Выводим отчёт об успешном создании товара
