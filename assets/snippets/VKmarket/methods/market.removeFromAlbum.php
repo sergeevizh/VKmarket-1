@@ -13,6 +13,7 @@
 Дополнительные параметры
 -------------------------------------------------------------
 & v                 |  версия API
+& response          |  тип успешного результата
 ============================================================= */
 
 
@@ -21,31 +22,31 @@ $error = array('error' => array('error_code' => 'required'));
 
 if (!isset($item_id)) {
     $error['error']['error_msg'] = 'Not found required param: item_id';
-    return json_encode($error);
+    return json_encode($error, true);
 }
 
 if (!isset($album_ids)) {
     $error['error']['error_msg'] = 'Not found required param: album_ids';
-    return json_encode($error);
+    return json_encode($error, true);
 }
 
 // Удаляем товар из указанных подборок
-$removeFromAlbum = $vk->market__removeFromAlbum([
+$request = $vk->removeFromAlbum([
     'owner_id' => "-$group_id",
     'item_id' => $item_id,
     'album_ids' => $album_ids
 ]);
 
 // Если товар не удалён из какой-либо подборки
-if ($removeFromAlbum !== 1) {
-    return $removeFromAlbum; // выводим отчёт об ошибке
+if ($request !== 1) {
+    return $request; // выводим отчёт об ошибке
 }
 
 // Генерируем отчёт об успешном удалении
-$json_removeFromAlbum = array(
+$result = array(
     'success' => array(
         'message' => 'Item removed from albums',
-        'response' => $removeFromAlbum,
+        'response' => $request,
         'request_params' => array(
             array(
                 'key' => 'item_id',
@@ -59,5 +60,15 @@ $json_removeFromAlbum = array(
     )
 );
 
-$success = json_encode($json_removeFromAlbum, JSON_UNESCAPED_UNICODE);
-return $success; // Выводим отчёт об успешном добавлении товара в подборки
+// Выводим отчёт об успешном добавлении товара в подборки
+$success = json_encode($result, JSON_UNESCAPED_UNICODE);
+switch ($response) {
+    case 1:
+        return $request;
+        break;
+
+    case 'json':
+    default:
+        return $success;
+        break;
+}

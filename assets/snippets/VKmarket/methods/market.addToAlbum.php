@@ -13,6 +13,7 @@
 Дополнительные параметры
 -------------------------------------------------------------
 & v                 |  версия API
+& response          |  тип успешного результата
 ============================================================= */
 
 
@@ -21,31 +22,31 @@ $error = array('error' => array('error_code' => 'required'));
 
 if (!isset($item_id)) {
     $error['error']['error_msg'] = 'Not found required param: item_id';
-    return json_encode($error);
+    return json_encode($error, true);
 }
 
 if (!isset($album_ids)) {
     $error['error']['error_msg'] = 'Not found required param: album_ids';
-    return json_encode($error);
+    return json_encode($error, true);
 }
 
 // Добавляем товар в указанные подборки
-$addToAlbum = $vk->market__addToAlbum([
+$request = $vk->addToAlbum([
     'owner_id' => "-$group_id",
     'item_id' => $item_id,
     'album_ids' => $album_ids
 ]);
 
 // Если товар не добавлен в какую-либо подборку
-if ($addToAlbum !== 1) {
-    return $addToAlbum; // выводим отчёт об ошибке
+if ($request !== 1) {
+    return $request; // выводим отчёт об ошибке
 }
 
 // Генерируем отчёт об успешном добавлении
-$json_addToAlbum = array(
+$result = array(
     'success' => array(
         'message' => 'Item added to albums',
-        'response' => $addToAlbum,
+        'response' => $request,
         'request_params' => array(
             array(
                 'key' => 'item_id',
@@ -59,5 +60,15 @@ $json_addToAlbum = array(
     )
 );
 
-$success = json_encode($json_addToAlbum, JSON_UNESCAPED_UNICODE);
-return $success; // Выводим отчёт об успешном добавлении товара в подборки
+// Выводим отчёт об успешном добавлении товара в подборки
+$success = json_encode($result, JSON_UNESCAPED_UNICODE);
+switch ($response) {
+    case 1:
+        return $request;
+        break;
+
+    case 'json':
+    default:
+        return $success;
+        break;
+}

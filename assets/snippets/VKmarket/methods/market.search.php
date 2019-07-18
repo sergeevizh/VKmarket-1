@@ -45,12 +45,12 @@ if (isset($price_to)) {
 }
 
 // Осуществляем поиск товаров
-$search = $vk->market__search($request_params);
+$request = $vk->search($request_params);
 
 // Если поиск не осуществлён
-if (!isset($search['count'])) {
-    return $search; // выводим отчёт об ошибке
+if (!isset($request['count'])) {
+    return $request; // выводим отчёт об ошибке
 }
 
-$success = json_encode($search, JSON_UNESCAPED_UNICODE);
+$success = json_encode($request, JSON_UNESCAPED_UNICODE);
 return $success; // Выводим результат поиска

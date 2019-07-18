@@ -19,6 +19,7 @@
 & deleted           |  статус товара (удалён или не удалён)
 & url               |  ссылка на сайт товара
 & album_ids         |  подборки, куда добавить товар (через запятую)
+& response          |  тип успешного результата
 ============================================================= */
 
 
@@ -27,27 +28,27 @@ $error = array('error' => array('error_code' => 'required'));
 
 if (!isset($name)) {
     $error['error']['error_msg'] = 'Not found required param: name';
-    return json_encode($error);
+    return json_encode($error, true);
 }
 
 if (!isset($description)) {
     $error['error']['error_msg'] = 'Not found required param: description';
-    return json_encode($error);
+    return json_encode($error, true);
 }
 
 if (!isset($category_id)) {
     $error['error']['error_msg'] = 'Not found required param: category_id';
-    return json_encode($error);
+    return json_encode($error, true);
 }
 
 if (!isset($price)) {
     $error['error']['error_msg'] = 'Not found required param: price';
-    return json_encode($error);
+    return json_encode($error, true);
 }
 
 if (!isset($image)) {
     $error['error']['error_msg'] = 'Not found required param: image';
-    return json_encode($error);
+    return json_encode($error, true);
 }
 
 
@@ -55,40 +56,40 @@ $image_path = 'image.jpg';
 copy($image, 'image.jpg');
 
 // Получаем сервер VK для загрузки изображения товара
-$upload_server = $vk->photos__getMarketUploadServer($group_id, 1);
+$server = $vk->getMarketUploadServer($group_id, 1);
 
 // Если сервер VK не получен
-if (!isset($upload_server['upload_url'])) {
-    return json_encode($upload_server, true); // выводим отчёт об ошибке
+if (!isset($server['upload_url'])) {
+    return $server; // выводим отчёт об ошибке
 }
 
 // Загружаем изображение на сервер VK
-$file_uploaded = $vk->uploadFile($upload_server['upload_url'], $image_path);
+$upload = $vk->uploadFile($server['upload_url'], $image_path);
 
 // Если изображение не загружено
-if (!isset($file_uploaded['photo'])) {
-    return json_encode($file_uploaded, true); // выводим отчёт об ошибке
+if (!isset($upload['photo'])) {
+    return $upload; // выводим отчёт об ошибке
 }
 
 // Сохраняем изображение на сервере VK
-$file_saved = $vk->photos__saveMarketPhoto(
+$save = $vk->saveMarketPhoto(
     [
         'group_id' => $group_id,
-        'photo' => $file_uploaded['photo'],
-        'server' => $file_uploaded['server'],
-        'hash' => $file_uploaded['hash'],
-        'crop_data' => $file_uploaded['crop_data'],
-        'crop_hash' => $file_uploaded['crop_hash']
+        'photo' => $upload['photo'],
+        'server' => $upload['server'],
+        'hash' => $upload['hash'],
+        'crop_data' => $upload['crop_data'],
+        'crop_hash' => $upload['crop_hash']
     ]
 );
 
 // Если изображение не сохранено на сервере VK
-if (!isset($file_saved[0]['id'])) {
-    return json_encode($file_saved, true); // выводим отчёт об ошибке
+if (!isset($save[0]['id'])) {
+    return $save; // выводим отчёт об ошибке
 }
 
 // Получаем ID загруженного изображения
-$main_photo_id = $file_saved[0]['id'];
+$main_photo_id = $save[0]['id'];
 
 // Генерируем запрос обязательных параметров
 $request_params = array(
@@ -107,20 +108,21 @@ if (isset($url)) {
 }
 
 // Создаём товар в сообществе
-$add = $vk->market__add($request_params);
+$request = $vk->add($request_params);
 
 // Если товар не создан
-if (!isset($add['market_item_id'])) {
-    return $add; // выводим отчёт об ошибке
+if (!isset($request['market_item_id'])) {
+    return $request; // выводим отчёт об ошибке
 }
 
 // Получаем ID созданного товара
-$market_item_id = $add['market_item_id'];
+$market_item_id = $request['market_item_id'];
 
 // Генерируем отчёт об успешном создании товара
-$json_add = array(
+$resultAdd = array(
     'success' => array(
         'message' => 'Item created',
+        'response' => $market_item_id,
         'request_params' => array(
             array(
                 'key' => 'name',
@@ -146,10 +148,6 @@ $json_add = array(
                 'key' => 'deleted',
                 'value' => isset($deleted) ? $deleted : 0
             )
-        ),
-        'response' => array(
-            'key' => 'market_item_id',
-            'value' => $market_item_id
         )
     )
 );
@@ -157,7 +155,7 @@ $json_add = array(
 // Добавляем к отчёту доп. параметры
 if (isset($url)) {
     array_push(
-        $json_add['success']['request_params'],
+        $resultAdd['success']['request_params'],
         array(
             'key' => 'url',
             'value' => $url
@@ -169,26 +167,26 @@ if (isset($url)) {
 if (isset($album_ids)) {
 
     // Добавляем созданный товар в указанные подборки
-    $addToAlbum = $vk->market__addToAlbum([
+    $request = $vk->addToAlbum([
         'owner_id' => "-$group_id",
         'item_id' => $market_item_id,
         'album_ids' => $album_ids
     ]);
 
     // Если товар не добавлен в какую-либо подборку
-    if ($addToAlbum !== 1) {
+    if ($request !== 1) {
 
-        $error = json_decode($addToAlbum, true); // копируем отчет об ошибке добавления в подборки
-        $error['success'] = $json_add['success']; // добавляем в него отчёт об успешном создании товара
+        $error = json_decode($request, true); // копируем отчет об ошибке добавления в подборки
+        $error['success'] = $resultAdd['success']; // добавляем в него отчёт об успешном создании товара
         return json_encode($error, JSON_UNESCAPED_UNICODE); // выводим отчёт об ошибке
 
     }
 
     // Генерируем отчёт об успешном добавлении товара в подборки
-    $json_addToAlbum = array(
+    $resultAddToAlbum = array(
         'success' => array(
             'message' => 'Item added to albums',
-            'response' => $addToAlbum,
+            'response' => $request,
             'request_params' => array(
                 array(
                     'key' => 'item_id',
@@ -201,14 +199,26 @@ if (isset($album_ids)) {
             )
         )
     );
-
-    $success = array();
-    $success[0] = $json_add;
-    $success[1] = $json_addToAlbum;
-    $success = json_encode($success, JSON_UNESCAPED_UNICODE);
-
-    return $success; // Выводим отчёт об успешном создании товара и добавлении его в подборки
 }
 
-$success = json_encode($json_add, JSON_UNESCAPED_UNICODE);
-return $success; // Выводим отчёт об успешном создании товара
+// Формируем отчёт об успешном создании товара
+if (isset($resultAddToAlbum)) {
+    $result = array();
+    $result[0] = $resultAdd;
+    $result[1] = $resultAddToAlbum;
+} else {
+    $result = $resultAdd;
+}
+
+// Выводим отчёт об успешном создании товара
+$success = json_encode($result, JSON_UNESCAPED_UNICODE);
+switch ($response) {
+    case 'id':
+        return $market_item_id;
+        break;
+
+    case 'json':
+    default:
+        return $success;
+        break;
+}

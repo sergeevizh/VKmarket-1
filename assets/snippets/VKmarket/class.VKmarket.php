@@ -12,73 +12,73 @@ class VKmarket
     }
 
     // Добавляет новый товар ===============================================
-    public function market__add($data)
+    public function add($data)
     {
         return $this->request('market.add', $data);
     }
 
     // Добавляет новую подборку ============================================
-    public function market__addAlbum($data)
+    public function addAlbum($data)
     {
         return $this->request('market.addAlbum', $data);
     }
 
     // Добавляет товар в одну или несколько подборок =======================
-    public function market__addToAlbum($data)
+    public function addToAlbum($data)
     {
         return $this->request('market.addToAlbum', $data);
     }
 
     // Удаляет товар =======================================================
-    public function market__delete($data)
+    public function delete($data)
     {
         return $this->request('market.delete', $data);
     }
 
     // Удаляет подборку ====================================================
-    public function market__deleteAlbum($data)
+    public function deleteAlbum($data)
     {
         return $this->request('market.deleteAlbum', $data);
     }
 
     // Редактирует товар ===================================================
-    public function market__edit($data)
+    public function edit($data)
     {
         return $this->request('market.edit', $data);
     }
 
     // Редактирует подборку с товарами =====================================
-    public function market__editAlbum($data)
+    public function editAlbum($data)
     {
         return $this->request('market.editAlbum', $data);
     }
 
     // Возвращает список товаров ===========================================
-    public function market__get($data)
+    public function get($data)
     {
         return $this->request('market.get', $data);
     }
 
     // Возвращает список подборок ==========================================
-    public function market__getAlbums($data)
+    public function getAlbums($data)
     {
         return $this->request('market.getAlbums', $data);
     }
 
     // Возвращает список категорий для товаров =============================
-    public function market__getCategories($data)
+    public function getCategories($data)
     {
         return $this->request('market.getCategories', $data);
     }
 
     // Удаляет товар из подборок ===========================================
-    public function market__removeFromAlbum($data)
+    public function removeFromAlbum($data)
     {
         return $this->request('market.removeFromAlbum', $data);
     }
 
     // Ищет товары в сообществе ============================================
-    public function market__search($data)
+    public function search($data)
     {
         return $this->request('market.search', $data);
     }
@@ -104,7 +104,7 @@ class VKmarket
     }
 
     // Возвращает сервер для загрузки фотографии товара ====================
-    public function photos__getMarketUploadServer($group_id, $main)
+    public function getMarketUploadServer($group_id, $main)
     {
         $params = [
             'group_id' => $group_id,
@@ -114,13 +114,13 @@ class VKmarket
     }
 
     // Сохраняет фотографию товара после успешной загрузки ==================
-    public function photos__saveMarketPhoto($params)
+    public function saveMarketPhoto($params)
     {
         return $this->request('photos.saveMarketPhoto', $params);
     }
 
     // Возвращает сервер для загрузки фотографии подборки ===================
-    public function photos__getMarketAlbumUploadServer($group_id)
+    public function getMarketAlbumUploadServer($group_id)
     {
         $params = [
             'group_id' => $group_id
@@ -129,7 +129,7 @@ class VKmarket
     }
 
     // Сохраняет фотографию подборки после успешной загрузки ================
-    public function photos__saveMarketAlbumPhoto($params)
+    public function saveMarketAlbumPhoto($params)
     {
         return $this->request('photos.saveMarketAlbumPhoto', $params);
     }
@@ -149,7 +149,7 @@ class VKmarket
         curl_close($ch);
         $json = json_decode($data, true);
         if (!isset($json['response'])) {
-            return json_encode($json);
+            return json_encode($json, JSON_UNESCAPED_UNICODE);
         }
         usleep(mt_rand(1000000, 2000000));
         return $json['response'];

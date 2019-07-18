@@ -125,6 +125,23 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 
 - **url** - ссылка на сайт товара
 
+- **response** - тип успешного результата<br>
+  `id` - идентификатор созданного товара<br>
+  `json` - JSON с подробностями
+
+  ```json
+  {"success" : {
+      "message" : "Item created",
+      "response" : "идентификатор созданного товара",
+      "request_params" : [{
+          "key" : "параметр вызова",
+          "value" : "значение параметра"
+      }]
+  }}
+  ```
+
+  _по умолчанию: `json`_
+
 ### [market.addAlbum](https://vk.com/dev/market.addAlbum)
 
 Добавляет новую подборку с товарами
@@ -138,6 +155,23 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 - **image** - путь к файлу изображения<br>
   _мин. размер: 1280х720px_
 
+- **response** - тип успешного результата<br>
+  `id` - идентификатор созданного товара<br>
+  `json` - JSON с подробностями
+
+  ```json
+  {"success" : {
+      "message" : "Album created",
+      "response" : "идентификатор созданной подборки",
+      "request_params" : [{
+          "key" : "параметр вызова",
+          "value" : "значение параметра"
+      }]
+  }}
+  ```
+
+  _по умолчанию: `json`_
+
 ### [market.addToAlbum](https://vk.com/dev/market.addToAlbum)
 
 Добавляет товар в одну или несколько подборок
@@ -149,6 +183,25 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 - **album_ids** - идентификаторы подборок, в которые нужно добавить товар<br>
   _через запятую_
 
+**Дополнительные параметры:**
+
+- **response** - тип успешного результата<br>
+  `1` - вернёт 1<br>
+  `json` - JSON с подробностями
+
+  ```json
+  {"success" : {
+      "message" : "Item added to albums",
+      "response" : 1,
+      "request_params" : [{
+          "key" : "параметр вызова",
+          "value" : "значение параметра"
+      }]
+  }}
+  ```
+
+  _по умолчанию: `json`_
+
 ### [market.delete](https://vk.com/dev/market.delete)
 
 Удаляет товар из сообщества
@@ -157,6 +210,25 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 
 - **item_id** - идентификатор товара в сообществе
 
+**Дополнительные параметры:**
+
+- **response** - тип успешного результата<br>
+  `1` - вернёт 1<br>
+  `json` - JSON с подробностями
+
+  ```json
+  {"success" : {
+      "message" : "Item deleted",
+      "response" : 1,
+      "request_params" : [{
+          "key" : "параметр вызова",
+          "value" : "значение параметра"
+      }]
+  }}
+  ```
+
+  _по умолчанию: `json`_
+
 ### [market.deleteAlbum](https://vk.com/dev/market.deleteAlbum)
 
 Удаляет подборку с товарами
@@ -164,6 +236,25 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 **Обязательные параметры:**
 
 - **album_id** - идентификатор подборки
+
+**Дополнительные параметры:**
+
+- **response** - тип успешного результата<br>
+  `1` - вернёт 1<br>
+  `json` - JSON с подробностями
+
+  ```json
+  {"success" : {
+      "message" : "Album deleted",
+      "response" : 1,
+      "request_params" : [{
+          "key" : "параметр вызова",
+          "value" : "значение параметра"
+      }]
+  }}
+  ```
+
+  _по умолчанию: `json`_
 
 ### [market.edit](https://vk.com/dev/market.edit)
 
@@ -199,6 +290,23 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 
 - **url** - новая ссылка на сайт товара
 
+- **response** - тип успешного результата<br>
+  `1` - вернёт 1<br>
+  `json` - JSON с подробностями
+
+  ```json
+  {"success" : {
+      "message" : "Item edited",
+      "response" : 1,
+      "request_params" : [{
+          "key" : "параметр вызова",
+          "value" : "значение параметра"
+      }]
+  }}
+  ```
+
+  _по умолчанию: `json`_
+
 ### [market.editAlbum](https://vk.com/dev/market.editAlbum)
 
 Редактирует подборку с товарами
@@ -213,6 +321,23 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 
 - **image** - путь к файлу нового изображения<br>
   _мин. размер: 1280х720px_
+
+- **response** - тип успешного результата<br>
+  `1` - вернёт 1<br>
+  `json` - JSON с подробностями
+
+  ```json
+  {"success" : {
+      "message" : "Album edited",
+      "response" : 1,
+      "request_params" : [{
+          "key" : "параметр вызова",
+          "value" : "значение параметра"
+      }]
+  }}
+  ```
+
+  _по умолчанию: `json`_
 
 ### [market.get](https://vk.com/dev/market.get)
 
@@ -271,6 +396,25 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 
 - **album_ids** - идентификаторы подборок, из которых нужно удалить товар<br>
   _через запятую_
+
+**Дополнительные параметры:**
+
+- **response** - тип успешного результата<br>
+  `1` - вернёт 1<br>
+  `json` - JSON с подробностями
+
+  ```json
+  {"success" : {
+      "message" : "Item removed from albums",
+      "response" : 1,
+      "request_params" : [{
+          "key" : "параметр вызова",
+          "value" : "значение параметра"
+      }]
+  }}
+  ```
+
+  _по умолчанию: `json`_
 
 ### [market.search](https://vk.com/dev/market.search)
 

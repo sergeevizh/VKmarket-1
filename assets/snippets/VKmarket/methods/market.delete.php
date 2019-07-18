@@ -12,6 +12,7 @@
 Дополнительные параметры
 -------------------------------------------------------------
 & v                 |  версия API
+& response          |  тип успешного результата
 ============================================================= */
 
 
@@ -20,25 +21,25 @@ $error = array('error' => array('error_code' => 'required'));
 
 if (!isset($item_id)) {
     $error['error']['error_msg'] = 'Not found required param: item_id';
-    return json_encode($error);
+    return json_encode($error, true);
 }
 
 // Удаляем товар из сообщества
-$delete = $vk->market__delete([
+$request = $vk->delete([
     'owner_id' => "-$group_id",
     'item_id' => $item_id
 ]);
 
 // Если товар не удалён
-if ($delete !== 1) {
-    return $delete; // выводим отчёт об ошибке
+if ($request !== 1) {
+    return $request; // выводим отчёт об ошибке
 }
 
 // Генерируем отчёт об успешном добавлении товара в подборки
-$json_delete = array(
+$result = array(
     'success' => array(
         'message' => 'Item deleted',
-        'response' => $delete,
+        'response' => $request,
         'request_params' => array(
             array(
                 'key' => 'item_id',
@@ -48,5 +49,15 @@ $json_delete = array(
     )
 );
 
-$success = json_encode($json_delete, JSON_UNESCAPED_UNICODE);
-return $success; // Выводим отчёт об успешном удалении товара
+// Выводим отчёт об успешном удалении товара
+$success = json_encode($result, JSON_UNESCAPED_UNICODE);
+switch ($response) {
+    case 1:
+        return $request;
+        break;
+
+    case 'json':
+    default:
+        return $success;
+        break;
+}

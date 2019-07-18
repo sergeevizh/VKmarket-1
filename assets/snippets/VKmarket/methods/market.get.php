@@ -18,7 +18,7 @@
 ============================================================= */
 
 // Запрашиваем список товаров
-$get = $vk->market__get([
+$request = $vk->get([
     'owner_id' => "-$group_id",
     'album_id' => $album_id ? $album_id : 0,
     'offset' => $offset ? $offset : 0,
@@ -27,9 +27,9 @@ $get = $vk->market__get([
 ]);
 
 // Если список не получен
-if (!isset($get['count'])) {
-    return $get; // выводим отчёт об ошибке
+if (!isset($request['count'])) {
+    return $request; // выводим отчёт об ошибке
 }
 
-$success = json_encode($get, JSON_UNESCAPED_UNICODE);
+$success = json_encode($request, JSON_UNESCAPED_UNICODE);
 return $success; // Выводим отчёт об успешном удалении товара

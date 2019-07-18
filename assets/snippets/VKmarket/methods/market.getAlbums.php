@@ -16,16 +16,16 @@
 ============================================================= */
 
 // Запрашиваем список подборок
-$getAlbums = $vk->market__getAlbums([
+$request = $vk->getAlbums([
     'owner_id' => "-$group_id",
     'offset' => $offset ? $offset : 0,
     'count' => $count ? $count : 50
 ]);
 
 // Если список не получен
-if (!isset($getAlbums['count'])) {
-    return $getAlbums; // выводим отчёт об ошибке
+if (!isset($request['count'])) {
+    return $request; // выводим отчёт об ошибке
 }
 
-$success = json_encode($getAlbums, JSON_UNESCAPED_UNICODE);
+$success = json_encode($request, JSON_UNESCAPED_UNICODE);
 return $success; // Выводим отчёт об успешном удалении товара

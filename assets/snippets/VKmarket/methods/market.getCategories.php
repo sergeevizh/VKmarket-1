@@ -16,16 +16,16 @@
 ============================================================= */
 
 // Запрашиваем список категорий
-$getCategories = $vk->market__getCategories([
+$request = $vk->getCategories([
     'owner_id' => "-$group_id",
     'offset' => $offset ? $offset : 0,
     'count' => $count ? $count : 10
 ]);
 
 // Если список не получен
-if (!isset($getCategories['count'])) {
-    return $getCategories; // выводим отчёт об ошибке
+if (!isset($request['count'])) {
+    return $request; // выводим отчёт об ошибке
 }
 
-$success = json_encode($getCategories, JSON_UNESCAPED_UNICODE);
+$success = json_encode($request, JSON_UNESCAPED_UNICODE);
 return $success; // Выводим отчёт об успешном удалении товара
