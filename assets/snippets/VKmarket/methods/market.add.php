@@ -134,11 +134,11 @@ $resultAdd = array(
             ),
             array(
                 'key' => 'category_id',
-                'value' => $category_id
+                'value' => (int)$category_id
             ),
             array(
                 'key' => 'price',
-                'value' => $price
+                'value' => (int)$price
             ),
             array(
                 'key' => 'main_photo_id',
@@ -146,7 +146,7 @@ $resultAdd = array(
             ),
             array(
                 'key' => 'deleted',
-                'value' => isset($deleted) ? $deleted : 0
+                'value' => isset($deleted) ? (int)$deleted : 0
             )
         )
     )
