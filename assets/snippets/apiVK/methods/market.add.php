@@ -21,22 +21,35 @@
 & album_ids         |  подборки, куда добавить товар (через запятую)
 ============================================================= */
 
+
 // Проверяем наличие обязательных параметров
+$error = array('error' => array('error_code' => 'required'));
+
 if (!isset($name)) {
-    return '{"error":{"error_code":"required","error_msg":"Not found: name"}}';
+    $error['error']['error_msg'] = 'Not found required param: name';
+    return json_encode($error);
 }
+
 if (!isset($description)) {
-    return '{"error":{"error_code":"required","error_msg":"Not found: description"}}';
+    $error['error']['error_msg'] = 'Not found required param: description';
+    return json_encode($error);
 }
+
 if (!isset($category_id)) {
-    return '{"error":{"error_code":"required","error_msg":"Not found: category_id"}}';
+    $error['error']['error_msg'] = 'Not found required param: category_id';
+    return json_encode($error);
 }
+
 if (!isset($price)) {
-    return '{"error":{"error_code":"required","error_msg":"Not found: price"}}';
+    $error['error']['error_msg'] = 'Not found required param: price';
+    return json_encode($error);
 }
+
 if (!isset($image)) {
-    return '{"error":{"error_code":"required","error_msg":"Not found: image"}}';
+    $error['error']['error_msg'] = 'Not found required param: image';
+    return json_encode($error);
 }
+
 
 $image_path = 'image.jpg';
 copy($image, 'image.jpg');
@@ -131,21 +144,26 @@ $json_add = array(
             ),
             array(
                 'key' => 'deleted',
-                'value' => $deleted ? $deleted : 0
-            ),
-            array(
-                'key' => 'url',
-                'value' => $url
+                'value' => isset($deleted) ? $deleted : 0
             )
         ),
         'response' => array(
-            array(
-                'key' => 'market_item_id',
-                'value' => $market_item_id
-            )
+            'key' => 'market_item_id',
+            'value' => $market_item_id
         )
     )
 );
+
+// Добавляем к отчёту доп. параметры
+if (isset($url)) {
+    array_push(
+        $json_add['success']['request_params'],
+        array(
+            'key' => 'url',
+            'value' => $url
+        )
+    );
+}
 
 // Если при вызове был указан список подборок
 if (isset($album_ids)) {
@@ -170,6 +188,7 @@ if (isset($album_ids)) {
     $json_addToAlbum = array(
         'success' => array(
             'message' => 'Item added to albums',
+            'response' => $addToAlbum,
             'request_params' => array(
                 array(
                     'key' => 'item_id',
@@ -179,8 +198,7 @@ if (isset($album_ids)) {
                     'key' => 'album_ids',
                     'value' => $album_ids
                 )
-            ),
-            'response' => $addToAlbum
+            )
         )
     );
 

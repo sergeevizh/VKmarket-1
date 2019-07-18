@@ -14,9 +14,13 @@
 & v                 |  версия API
 ============================================================= */
 
+
 // Проверяем наличие обязательных параметров
+$error = array('error' => array('error_code' => 'required'));
+
 if (!isset($album_id)) {
-    return '{"error":{"error_code":"required","error_msg":"Not found: album_id"}}';
+    $error['error']['error_msg'] = 'Not found required param: album_id';
+    return json_encode($error);
 }
 
 // Удаляем подборку
@@ -34,13 +38,13 @@ if ($deleteAlbum !== 1) {
 $json_deleteAlbum = array(
     'success' => array(
         'message' => 'Album deleted',
+        'response' => $deleteAlbum,
         'request_params' => array(
             array(
                 'key' => 'album_id',
                 'value' => $album_id
             )
-        ),
-        'response' => $deleteAlbum
+        )
     )
 );
 

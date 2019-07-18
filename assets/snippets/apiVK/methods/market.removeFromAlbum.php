@@ -15,12 +15,18 @@
 & v                 |  версия API
 ============================================================= */
 
+
 // Проверяем наличие обязательных параметров
+$error = array('error' => array('error_code' => 'required'));
+
 if (!isset($item_id)) {
-    return '{"error":{"error_code":"required","error_msg":"Not found: item_id"}}';
+    $error['error']['error_msg'] = 'Not found required param: item_id';
+    return json_encode($error);
 }
+
 if (!isset($album_ids)) {
-    return '{"error":{"error_code":"required","error_msg":"Not found: album_ids"}}';
+    $error['error']['error_msg'] = 'Not found required param: album_ids';
+    return json_encode($error);
 }
 
 // Удаляем товар из указанных подборок
@@ -39,6 +45,7 @@ if ($removeFromAlbum !== 1) {
 $json_removeFromAlbum = array(
     'success' => array(
         'message' => 'Item removed from albums',
+        'response' => $removeFromAlbum,
         'request_params' => array(
             array(
                 'key' => 'item_id',
@@ -48,8 +55,7 @@ $json_removeFromAlbum = array(
                 'key' => 'album_ids',
                 'value' => $album_ids
             )
-        ),
-        'response' => $removeFromAlbum
+        )
     )
 );
 

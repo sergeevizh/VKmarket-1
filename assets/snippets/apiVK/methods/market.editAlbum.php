@@ -16,12 +16,18 @@
 & image             |  путь к новому изображению
 ============================================================= */
 
+
 // Проверяем наличие обязательных параметров
+$error = array('error' => array('error_code' => 'required'));
+
 if (!isset($album_id)) {
-    return '{"error":{"error_code":"required","error_msg":"Not found: album_id"}}';
+    $error['error']['error_msg'] = 'Not found required param: album_id';
+    return json_encode($error);
 }
+
 if (!isset($title)) {
-    return '{"error":{"error_code":"required","error_msg":"Not found: title"}}';
+    $error['error']['error_msg'] = 'Not found required param: title';
+    return json_encode($error);
 }
 
 // Если при вызове было указано изображение
@@ -89,6 +95,7 @@ if ($editAlbum !== 1) {
 $json_editAlbum = array(
     'success' => array(
         'message' => 'Album edited',
+        'response' => $editAlbum,
         'request_params' => array(
             array(
                 'key' => 'album_id',
@@ -97,15 +104,21 @@ $json_editAlbum = array(
             array(
                 'key' => 'title',
                 'value' => $title
-            ),
-            array(
-                'key' => 'photo_id',
-                'value' => $photo_id
             )
-        ),
-        'response' => 1
+        )
     )
 );
+
+// Добавляем к отчёту доп. параметры
+if (isset($photo_id)) {
+    array_push(
+        $json_editAlbum['success']['request_params'],
+        array(
+            'key' => 'photo_id',
+            'value' => $photo_id
+        )
+    );
+}
 
 $success = json_encode($json_editAlbum, JSON_UNESCAPED_UNICODE);
 return $success; // Выводим отчёт об успешном редактировании подборки

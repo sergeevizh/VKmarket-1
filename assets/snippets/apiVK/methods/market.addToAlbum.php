@@ -15,12 +15,18 @@
 & v                 |  версия API
 ============================================================= */
 
+
 // Проверяем наличие обязательных параметров
+$error = array('error' => array('error_code' => 'required'));
+
 if (!isset($item_id)) {
-    return '{"error":{"error_code":"required","error_msg":"Not found: item_id"}}';
+    $error['error']['error_msg'] = 'Not found required param: item_id';
+    return json_encode($error);
 }
+
 if (!isset($album_ids)) {
-    return '{"error":{"error_code":"required","error_msg":"Not found: album_ids"}}';
+    $error['error']['error_msg'] = 'Not found required param: album_ids';
+    return json_encode($error);
 }
 
 // Добавляем товар в указанные подборки
@@ -39,6 +45,7 @@ if ($addToAlbum !== 1) {
 $json_addToAlbum = array(
     'success' => array(
         'message' => 'Item added to albums',
+        'response' => $addToAlbum,
         'request_params' => array(
             array(
                 'key' => 'item_id',
@@ -48,8 +55,7 @@ $json_addToAlbum = array(
                 'key' => 'album_ids',
                 'value' => $album_ids
             )
-        ),
-        'response' => $addToAlbum
+        )
     )
 );
 

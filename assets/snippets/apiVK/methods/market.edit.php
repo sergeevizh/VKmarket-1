@@ -21,9 +21,13 @@
 & url               |  новая ссылка на сайт товара
 ============================================================= */
 
+
 // Проверяем наличие обязательных параметров
+$error = array('error' => array('error_code' => 'required'));
+
 if (!isset($item_id)) {
-    return '{"error":{"error_code":"required","error_msg":"Not found: item_id"}}';
+    $error['error']['error_msg'] = 'Not found required param: item_id';
+    return json_encode($error);
 }
 
 // Если нужно заменить изображение
@@ -110,43 +114,80 @@ if ($edit !== 1) {
 $json_edit = array(
     'success' => array(
         'message' => 'Item edited',
+        'response' => $edit,
         'request_params' => array(
             array(
                 'key' => 'item_id',
                 'value' => $item_id
-            ),
-            array(
-                'key' => 'name',
-                'value' => $name
-            ),
-            array(
-                'key' => 'description',
-                'value' => $description
-            ),
-            array(
-                'key' => 'category_id',
-                'value' => $category_id
-            ),
-            array(
-                'key' => 'price',
-                'value' => $price
-            ),
-            array(
-                'key' => 'deleted',
-                'value' => $deleted
-            ),
-            array(
-                'key' => 'main_photo_id',
-                'value' => $main_photo_id
-            ),
-            array(
-                'key' => 'url',
-                'value' => $url
             )
-        ),
-        'response' => 1
+        )
     )
 );
+
+// Добавляем к отчёту доп. параметры
+if (isset($name)) {
+    array_push(
+        $json_edit['success']['request_params'],
+        array(
+            'key' => 'name',
+            'value' => $name
+        )
+    );
+}
+if (isset($description)) {
+    array_push(
+        $json_edit['success']['request_params'],
+        array(
+            'key' => 'description',
+            'value' => $description
+        )
+    );
+}
+if (isset($category_id)) {
+    array_push(
+        $json_edit['success']['request_params'],
+        array(
+            'key' => 'category_id',
+            'value' => $category_id
+        )
+    );
+}
+if (isset($price)) {
+    array_push(
+        $json_edit['success']['request_params'],
+        array(
+            'key' => 'price',
+            'value' => $price
+        )
+    );
+}
+if (isset($deleted)) {
+    array_push(
+        $json_edit['success']['request_params'],
+        array(
+            'key' => 'deleted',
+            'value' => $deleted
+        )
+    );
+}
+if (isset($main_photo_id)) {
+    array_push(
+        $json_edit['success']['request_params'],
+        array(
+            'key' => 'main_photo_id',
+            'value' => $main_photo_id
+        )
+    );
+}
+if (isset($url)) {
+    array_push(
+        $json_edit['success']['request_params'],
+        array(
+            'key' => 'url',
+            'value' => $url
+        )
+    );
+}
 
 $success = json_encode($json_edit, JSON_UNESCAPED_UNICODE);
 return $success; // Выводим отчёт об успешном редактировании товара

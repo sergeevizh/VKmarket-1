@@ -15,9 +15,13 @@
 & image             |  путь к изображению
 ============================================================= */
 
+
 // Проверяем наличие обязательных параметров
+$error = array('error' => array('error_code' => 'required'));
+
 if (!isset($title)) {
-    return '{"error":{"error_code":"required","error_msg":"Not found: title"}}';
+    $error['error']['error_msg'] = 'Not found required param: title';
+    return json_encode($error);
 }
 
 // Если при вызове было указано изображение
@@ -87,24 +91,29 @@ $market_album_id = $addAlbum['market_album_id'];
 $json_addAlbum = array(
     'success' => array(
         'message' => 'Album created',
+        'response' => array(
+            'key' => 'market_album_id',
+            'value' => $market_album_id
+        ),
         'request_params' => array(
             array(
                 'key' => 'title',
                 'value' => $title
-            ),
-            array(
-                'key' => 'photo_id',
-                'value' => $photo_id
-            )
-        ),
-        'response' => array(
-            array(
-                'key' => 'market_album_id',
-                'value' => $market_album_id
             )
         )
     )
 );
+
+// Добавляем к отчёту доп. параметры
+if (isset($photo_id)) {
+    array_push(
+        $json_add['success']['request_params'],
+        array(
+            'key' => 'photo_id',
+            'value' => $photo_id
+        )
+    );
+}
 
 $success = json_encode($json_addAlbum, JSON_UNESCAPED_UNICODE);
 return $success; // Выводим отчёт об успешном создании подборки

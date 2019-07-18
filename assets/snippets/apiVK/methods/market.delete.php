@@ -14,9 +14,13 @@
 & v                 |  версия API
 ============================================================= */
 
+
 // Проверяем наличие обязательных параметров
+$error = array('error' => array('error_code' => 'required'));
+
 if (!isset($item_id)) {
-    return '{"error":{"error_code":"required","error_msg":"Not found: item_id"}}';
+    $error['error']['error_msg'] = 'Not found required param: item_id';
+    return json_encode($error);
 }
 
 // Удаляем товар из сообщества
@@ -34,13 +38,13 @@ if ($delete !== 1) {
 $json_delete = array(
     'success' => array(
         'message' => 'Item deleted',
+        'response' => $delete,
         'request_params' => array(
             array(
                 'key' => 'item_id',
                 'value' => $item_id
             )
-        ),
-        'response' => $delete
+        )
     )
 );
 
