@@ -100,7 +100,13 @@ class VKmarket
 
         $data = curl_exec($ch);
         curl_close($ch);
-        return json_decode($data, true);
+        $data = json_decode($data, true);
+
+        if (!isset($data['photo'])) {
+            return json_encode($data, true);
+        }
+
+        return $data;
     }
 
     // Возвращает сервер для загрузки фотографии товара ====================
