@@ -35,7 +35,7 @@ if (!isset($title)) {
 if (isset($image)) {
 
     $image_path = "image.png";
-    copy($image, "image.png");
+    copy(MODX_BASE_PATH . $image, "image.png");
 
     // Получаем сервер VK для загрузки изображения подборки
     $server = $vk->getMarketAlbumUploadServer($group_id);

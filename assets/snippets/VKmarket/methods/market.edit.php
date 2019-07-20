@@ -35,7 +35,7 @@ if (!isset($item_id)) {
 if (isset($image)) {
 
     $image_path = 'image.jpg';
-    copy($image, 'image.jpg');
+    copy(MODX_BASE_PATH . $image, 'image.jpg');
 
     // Получаем сервер VK для загрузки изображения товара
     $server = $vk->getMarketUploadServer($group_id, 1);
