@@ -227,7 +227,6 @@ function addVKMarket($key, $paramsBefore, $paramsAfter)
     $paramsForVKMarket['image'] = $photo;
 
     $result = $modx->runSnippet('VKMarket', $paramsForVKMarket);
-    $result = json_decode($result, true);
 
     $message = json_encode($result, JSON_UNESCAPED_UNICODE);
     if ($result['success']['response']) {
@@ -258,7 +257,6 @@ function addAlbumVKMarket($paramsBefore, $paramsAfter)
     }
 
     $result = $modx->runSnippet('VKMarket', $paramsForVKMarket);
-    $result = json_decode($result, true);
 
     $message = json_encode($result, JSON_UNESCAPED_UNICODE);
     if ($result['success']['response']) {
@@ -302,7 +300,6 @@ function editVKMarket($key, $paramsBefore, $paramsAfter)
     }
 
     $result = $modx->runSnippet('VKMarket', $paramsForVKMarket);
-    $result = json_decode($result, true);
 
     $message = json_encode($result, JSON_UNESCAPED_UNICODE);
     if ($result['success']['response']) {
@@ -334,7 +331,6 @@ function editAlbumVKMarket($paramsBefore, $paramsAfter)
     }
 
     $result = $modx->runSnippet('VKMarket', $paramsForVKMarket);
-    $result = json_decode($result, true);
 
     $message = json_encode($result, JSON_UNESCAPED_UNICODE);
     if ($result['success']['response']) {
@@ -364,7 +360,6 @@ function deleteVKMarket($key, $paramsBefore, $paramsAfter)
     $paramsForVKMarket['item_id'] = $paramsBefore['vk'][$key];
 
     $result = $modx->runSnippet('VKMarket', $paramsForVKMarket);
-    $result = json_decode($result, true);
 
     $message = json_encode($result, JSON_UNESCAPED_UNICODE);
     if ($result['success']['response']) {
