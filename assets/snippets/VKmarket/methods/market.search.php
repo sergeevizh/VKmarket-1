@@ -52,5 +52,4 @@ if (!isset($request['count'])) {
     return $request; // выводим отчёт об ошибке
 }
 
-$success = json_encode($request, JSON_UNESCAPED_UNICODE);
-return $success; // Выводим результат поиска
+return $request; // Выводим результат поиска

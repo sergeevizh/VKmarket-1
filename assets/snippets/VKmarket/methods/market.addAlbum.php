@@ -114,7 +114,6 @@ if (isset($photo_id)) {
 }
 
 // Выводим отчёт об успешном создании подборки
-$success = json_encode($result, JSON_UNESCAPED_UNICODE);
 switch ($response) {
     case 'id':
         return $market_album_id;
@@ -122,6 +121,6 @@ switch ($response) {
 
     case 'json':
     default:
-        return $success;
+        return $result;
         break;
 }

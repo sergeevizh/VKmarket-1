@@ -50,7 +50,7 @@ $result = array(
         'request_params' => array(
             array(
                 'key' => 'item_id',
-                'value' => (int)$item_id
+                'value' => (int) $item_id
             ),
             array(
                 'key' => 'album_ids',
@@ -61,7 +61,6 @@ $result = array(
 );
 
 // Выводим отчёт об успешном добавлении товара в подборки
-$success = json_encode($result, JSON_UNESCAPED_UNICODE);
 switch ($response) {
     case 1:
         return $request;
@@ -69,6 +68,6 @@ switch ($response) {
 
     case 'json':
     default:
-        return $success;
+        return $result;
         break;
 }

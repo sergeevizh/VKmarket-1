@@ -18,7 +18,6 @@
 & v                 |  версия API
 & deleted           |  статус товара (удалён или не удалён)
 & url               |  ссылка на сайт товара
-& album_ids         |  подборки, куда добавить товар (через запятую)
 & response          |  тип успешного результата
 ============================================================= */
 
@@ -163,37 +162,7 @@ if (isset($url)) {
     );
 }
 
-// Если при вызове был указан список подборок
-if (isset($album_ids)) {
-
-    // Добавляем созданный товар в указанные подборки
-    $request = $vk->addToAlbum([
-        'owner_id' => "-$group_id",
-        'item_id' => $market_item_id,
-        'album_ids' => $album_ids
-    ]);
-
-    // Если товар не добавлен в какую-либо подборку
-    if ($request !== 1) {
-
-        $error = json_decode($request, true); // копируем отчет об ошибке добавления в подборки
-        $error['success'] = $result['success']; // добавляем в него отчёт об успешном создании товара
-        return json_encode($error, JSON_UNESCAPED_UNICODE); // выводим отчёт об ошибке
-
-    }
-
-    // Добавляем параметр в отчёт
-    array_push(
-        $result['success']['request_params'],
-        array(
-            'key' => 'album_ids',
-            'value' => $album_ids
-        )
-    );
-}
-
 // Выводим отчёт об успешном создании товара
-$success = json_encode($result, JSON_UNESCAPED_UNICODE);
 switch ($response) {
     case 'id':
         return $market_item_id;
@@ -201,6 +170,6 @@ switch ($response) {
 
     case 'json':
     default:
-        return $success;
+        return $result;
         break;
 }

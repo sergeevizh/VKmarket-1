@@ -27,5 +27,4 @@ if (!isset($request['count'])) {
     return $request; // выводим отчёт об ошибке
 }
 
-$success = json_encode($request, JSON_UNESCAPED_UNICODE);
-return $success; // Выводим отчёт об успешном удалении товара
+return $request; // Выводим отчёт об успешном удалении товара

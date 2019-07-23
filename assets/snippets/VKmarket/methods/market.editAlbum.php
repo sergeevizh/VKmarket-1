@@ -100,7 +100,7 @@ $result = array(
         'request_params' => array(
             array(
                 'key' => 'album_id',
-                'value' => (int)$album_id
+                'value' => (int) $album_id
             ),
             array(
                 'key' => 'title',
@@ -116,13 +116,12 @@ if (isset($photo_id)) {
         $result['success']['request_params'],
         array(
             'key' => 'photo_id',
-            'value' => (int)$photo_id
+            'value' => (int) $photo_id
         )
     );
 }
 
 // Выводим отчёт об успешном редактировании подборки
-$success = json_encode($result, JSON_UNESCAPED_UNICODE);
 switch ($response) {
     case 1:
         return $request;
@@ -130,6 +129,6 @@ switch ($response) {
 
     case 'json':
     default:
-        return $success;
+        return $result;
         break;
 }
