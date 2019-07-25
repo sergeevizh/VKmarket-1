@@ -33,7 +33,7 @@ if (isset($count)) {
     $request_params['count'] = $count;
 }
 if (isset($extended)) {
-    $request_params['count'] = $extended;
+    $request_params['extended'] = $extended;
 }
 
 // Запрашиваем список товаров
@@ -46,7 +46,26 @@ if (!isset($request['count'])) {
 }
 
 // Генерируем отчёт об успехе
-$result = $request;
+$result = array(
+    'success' => array(
+        'message' => 'Items received',
+        'response' => $request
+    )
+);
+
+// Добавляем к отчёту доп. параметры
+if (isset($album_id)) {
+    $result['success']['request_params']['album_id'] = (int) $album_id;
+}
+if (isset($offset)) {
+    $result['success']['request_params']['offset'] = (int) $offset;
+}
+if (isset($count)) {
+    $result['success']['request_params']['count'] = (int) $count;
+}
+if (isset($extended)) {
+    $result['success']['request_params']['extended'] = (int) $extended;
+}
 
 // Выводим отчёт об успехе
 return $vk->report($response, $result);
