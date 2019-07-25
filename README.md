@@ -766,12 +766,59 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
   _максимум: `200`_<br>
   _по умолчанию: `20`_
 
-- **extended** - возвращать ли дополнительные поля `likes`, `can_comment`, `can_repost`, `photos`, `views_count`<br>
+- **extended** - возвращать ли дополнительные поля `albums_ids`, `photos`, `likes`, `views_count`<br>
   _`1` - возвращать_<br>
   _`0` - не возвращать_<br>
   _по умолчанию: `0`_
 
-## Типы объектов
+- **response** - тип успешного результата<br>
+  `decode` - php-массив с подробностями
+
+  ```php
+  [
+      "success" => [
+          "message" => "Search done",
+          "response" => [
+              "count" => (int) "количество товаров в сообществе",
+              "items" => [
+                  [ ТОВАР ],
+                  [ ТОВАР ]
+               ]
+          ],
+          "request_params" => [
+              "параметр" => "значение",
+              "параметр" => "значение"
+          ]
+      ]
+  ]
+  ```
+
+  `encode` - json с подробностями
+
+  ```json
+  {
+      "success" : {
+          "message" : "Search done",
+          "response" : {
+              "count" : "количество товаров в сообществе",
+              "items" : [
+                  { "ТОВАР" },
+                  { "ТОВАР" }
+              ]
+          },
+          "request_params" : {
+              "параметр" : "значение",
+              "параметр" : "значение"
+          }
+      }
+  }
+  ```
+
+  _по умолчанию: `decode`_
+
+Подробнее о полях объекта "ТОВАР" смотрите [ниже](#товар)
+
+## Типы объектов ВКонтакте
 
 ### [Товар](https://vk.com/dev/objects/market_item)
 

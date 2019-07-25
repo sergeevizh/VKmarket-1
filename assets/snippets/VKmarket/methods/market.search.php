@@ -24,16 +24,13 @@
 
 // Генерируем запрос обязательных параметров
 $request_params = array(
-    'owner_id' => "-$group_id",
-    'album_id' => isset($album_id) ? $album_id : 0,
-    'sort' => isset($sort) ? $sort : 0,
-    'rev' => isset($rev) ? $rev : 1,
-    'offset' => isset($offset) ? $offset : 0,
-    'count' => isset($count) ? $count : 20,
-    'extended' => isset($extended) ? $extended : 0,
+    'owner_id' => "-$group_id"
 );
 
 // Добавляем к запросу доп. параметры
+if (isset($album_id)) {
+    $request_params['album_id'] = $album_id;
+}
 if (isset($q)) {
     $request_params['q'] = $q;
 }
@@ -43,13 +40,61 @@ if (isset($price_from)) {
 if (isset($price_to)) {
     $request_params['price_to'] = $price_to;
 }
+if (isset($sort)) {
+    $request_params['sort'] = $sort;
+}
+if (isset($rev)) {
+    $request_params['rev'] = $rev;
+}
+if (isset($offset)) {
+    $request_params['offset'] = $offset;
+}
+if (isset($count)) {
+    $request_params['count'] = $count;
+}
 
 // Осуществляем поиск товаров
-$request = $vk->search($request_params);
+$request = $vk->request('market.search', $request_params);
 
 // Если поиск не осуществлён
 if (!isset($request['count'])) {
-    return $request; // выводим отчёт об ошибке
+    // выводим отчёт об ошибке
+    return $vk->report($response, $request);
 }
 
-return $request; // Выводим результат поиска
+// Генерируем отчёт об успехе
+$result = array(
+    'success' => array(
+        'message' => 'Search done',
+        'response' => $request
+    )
+);
+
+// Добавляем к отчёту доп. параметры
+if (isset($album_id)) {
+    $result['success']['request_params']['album_id'] = (int) $album_id;
+}
+if (isset($q)) {
+    $result['success']['request_params']['q'] = $q;
+}
+if (isset($price_from)) {
+    $result['success']['request_params']['price_from'] = (int) $price_from;
+}
+if (isset($price_to)) {
+    $result['success']['request_params']['price_to'] = (int) $price_to;
+}
+if (isset($sort)) {
+    $result['success']['request_params']['sort'] = (int) $sort;
+}
+if (isset($rev)) {
+    $result['success']['request_params']['rev'] = (int) $rev;
+}
+if (isset($offset)) {
+    $result['success']['request_params']['offset'] = (int) $offset;
+}
+if (isset($count)) {
+    $result['success']['request_params']['count'] = (int) $count;
+}
+
+// Выводим отчёт об успехе
+return $vk->report($response, $result);
