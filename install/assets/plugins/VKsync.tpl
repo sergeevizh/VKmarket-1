@@ -10,8 +10,8 @@
  * @reportissues https://github.com/cgehuzi/VKmarket
 
  * @internal    @events OnDocFormPrerender,OnDocFormSave,OnBeforeDocDuplicate,OnDocDuplicate,OnBeforeDocFormDelete,OnDocFormDelete,OnDocFormUnDelete,OnBeforeEmptyTrash,OnEmptyTrash,OnBeforeMoveDocument,OnAfterMoveDocument
- * @internal    @properties
  * @internal    @modx_category API ВКонтакте
+ * @internal    @properties &access_token=access_token;string;; &group_id=group_id;string;;
  * @internal    @installset base
  
  */
