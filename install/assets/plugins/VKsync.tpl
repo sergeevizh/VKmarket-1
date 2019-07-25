@@ -11,7 +11,7 @@
 
  * @internal    @events OnDocFormPrerender,OnDocFormSave,OnBeforeDocDuplicate,OnDocDuplicate,OnBeforeDocFormDelete,OnDocFormDelete,OnDocFormUnDelete,OnBeforeEmptyTrash,OnEmptyTrash,OnBeforeMoveDocument,OnAfterMoveDocument
  * @internal    @modx_category API ВКонтакте
- * @internal    @properties &access_token=access_token;text &group_id=group_id;text
+ * @internal    @properties &access_token=access_token;text
  * @internal    @installset base
  
  */
