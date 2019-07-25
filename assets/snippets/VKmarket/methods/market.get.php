@@ -17,18 +17,36 @@
 & extended          |  возвращать ли дополнительные поля
 ============================================================= */
 
+// Генерируем запрос обязательных параметров
+$request_params = array(
+    'owner_id' => "-$group_id"
+);
+
+// Добавляем к запросу доп. параметры
+if (isset($album_id)) {
+    $request_params['album_id'] = $album_id;
+}
+if (isset($offset)) {
+    $request_params['offset'] = $offset;
+}
+if (isset($count)) {
+    $request_params['count'] = $count;
+}
+if (isset($extended)) {
+    $request_params['count'] = $extended;
+}
+
 // Запрашиваем список товаров
-$request = $vk->get([
-    'owner_id' => "-$group_id",
-    'album_id' => $album_id ? $album_id : 0,
-    'offset' => $offset ? $offset : 0,
-    'count' => $count ? $count : 100,
-    'extended' => $extended ? $extended : 0
-]);
+$request = $vk->request('market.get', $request_params);
 
 // Если список не получен
 if (!isset($request['count'])) {
-    return $request; // выводим отчёт об ошибке
+    // выводим отчёт об ошибке
+    return $vk->report($response, $request);
 }
 
-return $request; // Выводим отчёт об успешном удалении товара
+// Генерируем отчёт об успехе
+$result = $request;
+
+// Выводим отчёт об успехе
+return $vk->report($response, $result);

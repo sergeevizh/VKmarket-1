@@ -16,58 +16,52 @@
 & response          |  тип успешного результата
 ============================================================= */
 
-
 // Проверяем наличие обязательных параметров
-$error = array('error' => array('error_code' => 'required'));
+$error = array(
+    'error' => array(
+        'error_code' => 'required'
+    )
+);
 
 if (!isset($item_id)) {
     $error['error']['error_msg'] = 'Not found required param: item_id';
-    return json_encode($error, true);
+    // выводим отчёт об ошибке
+    return $vk->report($response, $error);
 }
 
 if (!isset($album_ids)) {
     $error['error']['error_msg'] = 'Not found required param: album_ids';
-    return json_encode($error, true);
+    // выводим отчёт об ошибке
+    return $vk->report($response, $error);
 }
 
-// Добавляем товар в указанные подборки
-$request = $vk->addToAlbum([
+// Генерируем запрос обязательных параметров
+$request_params = array(
     'owner_id' => "-$group_id",
     'item_id' => $item_id,
     'album_ids' => $album_ids
-]);
+);
+
+// Добавляем товар в указанные подборки
+$request = $vk->request('market.addToAlbum', $request_params);
 
 // Если товар не добавлен в какую-либо подборку
 if ($request !== 1) {
-    return $request; // выводим отчёт об ошибке
+    // выводим отчёт об ошибке
+    return $vk->report($response, $request);
 }
 
-// Генерируем отчёт об успешном добавлении
+// Генерируем отчёт об успехе
 $result = array(
     'success' => array(
         'message' => 'Item added to albums',
-        'response' => $request,
+        'response' => 1,
         'request_params' => array(
-            array(
-                'key' => 'item_id',
-                'value' => (int)$item_id
-            ),
-            array(
-                'key' => 'album_ids',
-                'value' => $album_ids
-            )
+            'item_id' => (int) $item_id,
+            'album_ids' => $album_ids
         )
     )
 );
 
-// Выводим отчёт об успешном добавлении товара в подборки
-switch ($response) {
-    case 1:
-        return $request;
-        break;
-
-    case 'json':
-    default:
-        return $result;
-        break;
-}
+// Выводим отчёт об успехе
+return $vk->report($response, $result);

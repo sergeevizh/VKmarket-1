@@ -1,5 +1,4 @@
 VKMarket :
-    [ ] Переименовать VKMarket в VKmarket
     [ ] Заменить вывод результата с "json" на "array" в md-файле
 
     Абстракции :

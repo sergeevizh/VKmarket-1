@@ -15,48 +15,44 @@
 & response          |  тип успешного результата
 ============================================================= */
 
-
 // Проверяем наличие обязательных параметров
-$error = array('error' => array('error_code' => 'required'));
+$error = array(
+    'error' => array(
+        'error_code' => 'required'
+    )
+);
 
 if (!isset($album_id)) {
     $error['error']['error_msg'] = 'Not found required param: album_id';
-    return json_encode($error, true);
+    // выводим отчёт об ошибке
+    return $vk->report($response, $error);
 }
 
-// Удаляем подборку
-$request = $vk->deleteAlbum([
+// Генерируем запрос обязательных параметров
+$request_params = array(
     'owner_id' => "-$group_id",
     'album_id' => $album_id
-]);
+);
+
+// Удаляем товар из сообщества
+$request = $vk->request('market.deleteAlbum', $request_params);
 
 // Если подборка не удалёна
 if ($request !== 1) {
-    return $request; // выводим отчёт об ошибке
+    // выводим отчёт об ошибке
+    return $vk->report($response, $request);
 }
 
-// Генерируем отчёт об успешном добавлении товара в подборки
+// Генерируем отчёт об успехе
 $result = array(
     'success' => array(
         'message' => 'Album deleted',
-        'response' => $request,
+        'response' => 1,
         'request_params' => array(
-            array(
-                'key' => 'album_id',
-                'value' => (int)$album_id
-            )
+            'album_id' => (int) $album_id
         )
     )
 );
 
-// Выводим отчёт об успешном удалении товара
-switch ($response) {
-    case 1:
-        return $request;
-        break;
-
-    case 'json':
-    default:
-        return $result;
-        break;
-}
+// Выводим отчёт об успехе
+return $vk->report($response, $result);

@@ -2,18 +2,34 @@
 
 require_once MODX_BASE_PATH . "assets/snippets/VKmarket/class.VKmarket.php";
 
+$v = isset($v) ? $v : '5.101';
+$response = isset($response) ? $response : 'decode';
+
 // Проверяем наличие обязательных параметров
+$error = array(
+    'error' => array(
+        'error_code' => 'required'
+    )
+);
+
 if (!isset($api_method)) {
-    return '{"error":{"error_code":"required","error_msg":"Not found: api_method"}}';
-}
-if (!isset($access_token)) {
-    return '{"error":{"error_code":"required","error_msg":"Not found: access_token"}}';
-}
-if (!isset($group_id)) {
-    return '{"error":{"error_code":"required","error_msg":"Not found: group_id"}}';
+    $error['error']['error_msg'] = 'Not found required param: api_method';
+    // выводим отчёт об ошибке
+    return $vk->report($response, $error);
 }
 
-$v = isset($v) ? $v : '5.101';
+if (!isset($access_token)) {
+    $error['error']['error_msg'] = 'Not found required param: access_token';
+    // выводим отчёт об ошибке
+    return $vk->report($response, $error);
+}
+
+if (!isset($group_id)) {
+    $error['error']['error_msg'] = 'Not found required param: group_id';
+    // выводим отчёт об ошибке
+    return $vk->report($response, $error);
+}
+
 $vk = new VKmarket($access_token, $v);
 
 switch ($api_method) {

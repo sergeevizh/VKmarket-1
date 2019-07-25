@@ -95,6 +95,8 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 
 Добавляет новый товар
 
+**[Общие параметры](#общие-параметры)**
+
 **Обязательные параметры:**
 
 - **name** - название товара
@@ -125,25 +127,43 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 - **url** - ссылка на сайт товара
 
 - **response** - тип успешного результата<br>
-  `id` - идентификатор созданного товара<br>
-  `json` - JSON с подробностями
+  `decode` - php-массив с подробностями
 
-  ```json
-  {"success" : {
-      "message" : "Item created",
-      "response" : "идентификатор созданного товара",
-      "request_params" : [{
-          "key" : "параметр вызова",
-          "value" : "значение параметра"
-      }]
-  }}
+  ```php
+  [
+      "success" => [
+          "message" => "Item created",
+          "response" => (int) "идентификатор созданного товара",
+          "request_params" => [
+              "параметр" => "значение",
+              "параметр" => "значение"
+          ]
+      ]
+  ]
   ```
 
-  _по умолчанию: `json`_
+  `encode` - json с подробностями
+
+  ```json
+  {
+      "success" : {
+          "message" : "Item created",
+          "response" : "идентификатор созданного товара",
+          "request_params" : {
+              "параметр" : "значение",
+              "параметр" : "значение"
+          }
+      }
+  }
+  ```
+
+  _по умолчанию: `decode`_
 
 ### [market.addAlbum](https://vk.com/dev/market.addAlbum)
 
 Добавляет новую подборку с товарами
+
+**[Общие параметры](#общие-параметры)**
 
 **Обязательные параметры:**
 
@@ -155,21 +175,37 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
   _мин. размер: 1280х720px_
 
 - **response** - тип успешного результата<br>
-  `id` - идентификатор созданного товара<br>
-  `json` - JSON с подробностями
+  `decode` - php-массив с подробностями
 
-  ```json
-  {"success" : {
-      "message" : "Album created",
-      "response" : "идентификатор созданной подборки",
-      "request_params" : [{
-          "key" : "параметр вызова",
-          "value" : "значение параметра"
-      }]
-  }}
+  ```php
+  [
+      "success" => [
+          "message" => "Album created",
+          "response" => (int) "идентификатор созданной подборки",
+          "request_params" => [
+              "параметр" => "значение",
+              "параметр" => "значение"
+          ]
+      ]
+  ]
   ```
 
-  _по умолчанию: `json`_
+  `encode` - json с подробностями
+
+  ```json
+  {
+      "success" : {
+          "message" : "Album created",
+          "response" : "идентификатор созданной подборки",
+          "request_params" : {
+              "параметр" : "значение",
+              "параметр" : "значение"
+          }
+      }
+  }
+  ```
+
+  _по умолчанию: `decode`_
 
 ### [market.addToAlbum](https://vk.com/dev/market.addToAlbum)
 
@@ -187,25 +223,43 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 **Дополнительные параметры:**
 
 - **response** - тип успешного результата<br>
-  `1` - вернёт 1<br>
-  `json` - JSON с подробностями
+  `decode` - php-массив с подробностями
 
-  ```json
-  {"success" : {
-      "message" : "Item added to albums",
-      "response" : 1,
-      "request_params" : [{
-          "key" : "параметр вызова",
-          "value" : "значение параметра"
-      }]
-  }}
+  ```php
+  [
+      "success" => [
+          "message" => "Item added to albums",
+          "response" => 1,
+          "request_params" => [
+              "параметр" => "значение",
+              "параметр" => "значение"
+          ]
+      ]
+  ]
   ```
 
-  _по умолчанию: `json`_
+  `encode` - json с подробностями
+
+  ```json
+  {
+      "success" : {
+          "message" : "Item added to albums",
+          "response" : 1,
+          "request_params" : {
+              "параметр" : "значение",
+              "параметр" : "значение"
+          }
+      }
+  }
+  ```
+
+  _по умолчанию: `decode`_
 
 ### [market.delete](https://vk.com/dev/market.delete)
 
 Удаляет товар из сообщества
+
+**[Общие параметры](#общие-параметры)**
 
 **Обязательные параметры:**
 
@@ -214,25 +268,43 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 **Дополнительные параметры:**
 
 - **response** - тип успешного результата<br>
-  `1` - вернёт 1<br>
-  `json` - JSON с подробностями
+  `decode` - php-массив с подробностями
 
-  ```json
-  {"success" : {
-      "message" : "Item deleted",
-      "response" : 1,
-      "request_params" : [{
-          "key" : "параметр вызова",
-          "value" : "значение параметра"
-      }]
-  }}
+  ```php
+  [
+      "success" => [
+          "message" => "Item deleted",
+          "response" => 1,
+          "request_params" => [
+              "параметр" => "значение",
+              "параметр" => "значение"
+          ]
+      ]
+  ]
   ```
 
-  _по умолчанию: `json`_
+  `encode` - json с подробностями
+
+  ```json
+  {
+      "success" : {
+          "message" : "Item deleted",
+          "response" : 1,
+          "request_params" : {
+              "параметр" : "значение",
+              "параметр" : "значение"
+          }
+      }
+  }
+  ```
+
+  _по умолчанию: `decode`_
 
 ### [market.deleteAlbum](https://vk.com/dev/market.deleteAlbum)
 
 Удаляет подборку с товарами
+
+**[Общие параметры](#общие-параметры)**
 
 **Обязательные параметры:**
 
@@ -241,25 +313,43 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 **Дополнительные параметры:**
 
 - **response** - тип успешного результата<br>
-  `1` - вернёт 1<br>
-  `json` - JSON с подробностями
+  `decode` - php-массив с подробностями
 
-  ```json
-  {"success" : {
-      "message" : "Album deleted",
-      "response" : 1,
-      "request_params" : [{
-          "key" : "параметр вызова",
-          "value" : "значение параметра"
-      }]
-  }}
+  ```php
+  [
+      "success" => [
+          "message" => "Album deleted",
+          "response" => 1,
+          "request_params" => [
+              "параметр" => "значение",
+              "параметр" => "значение"
+          ]
+      ]
+  ]
   ```
 
-  _по умолчанию: `json`_
+  `encode` - json с подробностями
+
+  ```json
+  {
+      "success" : {
+          "message" : "Album deleted",
+          "response" : 1,
+          "request_params" : {
+              "параметр" : "значение",
+              "параметр" : "значение"
+          }
+      }
+  }
+  ```
+
+  _по умолчанию: `decode`_
 
 ### [market.edit](https://vk.com/dev/market.edit)
 
 Редактирует товар
+
+**[Общие параметры](#общие-параметры)**
 
 **Обязательные параметры:**
 
@@ -292,25 +382,43 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 - **url** - новая ссылка на сайт товара
 
 - **response** - тип успешного результата<br>
-  `1` - вернёт 1<br>
-  `json` - JSON с подробностями
+  `decode` - php-массив с подробностями
 
-  ```json
-  {"success" : {
-      "message" : "Item edited",
-      "response" : 1,
-      "request_params" : [{
-          "key" : "параметр вызова",
-          "value" : "значение параметра"
-      }]
-  }}
+  ```php
+  [
+      "success" => [
+          "message" => "Item edited",
+          "response" => 1,
+          "request_params" => [
+              "параметр" => "значение",
+              "параметр" => "значение"
+          ]
+      ]
+  ]
   ```
 
-  _по умолчанию: `json`_
+  `encode` - json с подробностями
+
+  ```json
+  {
+      "success" : {
+          "message" : "Item edited",
+          "response" : 1,
+          "request_params" : {
+              "параметр" : "значение",
+              "параметр" : "значение"
+          }
+      }
+  }
+  ```
+
+  _по умолчанию: `decode`_
 
 ### [market.editAlbum](https://vk.com/dev/market.editAlbum)
 
 Редактирует подборку с товарами
+
+**[Общие параметры](#общие-параметры)**
 
 **Обязательные параметры:**
 
@@ -324,25 +432,43 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
   _мин. размер: 1280х720px_
 
 - **response** - тип успешного результата<br>
-  `1` - вернёт 1<br>
-  `json` - JSON с подробностями
+  `decode` - php-массив с подробностями
 
-  ```json
-  {"success" : {
-      "message" : "Album edited",
-      "response" : 1,
-      "request_params" : [{
-          "key" : "параметр вызова",
-          "value" : "значение параметра"
-      }]
-  }}
+  ```php
+  [
+      "success" => [
+          "message" => "Album edited",
+          "response" => 1,
+          "request_params" => [
+              "параметр" => "значение",
+              "параметр" => "значение"
+          ]
+      ]
+  ]
   ```
 
-  _по умолчанию: `json`_
+  `encode` - json с подробностями
+
+  ```json
+  {
+      "success" : {
+          "message" : "Album edited",
+          "response" : 1,
+          "request_params" : {
+              "параметр" : "значение",
+              "параметр" : "значение"
+          }
+      }
+  }
+  ```
+
+  _по умолчанию: `decode`_
 
 ### [market.get](https://vk.com/dev/market.get)
 
 Возвращает список товаров в сообществе
+
+**[Общие параметры](#общие-параметры)**
 
 **Дополнительные параметры:**
 
@@ -365,6 +491,8 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 
 Возвращает список подборок в сообществе
 
+**[Общие параметры](#общие-параметры)**
+
 **Дополнительные параметры:**
 
 - **offset** - смещение относительно первой найденной подборки<br>
@@ -377,6 +505,8 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 ### [market.getCategories](https://vk.com/dev/market.getCategories)
 
 Возвращает список категорий для товаров
+
+**[Общие параметры](#общие-параметры)**
 
 **Дополнительные параметры:**
 
@@ -420,6 +550,8 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 ### [market.search](https://vk.com/dev/market.search)
 
 Ищет товары в каталоге сообщества
+
+**[Общие параметры](#общие-параметры)**
 
 **Дополнительные параметры:**
 

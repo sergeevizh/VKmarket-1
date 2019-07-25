@@ -16,50 +16,57 @@
 & response          |  тип успешного результата
 ============================================================= */
 
-
 // Проверяем наличие обязательных параметров
-$error = array('error' => array('error_code' => 'required'));
+$error = array(
+    'error' => array(
+        'error_code' => 'required'
+    )
+);
 
 if (!isset($title)) {
     $error['error']['error_msg'] = 'Not found required param: title';
-    return json_encode($error, true);
+    // выводим отчёт об ошибке
+    return $vk->report($response, $error);
 }
 
 // Если при вызове было указано изображение
 if (isset($image)) {
 
-    $image_path = "image.png";
-    copy(MODX_BASE_PATH . $image, "image.png");
-
     // Получаем сервер VK для загрузки изображения подборки
-    $server = $vk->getMarketAlbumUploadServer($group_id);
+    $server_params = array(
+        'group_id' => $group_id
+    );
+    $server = $vk->request('photos.getMarketAlbumUploadServer', $server_params);
 
     // Если сервер VK не получен
     if (!isset($server['upload_url'])) {
-        return $server; // выводим отчёт об ошибке
+        // выводим отчёт об ошибке
+        return $vk->report($response, $server);
     }
 
+
     // Загружаем изображение на сервер VK
-    $upload = $vk->uploadFile($server['upload_url'], $image_path);
+    $upload = $vk->upload($server['upload_url'], $image);
 
     // Если изображение не загружено
     if (!isset($upload['photo'])) {
-        return $upload; // выводим отчёт об ошибке
+        // выводим отчёт об ошибке
+        return $vk->report($response, $upload);
     }
 
     // Сохраняем изображение на сервере VK
-    $save = $vk->saveMarketAlbumPhoto(
-        [
-            'group_id' => $group_id,
-            'photo' => $upload['photo'],
-            'server' => $upload['server'],
-            'hash' => $upload['hash']
-        ]
+    $save_params = array(
+        'group_id' => $group_id,
+        'photo' => $upload['photo'],
+        'server' => $upload['server'],
+        'hash' => $upload['hash']
     );
+    $save = $vk->request('photos.saveMarketAlbumPhoto', $save_params);
 
     // Если изображение не сохранено на сервере VK
     if (!isset($save[0]['id'])) {
-        return $save; // выводим отчёт об ошибке
+        // выводим отчёт об ошибке
+        return $vk->report($response, $save);
     }
 
     // Получаем ID загруженного изображения
@@ -78,49 +85,33 @@ if (isset($image)) {
 }
 
 // Создаём подборку в сообществе
-$request = $vk->addAlbum($request_params);
+$request = $vk->request('market.addAlbum', $request_params);
 
 // Если подборка не создана
 if (!isset($request['market_album_id'])) {
-    return $request; // выводим отчёт об ошибке
+    // выводим отчёт об ошибке
+    return $vk->report($response, $request);
 }
 
 // Получаем ID созданной подборки
 $market_album_id = $request['market_album_id'];
 
-// Генерируем отчёт об успешном создании подборки
+// Генерируем отчёт об успехе
 $result = array(
     'success' => array(
         'message' => 'Album created',
-        'response' => $market_album_id,
+        'response' => (int) $market_album_id,
         'request_params' => array(
-            array(
-                'key' => 'title',
-                'value' => $title
-            )
+            'title' => $title
         )
     )
 );
 
 // Добавляем к отчёту доп. параметры
-if (isset($photo_id)) {
-    array_push(
-        $result['success']['request_params'],
-        array(
-            'key' => 'photo_id',
-            'value' => $photo_id
-        )
-    );
+if (isset($image)) {
+    $result['success']['request_params']['image'] = $image;
+    $result['success']['request_params']['photo_id'] = (int) $photo_id;
 }
 
-// Выводим отчёт об успешном создании подборки
-switch ($response) {
-    case 'id':
-        return $market_album_id;
-        break;
-
-    case 'json':
-    default:
-        return $result;
-        break;
-}
+// Выводим отчёт об успехе
+return $vk->report($response, $result);

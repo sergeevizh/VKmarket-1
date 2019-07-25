@@ -17,55 +17,63 @@
 & response          |  тип успешного результата
 ============================================================= */
 
-
 // Проверяем наличие обязательных параметров
-$error = array('error' => array('error_code' => 'required'));
+$error = array(
+    'error' => array(
+        'error_code' => 'required'
+    )
+);
 
 if (!isset($album_id)) {
     $error['error']['error_msg'] = 'Not found required param: album_id';
-    return json_encode($error, true);
+    // выводим отчёт об ошибке
+    return $vk->report($response, $error);
 }
 
 if (!isset($title)) {
     $error['error']['error_msg'] = 'Not found required param: title';
-    return json_encode($error, true);
+    // выводим отчёт об ошибке
+    return $vk->report($response, $error);
 }
 
 // Если при вызове было указано изображение
 if (isset($image)) {
 
-    $image_path = "image.png";
-    copy(MODX_BASE_PATH . $image, "image.png");
-
     // Получаем сервер VK для загрузки изображения подборки
-    $server = $vk->getMarketAlbumUploadServer($group_id);
+    $server_params = array(
+        'group_id' => $group_id
+    );
+    $server = $vk->request('photos.getMarketAlbumUploadServer', $server_params);
 
     // Если сервер VK не получен
     if (!isset($server['upload_url'])) {
-        return $server; // выводим отчёт об ошибке
+        // выводим отчёт об ошибке
+        return $vk->report($response, $server);
     }
 
+
     // Загружаем изображение на сервер VK
-    $upload = $vk->uploadFile($server['upload_url'], $image_path);
+    $upload = $vk->upload($server['upload_url'], $image);
 
     // Если изображение не загружено
     if (!isset($upload['photo'])) {
-        return $upload; // выводим отчёт об ошибке
+        // выводим отчёт об ошибке
+        return $vk->report($response, $upload);
     }
 
     // Сохраняем изображение на сервере VK
-    $save = $vk->saveMarketAlbumPhoto(
-        [
-            'group_id' => $group_id,
-            'photo' => $upload['photo'],
-            'server' => $upload['server'],
-            'hash' => $upload['hash']
-        ]
+    $save_params = array(
+        'group_id' => $group_id,
+        'photo' => $upload['photo'],
+        'server' => $upload['server'],
+        'hash' => $upload['hash']
     );
+    $save = $vk->request('photos.saveMarketAlbumPhoto', $save_params);
 
     // Если изображение не сохранено на сервере VK
     if (!isset($save[0]['id'])) {
-        return $save; // выводим отчёт об ошибке
+        // выводим отчёт об ошибке
+        return $vk->report($response, $save);
     }
 
     // Получаем ID загруженного изображения
@@ -85,50 +93,31 @@ if (isset($image)) {
 }
 
 // Редактируем подборку в сообществе
-$request = $vk->editAlbum($request_params);
+$request = $vk->request('market.editAlbum', $request_params);
 
 // Если подборка не отредактирована
 if ($request !== 1) {
-    return $request; // выводим отчёт об ошибке
+    // выводим отчёт об ошибке
+    return $vk->report($response, $request);
 }
 
-// Генерируем отчёт об успешном редактировании подборки
+// Генерируем отчёт об успехе
 $result = array(
     'success' => array(
         'message' => 'Album edited',
-        'response' => $request,
+        'response' => 1,
         'request_params' => array(
-            array(
-                'key' => 'album_id',
-                'value' => (int) $album_id
-            ),
-            array(
-                'key' => 'title',
-                'value' => $title
-            )
+            'album_id' => (int) $album_id,
+            'title' => $title
         )
     )
 );
 
 // Добавляем к отчёту доп. параметры
-if (isset($photo_id)) {
-    array_push(
-        $result['success']['request_params'],
-        array(
-            'key' => 'photo_id',
-            'value' => (int) $photo_id
-        )
-    );
+if (isset($image)) {
+    $result['success']['request_params']['image'] = $image;
+    $result['success']['request_params']['photo_id'] = (int) $photo_id;
 }
 
-// Выводим отчёт об успешном редактировании подборки
-switch ($response) {
-    case 1:
-        return $request;
-        break;
-
-    case 'json':
-    default:
-        return $result;
-        break;
-}
+// Выводим отчёт об успехе
+return $vk->report($response, $result);

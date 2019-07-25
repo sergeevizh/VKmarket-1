@@ -1,0 +1,33 @@
+{
+"count":293,
+"items":[
+{
+    "availability":0,
+    "category":{
+        "id":701,
+        "name":"Парфюмерия",
+        "section":{
+            "id":7,
+            "name":"Красота и здоровье"
+        }
+    },
+    "date":1564057475,
+    "description":"Lorem ipsum dolor \/ Lorem ipsum dolor \/ Lorem ipsum dolor",
+    "id":3398216,
+    "owner_id":-16890502,
+    "price":{
+        "amount":"2999",
+        "currency":{
+            "id":933,
+            "name":"BYN"
+        },
+        "text":"29.99 бел. руб."
+    },
+    "thumb_photo":"https:\/\/pp.userapi.com\/c857432\/v857432223\/243ae\/jYBJ9qlR1Fw.jpg",
+    "title":"Loremm",
+    "button_title":"Перейти в магазин",
+    "external_id":"",
+    "url":"https:\/\/flirt-perfume.by\/man.html"
+}
+]
+}

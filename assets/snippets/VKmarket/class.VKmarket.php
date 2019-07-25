@@ -11,82 +11,14 @@ class VKmarket
         $this->v = $v;
     }
 
-    // Добавляет новый товар ===============================================
-    public function add($data)
+    // Загрузка фотографии на сервер ВКонтакте ===================
+    public function upload($server, $image)
     {
-        return $this->request('market.add', $data);
-    }
 
-    // Добавляет новую подборку ============================================
-    public function addAlbum($data)
-    {
-        return $this->request('market.addAlbum', $data);
-    }
+        $path = 'image.jpg';
+        copy(MODX_BASE_PATH . $image, 'image.jpg');
 
-    // Добавляет товар в одну или несколько подборок =======================
-    public function addToAlbum($data)
-    {
-        return $this->request('market.addToAlbum', $data);
-    }
-
-    // Удаляет товар =======================================================
-    public function delete($data)
-    {
-        return $this->request('market.delete', $data);
-    }
-
-    // Удаляет подборку ====================================================
-    public function deleteAlbum($data)
-    {
-        return $this->request('market.deleteAlbum', $data);
-    }
-
-    // Редактирует товар ===================================================
-    public function edit($data)
-    {
-        return $this->request('market.edit', $data);
-    }
-
-    // Редактирует подборку с товарами =====================================
-    public function editAlbum($data)
-    {
-        return $this->request('market.editAlbum', $data);
-    }
-
-    // Возвращает список товаров ===========================================
-    public function get($data)
-    {
-        return $this->request('market.get', $data);
-    }
-
-    // Возвращает список подборок ==========================================
-    public function getAlbums($data)
-    {
-        return $this->request('market.getAlbums', $data);
-    }
-
-    // Возвращает список категорий для товаров =============================
-    public function getCategories($data)
-    {
-        return $this->request('market.getCategories', $data);
-    }
-
-    // Удаляет товар из подборок ===========================================
-    public function removeFromAlbum($data)
-    {
-        return $this->request('market.removeFromAlbum', $data);
-    }
-
-    // Ищет товары в сообществе ============================================
-    public function search($data)
-    {
-        return $this->request('market.search', $data);
-    }
-
-    // Осуществляет загрузку фотографии на адрес сервера ===================
-    public function uploadFile($link, $path)
-    {
-        $ch = curl_init($link);
+        $ch = curl_init($server);
         curl_setopt($ch, CURLOPT_HEADER, false);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -102,46 +34,11 @@ class VKmarket
         curl_close($ch);
         $data = json_decode($data, true);
 
-        if (!isset($data['photo'])) {
-            return json_encode($data, true);
-        }
-
         return $data;
     }
 
-    // Возвращает сервер для загрузки фотографии товара ====================
-    public function getMarketUploadServer($group_id, $main)
-    {
-        $params = [
-            'group_id' => $group_id,
-            'main_photo' => $main
-        ];
-        return $this->request('photos.getMarketUploadServer', $params);
-    }
-
-    // Сохраняет фотографию товара после успешной загрузки ==================
-    public function saveMarketPhoto($params)
-    {
-        return $this->request('photos.saveMarketPhoto', $params);
-    }
-
-    // Возвращает сервер для загрузки фотографии подборки ===================
-    public function getMarketAlbumUploadServer($group_id)
-    {
-        $params = [
-            'group_id' => $group_id
-        ];
-        return $this->request('photos.getMarketAlbumUploadServer', $params);
-    }
-
-    // Сохраняет фотографию подборки после успешной загрузки ================
-    public function saveMarketAlbumPhoto($params)
-    {
-        return $this->request('photos.saveMarketAlbumPhoto', $params);
-    }
-
     // Вызов методов API ВКонтакте ==========================================
-    private function request($method, array $params)
+    public function request($method, array $params)
     {
         $params['v'] = $this->v;
 
@@ -155,9 +52,24 @@ class VKmarket
         curl_close($ch);
         $json = json_decode($data, true);
         if (!isset($json['response'])) {
-            return json_encode($json, JSON_UNESCAPED_UNICODE);
+            return $json;
         }
         usleep(mt_rand(1000000, 2000000));
         return $json['response'];
+    }
+
+    // Вывод результата ================================================
+    public function report($response, $result)
+    {
+        switch ($response) {
+            case 'decode':
+            default:
+                return $result;
+                break;
+
+            case 'encode':
+                return json_encode($result, JSON_UNESCAPED_UNICODE);
+                break;
+        }
     }
 }

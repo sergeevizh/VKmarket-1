@@ -22,52 +22,59 @@
 & response          |  тип успешного результата
 ============================================================= */
 
-
 // Проверяем наличие обязательных параметров
-$error = array('error' => array('error_code' => 'required'));
+$error = array(
+    'error' => array(
+        'error_code' => 'required'
+    )
+);
 
 if (!isset($item_id)) {
     $error['error']['error_msg'] = 'Not found required param: item_id';
-    return json_encode($error, true);
+    // выводим отчёт об ошибке
+    return $vk->report($response, $error);
 }
 
-// Если нужно заменить изображение
+// Если при вызове было указано изображение
 if (isset($image)) {
 
-    $image_path = 'image.jpg';
-    copy(MODX_BASE_PATH . $image, 'image.jpg');
-
     // Получаем сервер VK для загрузки изображения товара
-    $server = $vk->getMarketUploadServer($group_id, 1);
+    $server_params = array(
+        'group_id' => $group_id,
+        'main_photo' => 1
+    );
+    $server = $vk->request('photos.getMarketUploadServer', $server_params);
 
     // Если сервер VK не получен
     if (!isset($server['upload_url'])) {
-        return $server; // выводим отчёт об ошибке
+        // выводим отчёт об ошибке
+        return $vk->report($response, $server);
     }
 
     // Загружаем изображение на сервер VK
-    $upload = $vk->uploadFile($server['upload_url'], $image_path);
+    $upload = $vk->upload($server['upload_url'], $image);
 
     // Если изображение не загружено
     if (!isset($upload['photo'])) {
-        return $upload; // выводим отчёт об ошибке
+        // выводим отчёт об ошибке
+        return $vk->report($response, $upload);
     }
 
     // Сохраняем изображение на сервере VK
-    $save = $vk->saveMarketPhoto(
-        [
-            'group_id' => $group_id,
-            'photo' => $upload['photo'],
-            'server' => $upload['server'],
-            'hash' => $upload['hash'],
-            'crop_data' => $upload['crop_data'],
-            'crop_hash' => $upload['crop_hash']
-        ]
+    $save_params = array(
+        'group_id' => $group_id,
+        'photo' => $upload['photo'],
+        'server' => $upload['server'],
+        'hash' => $upload['hash'],
+        'crop_data' => $upload['crop_data'],
+        'crop_hash' => $upload['crop_hash']
     );
+    $save = $vk->request('photos.saveMarketPhoto', $save_params);
 
     // Если изображение не сохранено на сервере VK
     if (!isset($save[0]['id'])) {
-        return $save; // выводим отчёт об ошибке
+        // выводим отчёт об ошибке
+        return $vk->report($response, $save);
     }
 
     // Получаем ID загруженного изображения
@@ -104,100 +111,48 @@ if (isset($url)) {
 }
 
 // Редактируем товар в сообществе
-$request = $vk->edit($request_params);
+$request = $vk->request('market.edit', $request_params);
 
 // Если товар не отредактирован
 if ($request !== 1) {
-    return $request; // выводим отчёт об ошибке
+    // выводим отчёт об ошибке
+    return $vk->report($response, $request);
 }
 
-// Генерируем отчёт об успешном редактировании товара
+// Генерируем отчёт об успехе
 $result = array(
     'success' => array(
         'message' => 'Item edited',
-        'response' => $request,
+        'response' => 1,
         'request_params' => array(
-            array(
-                'key' => 'item_id',
-                'value' => (int)$item_id
-            )
+            'item_id' => (int) $item_id
         )
     )
 );
 
 // Добавляем к отчёту доп. параметры
 if (isset($name)) {
-    array_push(
-        $result['success']['request_params'],
-        array(
-            'key' => 'name',
-            'value' => $name
-        )
-    );
+    $result['success']['request_params']['name'] = $name;
 }
 if (isset($description)) {
-    array_push(
-        $result['success']['request_params'],
-        array(
-            'key' => 'description',
-            'value' => $description
-        )
-    );
+    $result['success']['request_params']['description'] = $description;
 }
 if (isset($category_id)) {
-    array_push(
-        $result['success']['request_params'],
-        array(
-            'key' => 'category_id',
-            'value' => (int)$category_id
-        )
-    );
+    $result['success']['request_params']['category_id'] = (int) $category_id;
 }
 if (isset($price)) {
-    array_push(
-        $result['success']['request_params'],
-        array(
-            'key' => 'price',
-            'value' => (int)$price
-        )
-    );
+    $result['success']['request_params']['price'] = (int) $price;
 }
 if (isset($deleted)) {
-    array_push(
-        $result['success']['request_params'],
-        array(
-            'key' => 'deleted',
-            'value' => (int)$deleted
-        )
-    );
+    $result['success']['request_params']['deleted'] = (int) $deleted;
 }
-if (isset($main_photo_id)) {
-    array_push(
-        $result['success']['request_params'],
-        array(
-            'key' => 'main_photo_id',
-            'value' => $main_photo_id
-        )
-    );
+if (isset($image)) {
+    $result['success']['request_params']['image'] = $image;
+    $result['success']['request_params']['main_photo_id'] = (int) $main_photo_id;
 }
 if (isset($url)) {
-    array_push(
-        $result['success']['request_params'],
-        array(
-            'key' => 'url',
-            'value' => $url
-        )
-    );
+    $result['success']['request_params']['url'] = $url;
 }
 
-// Выводим отчёт об успешном редактировании товара
-switch ($response) {
-    case 1:
-        return $request;
-        break;
-
-    case 'json':
-    default:
-        return $result;
-        break;
-}
+// Выводим отчёт об успехе
+return $vk->report($response, $result);
