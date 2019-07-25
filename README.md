@@ -144,7 +144,7 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 
   `encode` - json с подробностями
 
-  ```json
+  ```javascript
   {
       "success" : {
           "message" : "Item created",
@@ -192,7 +192,7 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 
   `encode` - json с подробностями
 
-  ```json
+  ```javascript
   {
       "success" : {
           "message" : "Album created",
@@ -240,7 +240,7 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 
   `encode` - json с подробностями
 
-  ```json
+  ```javascript
   {
       "success" : {
           "message" : "Item added to albums",
@@ -285,7 +285,7 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 
   `encode` - json с подробностями
 
-  ```json
+  ```javascript
   {
       "success" : {
           "message" : "Item deleted",
@@ -330,7 +330,7 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 
   `encode` - json с подробностями
 
-  ```json
+  ```javascript
   {
       "success" : {
           "message" : "Album deleted",
@@ -399,7 +399,7 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 
   `encode` - json с подробностями
 
-  ```json
+  ```javascript
   {
       "success" : {
           "message" : "Item edited",
@@ -449,7 +449,7 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 
   `encode` - json с подробностями
 
-  ```json
+  ```javascript
   {
       "success" : {
           "message" : "Album edited",
@@ -511,7 +511,7 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 
   `encode` - json с подробностями
 
-  ```json
+  ```javascript
   {
       "success" : {
           "message" : "Items received",
@@ -573,7 +573,7 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 
   `encode` - json с подробностями
 
-  ```json
+  ```javascript
   {
       "success" : {
           "message" : "Items received",
@@ -648,7 +648,7 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 
   `encode` - json с подробностями
 
-  ```json
+  ```javascript
   {
       "success" : {
           "message" : "Categories received",
@@ -713,7 +713,7 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 
   `encode` - json с подробностями
 
-  ```json
+  ```javascript
   {
       "success" : {
           "message" : "Item removed from albums",
@@ -795,7 +795,7 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 
   `encode` - json с подробностями
 
-  ```json
+  ```javascript
   {
       "success" : {
           "message" : "Search done",
@@ -824,7 +824,7 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 
 В данном примере приведены не все возможные поля товаров, а лишь наиболее актуальные.
 
-```json
+```javascript
 {
     // ОСНОВЫНЕ ПОЛЯ:
 
@@ -864,7 +864,7 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 
 В данном примере приведены не все возможные поля подборок, а лишь наиболее актуальные.
 
-```json
+```javascript
 {
     "id": 3,
     "title": "Название подборки",
