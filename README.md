@@ -482,7 +482,7 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
   _максимум: `200`_<br>
   _по умолчанию: `100`_
 
-- **extended** - возвращать ли дополнительные поля `likes`, `can_comment`, `can_repost`, `photos`, `views_count`<br>
+- **extended** - возвращать ли дополнительные поля `albums_ids`, `photos`, `likes`, `views_count`<br>
   _`1` - возвращать_<br>
   _`0` - не возвращать_<br>
   _по умолчанию: `0`_
@@ -610,6 +610,77 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 - **count** - количество возвращаемых категорий<br>
   _максимум: `1000`_<br>
   _по умолчанию: `10`_
+
+- **response** - тип успешного результата<br>
+  `decode` - php-массив с подробностями
+
+  ```php
+  [
+      "success" => [
+          "message" => "Categories received",
+          "response" => [
+              "count" => (int) "количество подборок в сообществе",
+              "items" => [
+                  [
+                      "id" => 1,
+                      "name" => "Женская одежда",
+                      "section" => [
+                          "id" => 0,
+                          "name" => "Гардероб"
+                      ]
+                  ],[
+                      "id" => 2,
+                      "name" => "Мужская одежда",
+                      "section" => [
+                          "id" => 0,
+                          "name" => "Гардероб"
+                      ]
+                  ]
+               ]
+          ],
+          "request_params" => [
+              "параметр" => "значение",
+              "параметр" => "значение"
+          ]
+      ]
+  ]
+  ```
+
+  `encode` - json с подробностями
+
+  ```json
+  {
+      "success" : {
+          "message" : "Categories received",
+          "response" : {
+              "count" : "количество доступных категорий",
+              "items" : [
+                  {
+                      "id": 1,
+                      "name": "Женская одежда",
+                      "section": {
+                          "id": 0,
+                          "name": "Гардероб"
+                      }
+                  },{
+                      "id": 2,
+                      "name": "Мужская одежда",
+                      "section": {
+                          "id": 0,
+                          "name": "Гардероб"
+                      }
+                  }
+              ]
+          },
+          "request_params" : {
+              "параметр" : "значение",
+              "параметр" : "значение"
+          }
+      }
+  }
+  ```
+
+  _по умолчанию: `decode`_
 
 ### [market.removeFromAlbum](https://vk.com/dev/market.removeFromAlbum)
 
