@@ -696,21 +696,37 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 **Дополнительные параметры:**
 
 - **response** - тип успешного результата<br>
-  `1` - вернёт 1<br>
-  `json` - JSON с подробностями
+  `decode` - php-массив с подробностями
 
-  ```json
-  {"success" : {
-      "message" : "Item removed from albums",
-      "response" : 1,
-      "request_params" : [{
-          "key" : "параметр вызова",
-          "value" : "значение параметра"
-      }]
-  }}
+  ```php
+  [
+      "success" => [
+          "message" => "Item removed from albums",
+          "response" => 1,
+          "request_params" => [
+              "параметр" => "значение",
+              "параметр" => "значение"
+          ]
+      ]
+  ]
   ```
 
-  _по умолчанию: `json`_
+  `encode` - json с подробностями
+
+  ```json
+  {
+      "success" : {
+          "message" : "Item removed from albums",
+          "response" : 1,
+          "request_params" : {
+              "параметр" : "значение",
+              "параметр" : "значение"
+          }
+      }
+  }
+  ```
+
+  _по умолчанию: `decode`_
 
 ### [market.search](https://vk.com/dev/market.search)
 
