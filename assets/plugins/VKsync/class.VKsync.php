@@ -1,17 +1,17 @@
 <?php
 
-class VKsync
+function alert($case, $title, $params)
 {
-    private $access_token;
-    private $v;
+    global $modx;
 
-    public function __construct($access_token, $v)
-    {
-        $this->token = $access_token;
-        $this->v = $v;
+    switch ($case) {
+        case 'error':
+        default:
+            $modx->logEvent(1, 3, json_encode($params, JSON_UNESCAPED_UNICODE), $title);
+            break;
+
+        case 'success':
+            $modx->logEvent(1, 1, json_encode($params, JSON_UNESCAPED_UNICODE), $title);
+            break;
     }
-
-    // Загрузка фотографии на сервер ВКонтакте ===================
-    public function upload($server, $image)
-    { }
 }
