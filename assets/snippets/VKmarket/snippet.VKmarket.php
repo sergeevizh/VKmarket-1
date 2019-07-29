@@ -78,6 +78,14 @@ switch ($api_method) {
         return require MODX_BASE_PATH . "assets/snippets/VKmarket/methods/market.removeFromAlbum.php";
         break;
 
+    case 'market.reorderAlbums':
+        return require MODX_BASE_PATH . "assets/snippets/VKmarket/methods/market.reorderAlbums.php";
+        break;
+
+    case 'market.reorderItems':
+        return require MODX_BASE_PATH . "assets/snippets/VKmarket/methods/market.reorderItems.php";
+        break;
+
     case 'market.search':
         return require MODX_BASE_PATH . "assets/snippets/VKmarket/methods/market.search.php";
         break;

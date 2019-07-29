@@ -555,7 +555,7 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
   ```php
   [
       "success" => [
-          "message" => "Items received",
+          "message" => "Albums received",
           "response" => [
               "count" => (int) "количество подборок в сообществе",
               "items" => [
@@ -576,7 +576,7 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
   ```javascript
   {
       "success" : {
-          "message" : "Items received",
+          "message" : "Albums received",
           "response" : {
               "count" : "количество подборок в сообществе",
               "items" : [
@@ -686,6 +686,8 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 
 Удаляет товар из одной или нескольких выбранных подборок
 
+**[Общие параметры](#общие-параметры)**
+
 **Обязательные параметры:**
 
 - **item_id** - идентификатор товара
@@ -717,6 +719,107 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
   {
       "success" : {
           "message" : "Item removed from albums",
+          "response" : 1,
+          "request_params" : {
+              "параметр" : "значение",
+              "параметр" : "значение"
+          }
+      }
+  }
+  ```
+
+  _по умолчанию: `decode`_
+
+### [market.reorderAlbums](https://vk.com/dev/market.reorderAlbums)
+
+Изменяет положение подборки с товарами в списке
+
+**[Общие параметры](#общие-параметры)**
+
+**Обязательные параметры:**
+
+- **album_id** - идентификатор подборки
+
+**Дополнительные параметры:**
+
+- **before** - идентификатор подборки, перед которой следует поместить текущую
+
+- **after** - идентификатор подборки, после которой следует поместить текущую
+
+- **response** - тип успешного результата<br>
+  `decode` - php-массив с подробностями
+
+  ```php
+  [
+      "success" => [
+          "message" => "Albums reordered",
+          "response" => 1,
+          "request_params" => [
+              "параметр" => "значение",
+              "параметр" => "значение"
+          ]
+      ]
+  ]
+  ```
+
+  `encode` - json с подробностями
+
+  ```javascript
+  {
+      "success" : {
+          "message" : "Albums reordered",
+          "response" : 1,
+          "request_params" : {
+              "параметр" : "значение",
+              "параметр" : "значение"
+          }
+      }
+  }
+  ```
+
+  _по умолчанию: `decode`_
+
+### [market.reorderItems](https://vk.com/dev/market.reorderItems)
+
+Изменяет положение товара в подборке
+
+**[Общие параметры](#общие-параметры)**
+
+**Обязательные параметры:**
+
+- **item_id** - идентификатор товара
+
+**Дополнительные параметры:**
+
+- **album_id** - идентификатор подборки, в которой находится товар<br>
+  `0` - сортировка общего списка товаров
+
+- **before** - идентификатор товара, перед которым следует поместить текущий
+
+- **after** - идентификатор товара, после которого следует поместить текущий
+
+- **response** - тип успешного результата<br>
+  `decode` - php-массив с подробностями
+
+  ```php
+  [
+      "success" => [
+          "message" => "Items reordered",
+          "response" => 1,
+          "request_params" => [
+              "параметр" => "значение",
+              "параметр" => "значение"
+          ]
+      ]
+  ]
+  ```
+
+  `encode` - json с подробностями
+
+  ```javascript
+  {
+      "success" : {
+          "message" : "Items reordered",
           "response" : 1,
           "request_params" : {
               "параметр" : "значение",
