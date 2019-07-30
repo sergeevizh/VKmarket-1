@@ -47,6 +47,12 @@ switch ($modx->event->name) {
                 break;
 
             case $template_item:
+
+                $parent = (int) $modx->runSnippet("DocInfo", array(
+                    "docid" => $id,
+                    "field" => "parent"
+                ));
+
                 // ТОВАРЫ ========================================
                 // -----------------------------------------------
                 $name = $modx->runSnippet("DocLister", array(
@@ -73,12 +79,17 @@ switch ($modx->event->name) {
                     "tpl" => $item_image_tpl,
                     "ownerTPL" => "@CODE:[+dl.wrap+]"
                 ));
+                $category_id = $modx->runSnippet("DocInfo", array(
+                    "docid" => $parent,
+                    "field" => $album_category_id
+                ));
 
                 $params = array(
                     "name" => $item_name,
                     "description" => $item_description,
                     "item_price" => $item_price,
-                    "image" => $image
+                    "image" => $image,
+                    "category_id" => $category_id
                 );
                 return alert("success", "Тест параметров", $params);
 
