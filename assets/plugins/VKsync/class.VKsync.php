@@ -16,11 +16,11 @@ function alert($case, $title, $params)
     switch ($case) {
         case 'error':
         default:
-            $modx->logEvent(1, 3, json_encode($params, JSON_UNESCAPED_UNICODE), $title);
+            $modx->logEvent(1, 3, json_encode($params, JSON_UNESCAPED_UNICODE), "[ VKsync ] - " . $title);
             break;
 
         case 'success':
-            $modx->logEvent(1, 1, json_encode($params, JSON_UNESCAPED_UNICODE), $title);
+            $modx->logEvent(1, 1, json_encode($params, JSON_UNESCAPED_UNICODE), "[ VKsync ] - " . $title);
             break;
     }
 }
