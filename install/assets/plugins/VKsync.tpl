@@ -8,11 +8,12 @@
  * @version     1.0.0
  * @author      cgehuzi <mail.cgehuzi@yandex.ru>
  * @reportissues https://github.com/cgehuzi/VKmarket
-
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
  * @internal    @events OnDocFormPrerender,OnDocFormSave,OnBeforeDocDuplicate,OnDocDuplicate,OnBeforeDocFormDelete,OnDocFormDelete,OnDocFormUnDelete,OnBeforeEmptyTrash,OnEmptyTrash,OnBeforeMoveDocument,OnAfterMoveDocument
  * @internal    @modx_category API ВКонтакте
- * @internal    @properties &access_token=Ключ доступа к API (access_token);text &group_id=Идентификатор сообщества (group_id);int &v=версия API (v);int;5.101 &template_product=Шаблон товара;int &template_album=Шаблон категории товаров;int
+ * @internal    @properties &access_token=access_token;text &group_id=group_id;int &v=Версия API (v);list;5.101 &template_product=Шаблон товара;int &template_album=Шаблон категории товаров;int
  * @internal    @installset base
+ * @internal    @disabled 1
  
  */
  
@@ -25,6 +26,7 @@
  * @version     1.0.0
  * @author      cgehuzi <mail.cgehuzi@yandex.ru>
  * @reportissues https://github.com/cgehuzi/VKmarket
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
 
  * @documentation Необходим для работы с API ВКонтакте
  * @documentation 
