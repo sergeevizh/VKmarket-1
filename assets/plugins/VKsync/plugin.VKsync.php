@@ -85,9 +85,9 @@ switch ($modx->event->name) {
                 ));
 
                 $params = array(
-                    "name" => $item_name,
-                    "description" => $item_description,
-                    "item_price" => $item_price,
+                    "name" => $name,
+                    "description" => $description,
+                    "item_price" => $price,
                     "image" => $image,
                     "category_id" => $category_id
                 );
