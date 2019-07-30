@@ -35,10 +35,54 @@ if (!isset($group_id)) {
     return alert("error", "Not found group_id", $error);
 }
 
-$params = $modx->runSnippet("VKmarket", array(
-    "api_method" => "market.search",
-    "access_token" => $access_token,
-    "group_id" => $group_id
-));
+switch ($modx->event->name) {
 
-alert("success", "First test", $params);
+    case 'OnDocFormPrerender':
+
+        switch ($template) {
+            case $template_album:
+                // ПОДБОРКИ ======================================
+                // -----------------------------------------------
+
+                break;
+
+            case $template_item:
+                // ТОВАРЫ ========================================
+                // -----------------------------------------------
+                $name = $modx->runSnippet("DocLister", array(
+                    "tvList" => $tv_list,
+                    "documents" => $id,
+                    "tpl" => $item_name_tpl,
+                    "ownerTPL" => "@CODE:[+dl.wrap+]"
+                ));
+                $description = $modx->runSnippet("DocLister", array(
+                    "tvList" => $tv_list,
+                    "documents" => $id,
+                    "tpl" => $item_description_tpl,
+                    "ownerTPL" => "@CODE:[+dl.wrap+]"
+                ));
+                $price = $modx->runSnippet("DocLister", array(
+                    "tvList" => $tv_list,
+                    "documents" => $id,
+                    "tpl" => $item_price_tpl,
+                    "ownerTPL" => "@CODE:[+dl.wrap+]"
+                ));
+                $image = $modx->runSnippet("DocLister", array(
+                    "tvList" => $tv_list,
+                    "documents" => $id,
+                    "tpl" => $item_image_tpl,
+                    "ownerTPL" => "@CODE:[+dl.wrap+]"
+                ));
+
+                $params = array(
+                    "name" => $item_name,
+                    "description" => $item_description,
+                    "item_price" => $item_price,
+                    "image" => $image
+                );
+                return alert("success", "Тест параметров", $params);
+
+                break;
+        }
+        break;
+}
