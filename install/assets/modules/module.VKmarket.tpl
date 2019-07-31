@@ -30,4 +30,4 @@
  * @documentation   Документация: https://github.com/cgehuzi/VKmarket
  */
 
-require_once MODX_BASE_PATH . "assets/modules/eLists/module.eLists.php";
+require_once MODX_BASE_PATH . "assets/modules/VKmarket/module.VKmarket.php";
