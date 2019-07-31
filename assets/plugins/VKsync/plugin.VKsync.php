@@ -1,5 +1,9 @@
 <?php
 
+if (!defined('MODX_BASE_PATH')) {
+    die('What are you doing? Get out of here!');
+}
+
 # TODO: OnBeforeDocDuplicate        ДО      создания дубликата
 # TODO: OnDocDuplicate              ПОСЛЕ   создания дубликата
 # TODO: OnBeforeDocFormDelete       ДО      удаления документа

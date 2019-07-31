@@ -1,5 +1,9 @@
 <?php
 
+if (!defined('MODX_BASE_PATH')) {
+    die('What are you doing? Get out of here!');
+}
+
 /*
 @author of original dzhuryn https://github.com/dzhuryn
 */

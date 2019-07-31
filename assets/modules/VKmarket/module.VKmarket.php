@@ -4,6 +4,8 @@ if (!defined('MODX_BASE_PATH')) {
     die('What are you doing? Get out of here!');
 }
 
+require_once MODX_BASE_PATH . 'assets/modules/VKmarket/class.VKmarket.php';
+
 /* ================================================================================
 ===================================================================================
 include_once('eLists.class.php');

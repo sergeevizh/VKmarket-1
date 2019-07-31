@@ -1,5 +1,9 @@
 <?php
 
+if (!defined('MODX_BASE_PATH')) {
+    die('What are you doing? Get out of here!');
+}
+
 require_once MODX_BASE_PATH . 'assets/snippets/VKapi/class.VKapi.php';
 
 $v = isset($v) ? $v : '5.101';
