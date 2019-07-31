@@ -22,13 +22,13 @@
 
     <div id="actions">
         <div class="btn-group">
-            <a id="Button1" class="btn btn-secondary" href="javascript:;" onclick="window.location.href='index.php?a=112&amp;id=[+moduleid+]';">
+            <a class="btn btn-secondary" href="javascript:;" onclick="window.location.href='index.php?a=112&amp;id=[+moduleid+]';">
                 <i class="fa fa-refresh"></i>
                 <span>Обновить</span>
             </a>
-            <a id="Button2" class="btn btn-success" href="javascript:;" onclick="window.location.href='index.php?a=106';">
+            <a class="btn btn-danger" href="javascript:;" onclick="window.location.href='index.php?a=106';">
                 <i class="fa fa-times-circle"></i>
-                <span>Закрыть VKmarket</span>
+                <span>Закрыть</span>
             </a>
         </div>
     </div>
@@ -36,14 +36,14 @@
     <div class="tab-pane" id="vkMarketPane">
 
         <div class="tab-page" id="tabItems">
-            <h2 class="tab"><i class="fa fa-newspaper-o"></i> Товары</h2>
+            <h2 class="tab"><i class="fa fa-th"></i> Товары</h2>
             <div class="tab-body">
                 Товары
             </div>
         </div>
 
         <div class="tab-page" id="tabAlbums">
-            <h2 class="tab"><i class="fa fa-list-alt"></i> Подборки</h2>
+            <h2 class="tab"><i class="fa fa-th-large"></i> Подборки</h2>
             <div class="tab-body">
                 Подборки
             </div>
