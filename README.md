@@ -1,4 +1,4 @@
-# VKmarket
+# VKapi
 
 -- _Сниппет для Evolution CMS_ --
 

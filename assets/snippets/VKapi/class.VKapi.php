@@ -1,6 +1,6 @@
 <?php
 
-class VKmarket
+class VKapi
 {
     private $access_token;
     private $v;
