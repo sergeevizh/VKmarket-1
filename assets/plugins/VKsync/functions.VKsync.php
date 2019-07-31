@@ -77,11 +77,11 @@ function params($case, $config, $id)
             ));
 
             $result = array(
-                "name" => $name,
-                "description" => $description,
-                "category_id" => $category_id,
-                "price" => $price,
-                "image" => $image
+                'name' => $name,
+                'description' => $description,
+                'category_id' => $category_id,
+                'price' => $price,
+                'image' => $image
             );
 
             return $result;
@@ -104,8 +104,8 @@ function params($case, $config, $id)
             ));
 
             $result = array(
-                "title" => $title,
-                "image" => $image
+                'title' => $title,
+                'image' => $image
             );
 
             return $result;

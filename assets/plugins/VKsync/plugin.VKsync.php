@@ -1,9 +1,5 @@
 <?php
 
-# TODO: настроить работу с подборками
-# TODO: настроить перераспределение по подборкам
-# TODO: переделать всё на Class
-
 # TODO: OnBeforeDocDuplicate        ДО      создания дубликата
 # TODO: OnDocDuplicate              ПОСЛЕ   создания дубликата
 # TODO: OnBeforeDocFormDelete       ДО      удаления документа
