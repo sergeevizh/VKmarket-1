@@ -16,50 +16,6 @@ if (!defined('MODX_BASE_PATH')) {
 
 require_once MODX_BASE_PATH . 'assets/plugins/VKsync/functions.VKsync.php';
 
-// Проверяем заполненность параметров конфигурации
-$error = array(
-    'error' => array(
-        'error_code' => 'configuration'
-    )
-);
-
-if (!isset($access_token)) {
-    $error['error']['error_msg'] = 'Не заполнено поле: VK access_token';
-    // выводим отчёт об ошибке
-    return alert('error', 'Ошибка конфигурации', $error);
-}
-
-if (!isset($group_id)) {
-    $error['error']['error_msg'] = 'Не заполнено поле: VK group_id';
-    // выводим отчёт об ошибке
-    return alert('error', 'Ошибка конфигурации', $error);
-}
-
-if (!isset($template_item)) {
-    $error['error']['error_msg'] = 'Не заполнено поле: ID шаблона товаров';
-    // выводим отчёт об ошибке
-    return alert('error', 'Ошибка конфигурации', $error);
-}
-
-if (!isset($template_album)) {
-    $error['error']['error_msg'] = 'Не заполнено поле: ID шаблона категорий (подборок)';
-    // выводим отчёт об ошибке
-    return alert('error', 'Ошибка конфигурации', $error);
-}
-
-if (!isset($tv_item_id)) {
-    $error['error']['error_msg'] = 'Не заполнено поле: ID TV для market_item_id (id товара)';
-    // выводим отчёт об ошибке
-    return alert('error', 'Ошибка конфигурации', $error);
-}
-
-if (!isset($tv_album_id)) {
-    $error['error']['error_msg'] = 'Не заполнено поле: ID TV для market_album_id (id подборки)';
-    // выводим отчёт об ошибке
-    return alert('error', 'Ошибка конфигурации', $error);
-}
-
-
 // Генерируем массив с конфигурацией плагина
 $config = array(
     'access_token' => $access_token,

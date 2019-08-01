@@ -13,15 +13,17 @@ if ($modx->event->name == 'OnManagerPageInit') {
     $MD = $modx->getFullTableName('site_module_depobj');
     $S = $modx->getFullTableName('site_snippets');
     $P = $modx->getFullTableName('site_plugins');
+    $TV = $modx->getFullTableName('site_tmplvars');
+    $CATS = $modx->getFullTableName('categories');
 
-    //id плагина
     //поиск и обновление модуля
     $value  = $modx->db->getValue($modx->db->select('id', $M, 'name="VKmarket"'));
     $moduleGuid  = $modx->db->getValue($modx->db->select('guid', $M, 'name="VKmarket"'));
     $moduleId =  $value;
     $fields = array('enable_sharedparams' => 1);
-
     $modx->db->update($fields, $M, 'id = "' . $moduleId . '"');
+
+    // добавление связей
     $snippets = array('VKapi');
     $plugins = array('VKsync');
     foreach ($snippets as $snippet) {
@@ -33,6 +35,7 @@ if ($modx->event->name == 'OnManagerPageInit') {
         if (!empty($value)) {
             continue;
         }
+
         //запись в site_module_depobj
         $fields = array(
             'module' => $moduleId,
@@ -60,9 +63,26 @@ if ($modx->event->name == 'OnManagerPageInit') {
             'type' => 30
         );
         $modx->db->insert($fields, $MD);
+        //добавляем модуль в плагин
         $fields = array('moduleguid' => $moduleGuid);
         $modx->db->update($fields, $P, 'id = "' . $pluginId . '"');
     }
+
+    // создание ТВ-параметров
+    $vk_category = $modx->db->select("id", $CATS,  "category=VKmarket");
+    $tv_item_params = array(
+        'type' => 'text',
+        'name' => 'vk_item_id',
+        'caption' => 'ID товара ВКонтакте',
+        'description' => 'В API ВКонтакте: <em>market_item_id</em>',
+        'category' => $vk_category
+    );
+    $tv_result = $modx->db->update($tv_item_params, $TV, 'name="vk_item_id"');
+
+    if (!$tv_result) {
+        $modx->db->insert($tv_item_params, $TV);
+    }
+
     //удаляем плагин
     $pluginId  = $modx->db->getValue($modx->db->select('id', $P, 'name="VKinstall"'));
     if (!empty($pluginId)) {

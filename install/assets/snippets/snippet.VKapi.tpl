@@ -10,7 +10,7 @@
  * @license         http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
 
  * @internal        @properties
- * @internal        @modx_category API ВКонтакте
+ * @internal        @modx_category VKmarket
  * @internal        @installset base, sample 
  */
  

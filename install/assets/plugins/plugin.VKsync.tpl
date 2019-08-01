@@ -10,7 +10,7 @@
  * @license         http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
  *
  * @internal        @events OnDocFormPrerender,OnDocFormSave,OnBeforeDocDuplicate,OnDocDuplicate,OnBeforeDocFormDelete,OnDocFormDelete,OnDocFormUnDelete,OnBeforeEmptyTrash,OnEmptyTrash,OnBeforeMoveDocument,OnAfterMoveDocument
- * @internal        @modx_category API ВКонтакте
+ * @internal        @modx_category VKmarket
  * @internal        @installset base, sample
  */
  
