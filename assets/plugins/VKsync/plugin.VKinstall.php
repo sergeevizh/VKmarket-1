@@ -70,6 +70,7 @@ if ($modx->event->name == 'OnManagerPageInit') {
 
     // создание ТВ-параметров
     $vk_category = $modx->db->select("id", $CATS,  "category=VKmarket");
+    $modx->logEvent(1, 3, json_encode($vk_category, JSON_UNESCAPED_UNICODE), '[ VKmarket ] - vk_category');
     $tv_item_params = array(
         'type' => 'text',
         'name' => 'vk_item_id',
@@ -78,9 +79,11 @@ if ($modx->event->name == 'OnManagerPageInit') {
         'category' => $vk_category
     );
     $tv_result = $modx->db->update($tv_item_params, $TV, 'name="vk_item_id"');
+    $modx->logEvent(1, 3, json_encode($tv_result, JSON_UNESCAPED_UNICODE), '[ VKmarket ] - tv_result');
 
     if (!$tv_result) {
-        $modx->db->insert($tv_item_params, $TV);
+        $insert_result = $modx->db->insert($tv_item_params, $TV);
+        $modx->logEvent(1, 3, json_encode($insert_result, JSON_UNESCAPED_UNICODE), '[ VKmarket ] - insert_result');
     }
 
     //удаляем плагин

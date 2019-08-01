@@ -10,19 +10,19 @@ require_once MODX_BASE_PATH . 'assets/modules/VKmarket/class.VKmarket.php';
 $error_list = "";
 
 if (!isset($access_token)) {
-    $error_list = $error_list . '<br><b>access_token</b> - VK access_token';
+    $error_list = $error_list . '<li><b>access_token</b> - VK access_token</li>';
 }
 
 if (!isset($group_id)) {
-    $error_list = $error_list . '<br><b>group_id</b> - VK group_id';
+    $error_list = $error_list . '<li><b>group_id</b> - VK group_id</li>';
 }
 
 if (!isset($template_item)) {
-    $error_list = $error_list . '<br><b>template_item</b> - ID шаблона товаров';
+    $error_list = $error_list . '<li><b>template_item</b> - ID шаблона товаров</li>';
 }
 
 if (!isset($template_album)) {
-    $error_list = $error_list . '<br><b>template_album</b> - ID шаблона категорий (подборок)';
+    $error_list = $error_list . '<li><b>template_album</b> - ID шаблона категорий (подборок)</li>';
 }
 
 // Генерируем фронт модуля
@@ -32,8 +32,13 @@ $tpl = $market->getFileContents('main.html');
 // Если есть ошибки
 if ($error_list !== "") {
     $errors = '<div class="tab-page">
-        <div class="tab-body">
-            <p class="alert alert-danger"><b>Ошибка в конфигурации!</b> Обнаружены не заполненные поля:' . $error_list . '</p>
+        <div class="tab-body">        
+            <div class="tab-section">
+                <div class="tab-body">
+                    <p class="alert alert-danger"><b>Ошибка в конфигурации!</b> Обнаружены не заполненные поля</p>
+                    <ul>' . $error_list . '</ul>
+                </div>
+            </div>
         </div>
     </div>';
 
