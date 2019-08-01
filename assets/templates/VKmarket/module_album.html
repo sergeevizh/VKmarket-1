@@ -1,17 +1,20 @@
 <tr>
-    <td class="gridItem" width="5%">[+id+]</td>
-    <td class="gridItem" width="45%">[+pagetitle+]</td>
-    <td class="gridItem" width="15%">[+tv.vk_album_id+]</td>
-    <td class="gridItem" width="15%">[+tv.vk_category_id+]</td>
-    <td class="gridItem" width="20%">
-        <div class="btn-group">
-            [[if?
-            &is=`[+tv.vk_album_id+]:empty`
-            &then=`
-            <a class="btn btn-sm btn-success" href="javascript:;" onclick="return true;">Добавить</a>`
-            &else=`
-            <a class="btn btn-sm btn-success" href="javascript:;" onclick="return true;">Обновить</a>
-            <a class="btn btn-sm btn-secondary" href="javascript:;" onclick="return true;">Удалить</a>`]]
-        </div>
+    <td>[+id+]</td>
+    <td>[+tv.vk_album_id+]</td>
+    <td>[+pagetitle+]</td>
+    <td class="actions text-right">
+        [[if?
+        &is=`[+tv.vk_album_id+]:empty`
+        &then=`
+        <a href="javascript:;" onclick="return true;">
+            <i class="fa fa-vk" title="Подключить к ВК"></i>
+        </a>`
+        &else=`
+        <a href="javascript:;" onclick="return true;">
+            <i class="fa fa-refresh" title="Обновить данные в ВК"></i>
+        </a>
+        <a href="javascript:;" onclick="return true;">
+            <i class="fa fa-power-off" title="Отключить от ВК"></i>
+        </a>`]]
     </td>
 </tr>

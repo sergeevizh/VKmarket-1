@@ -32,10 +32,11 @@ $tpl = $market->getFileContents('main.html');
 // Если есть ошибки
 if ($error_list !== "") {
     $errors = '<div class="tab-page">
-        <div class="tab-body">        
+        <div class="tab-body">
+            <div class="alert alert-danger"><b>Ошибка конфигурации модуля VKmarket</b></div>
             <div class="tab-section">
                 <div class="tab-body">
-                    <p class="alert alert-danger"><b>Ошибка в конфигурации!</b> Обнаружены не заполненные поля</p>
+                    <p>Не заполнены следующие поля:</p>
                     <ul>' . $error_list . '</ul>
                 </div>
             </div>
