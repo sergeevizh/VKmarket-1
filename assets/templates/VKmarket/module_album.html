@@ -1,1 +1,17 @@
-<div style="padding: 12px;">[+pagetitle+]</div>
+<tr>
+    <td class="gridItem" width="5%">[+id+]</td>
+    <td class="gridItem" width="45%">[+pagetitle+]</td>
+    <td class="gridItem" width="15%">[+tv.vk_album_id+]</td>
+    <td class="gridItem" width="15%">[+tv.vk_category_id+]</td>
+    <td class="gridItem" width="20%">
+        <div class="btn-group">
+            [[if?
+            &is=`[+tv.vk_album_id+]:empty`
+            &then=`
+            <a class="btn btn-sm btn-success" href="javascript:;" onclick="return true;">Добавить</a>`
+            &else=`
+            <a class="btn btn-sm btn-success" href="javascript:;" onclick="return true;">Обновить</a>
+            <a class="btn btn-sm btn-secondary" href="javascript:;" onclick="return true;">Удалить</a>`]]
+        </div>
+    </td>
+</tr>

@@ -1,7 +1,24 @@
 <div class="tab-page" id="tabAlbums">
     <h2 class="tab"><i class="fa fa-th-large"></i> Подборки</h2>
     <div class="tab-body">
-        [+dl.wrap+]
+        <p>Выберите в таблице подборки, которые вы хотите добавить / обновить / удалить в сообществе ВК. Затем выберите действие, которое необходимо произвести (кнопки после таблицы).</p>
+        <br>
+        <form action="" method="POST">
+            <table class="grid" cellpadding="1" cellspacing="1">
+                <thead>
+                    <tr>
+                        <td class="gridHeader" width="5%">ID</td>
+                        <td class="gridHeader" width="45%">Название</td>
+                        <td class="gridHeader" width="15%">ID подборки в ВК</td>
+                        <td class="gridHeader" width="15%">Категория товаров</td>
+                        <td class="gridHeader" width="25%"></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    [+dl.wrap+]
+                </tbody>
+            </table>
+        </form>
         [+pages+]
     </div>
 </div>

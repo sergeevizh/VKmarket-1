@@ -68,24 +68,61 @@ if ($modx->event->name == 'OnManagerPageInit') {
         $modx->db->update($fields, $P, 'id = "' . $pluginId . '"');
     }
 
-    // создание ТВ-параметров
-    $vk_category = $modx->db->getValue($modx->db->select('id', $CATS, 'category="VKmarket"'));
-    $tv_item_check = $modx->db->getValue($modx->db->select('id', $TV, 'name="vk_item_id"'));
+    // ID категории VKmarket
+    $module_category = $modx->db->getValue($modx->db->select('id', $CATS, 'category="VKmarket"'));
 
-    $tv_item_params = array(
+    // ТВ-параметр для ID категории товаров
+    $vk_category_id = $modx->db->getValue($modx->db->select('id', $TV, 'name="vk_category_id"'));
+    $vk_category_id_params = array(
+        'type' => 'text',
+        'name' => 'vk_category_id',
+        'caption' => 'ID категории товаров ВКонтакте',
+        'description' => 'В API ВКонтакте: <em>category_id</em>',
+        'category' => $module_category
+    );
+
+    if ($vk_category_id) {
+        // обновляем
+        $modx->db->update($vk_category_id_params, $TV, 'id="' . $vk_category_id . '"');
+    } else {
+        // создаём
+        $modx->db->insert($vk_category_id_params, $TV);
+    }
+
+    // ТВ-параметр для ID подборок
+    $vk_album_id = $modx->db->getValue($modx->db->select('id', $TV, 'name="vk_album_id"'));
+    $vk_album_id_params = array(
+        'type' => 'text',
+        'name' => 'vk_album_id',
+        'caption' => 'ID подборки ВКонтакте',
+        'description' => 'В API ВКонтакте: <em>market_album_id</em>',
+        'category' => $module_category
+    );
+
+    if ($vk_album_id) {
+        // обновляем
+        $modx->db->update($vk_album_id_params, $TV, 'id="' . $vk_album_id . '"');
+    } else {
+        // создаём
+        $modx->db->insert($vk_album_id_params, $TV);
+    }
+
+    // ТВ-параметр для ID товаров
+    $vk_item_id = $modx->db->getValue($modx->db->select('id', $TV, 'name="vk_item_id"'));
+    $vk_item_id_params = array(
         'type' => 'text',
         'name' => 'vk_item_id',
         'caption' => 'ID товара ВКонтакте',
         'description' => 'В API ВКонтакте: <em>market_item_id</em>',
-        'category' => $vk_category
+        'category' => $module_category
     );
 
-    if ($tv_item_check) {
-        $modx->db->update($tv_item_params, $TV, 'id="' . $tv_item_check . '"');
-        $modx->logEvent(1, 1, json_encode($tv_item_check, JSON_UNESCAPED_UNICODE), '[ VKmarket ] - update');
+    if ($vk_item_id) {
+        // обновляем
+        $modx->db->update($vk_item_id_params, $TV, 'id="' . $vk_item_id . '"');
     } else {
-        $modx->db->insert($tv_item_params, $TV);
-        $modx->logEvent(1, 1, json_encode($tv_item_check, JSON_UNESCAPED_UNICODE), '[ VKmarket ] - insert');
+        // создаём
+        $modx->db->insert($vk_item_id_params, $TV);
     }
 
     //удаляем плагин

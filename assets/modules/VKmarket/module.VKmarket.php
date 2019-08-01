@@ -59,25 +59,25 @@ if ($error_list !== "") {
 
 $items = $modx->runSnippet('DocLister', array(
     'parents' => 0,
-    'display' => 20,
-    'depth' => 10,
     'showParent' => 1,
+    'depth' => 10,
     'addWhereList' => 'c.template=' . $template_item,
     'tvList' => $tv_list,
     'tpl' => '@FILE:VKmarket/module_item',
     'ownerTPL' => '@FILE:VKmarket/module_items_wrap',
+    'display' => 15,
     'paginate' => 'pages'
 ));
 
 $albums = $modx->runSnippet('DocLister', array(
     'parents' => 0,
-    'display' => 20,
-    'depth' => 10,
     'showParent' => 1,
+    'depth' => 10,
     'addWhereList' => 'c.template=' . $template_album,
     'tvList' => $tv_list,
     'tpl' => '@FILE:VKmarket/module_album',
     'ownerTPL' => '@FILE:VKmarket/module_albums_wrap',
+    'display' => 15,
     'paginate' => 'pages'
 ));
 
