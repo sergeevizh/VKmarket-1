@@ -69,22 +69,14 @@ if ($modx->event->name == 'OnManagerPageInit') {
     }
 
     // создание ТВ-параметров
-    $vk_category = $modx->db->select("id", $CATS,  'category="VKmarket"');
-    $modx->logEvent(1, 3, json_encode($vk_category, JSON_UNESCAPED_UNICODE), '[ VKmarket ] - vk_category');
     $tv_item_params = array(
         'type' => 'text',
         'name' => 'vk_item_id',
         'caption' => 'ID товара ВКонтакте',
-        'description' => 'В API ВКонтакте: <em>market_item_id</em>',
-        'category' => $vk_category
+        'description' => 'В API ВКонтакте: <em>market_item_id</em>'
     );
-    $tv_result = $modx->db->update($tv_item_params, $TV, 'name="vk_item_id"');
-    $modx->logEvent(1, 3, json_encode($tv_result, JSON_UNESCAPED_UNICODE), '[ VKmarket ] - tv_result');
-
-    if (!$tv_result) {
-        $insert_result = $modx->db->insert($tv_item_params, $TV);
-        $modx->logEvent(1, 3, json_encode($insert_result, JSON_UNESCAPED_UNICODE), '[ VKmarket ] - insert_result');
-    }
+    $insert_result = $modx->db->insert($tv_item_params, $TV);
+    $modx->logEvent(1, 3, json_encode($insert_result, JSON_UNESCAPED_UNICODE), '[ VKmarket ] - tv_result');
 
     //удаляем плагин
     $pluginId  = $modx->db->getValue($modx->db->select('id', $P, 'name="VKinstall"'));
