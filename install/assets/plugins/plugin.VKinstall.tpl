@@ -14,4 +14,4 @@
  * @internal        @installset base, sample
  */
 
-return require MODX_BASE_PATH . 'assets/plugins/VKsync/plugin.VKinstall.php';
+return require MODX_BASE_PATH . 'assets/plugins/VKmarket/plugin.VKinstall.php';

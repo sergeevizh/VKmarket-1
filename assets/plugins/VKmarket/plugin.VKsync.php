@@ -14,7 +14,7 @@ if (!defined('MODX_BASE_PATH')) {
 # TODO: OnBeforeMoveDocument        ДО      перемещения документа
 # TODO: OnAfterMoveDocument         ПОСЛЕ   перемещения документа
 
-require_once MODX_BASE_PATH . 'assets/plugins/VKsync/functions.VKsync.php';
+require_once MODX_BASE_PATH . 'assets/plugins/VKmarket/functions.VKsync.php';
 
 // Генерируем массив с конфигурацией плагина
 $config = array(

@@ -30,4 +30,4 @@
  * @documentation   Документация: https://github.com/cgehuzi/VKmarket
  */
 
-return require MODX_BASE_PATH . 'assets/snippets/VKapi/snippet.VKapi.php';
+return require MODX_BASE_PATH . 'assets/snippets/VKmarket/snippet.VKapi.php';

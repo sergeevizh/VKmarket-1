@@ -29,4 +29,4 @@
  * @documentation   Документация: https://github.com/cgehuzi/VKmarket
  */
 
-return require MODX_BASE_PATH . 'assets/plugins/VKsync/plugin.VKsync.php';
+return require MODX_BASE_PATH . 'assets/plugins/VKmarket/plugin.VKsync.php';
