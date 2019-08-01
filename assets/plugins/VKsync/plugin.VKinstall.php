@@ -69,7 +69,7 @@ if ($modx->event->name == 'OnManagerPageInit') {
     }
 
     // создание ТВ-параметров
-    $vk_category = $modx->db->select("id", $CATS,  "category=VKmarket");
+    $vk_category = $modx->db->select("id", $CATS,  'category="VKmarket"');
     $modx->logEvent(1, 3, json_encode($vk_category, JSON_UNESCAPED_UNICODE), '[ VKmarket ] - vk_category');
     $tv_item_params = array(
         'type' => 'text',
