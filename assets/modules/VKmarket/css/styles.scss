@@ -7,8 +7,16 @@
         }
 
         a {
-            &.unpublished {
+
+            &.published-0 {
+                font-style: italic;
                 color: #b68282;
+            }
+
+            &.deleted-1 {
+                font-style: normal;
+                text-decoration: line-through;
+                color: #a52a2a;
             }
         }
     }
