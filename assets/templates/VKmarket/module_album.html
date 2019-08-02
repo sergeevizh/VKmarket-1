@@ -7,14 +7,12 @@
         [[if? &is=`[+tv.vk_item_id+]:empty` &then=`` &else=`
         <i class="fa fa-check text-success mr-1" title="Подборка опубликована в VK"></i>`]]
 
-        [[if?
-        &is=`[+published+]:=:1`
-        &then=`<a class="published" title="Обзор ресурса" href="index.php?a=3&amp;id=[+id+]" target="main">[+pagetitle+]</a>`
-        &else=`[[if? &is=`[+deleted+]:=:1`
+        [[if? &is=`[+deleted+]:=:1`
         &then=`<a class="deleted text-danger" title="Обзор ресурса" href="index.php?a=3&amp;id=[+id+]" target="main">[+pagetitle+]</a>`
-        &else=`<a class="unpublished font-italic text-muted" title="Обзор ресурса" href="index.php?a=3&amp;id=[+id+]" target="main">[+pagetitle+]</a>`
-        ]]`
-        ]]
+        &else=`[[if? &is=`[+published+]:=:1`
+        &then=`<a class="published" title="Обзор ресурса" href="index.php?a=3&amp;id=[+id+]" target="main">[+pagetitle+]</a>`
+        &else=`<a class="unpublished font-italic" title="Обзор ресурса" href="index.php?a=3&amp;id=[+id+]" target="main">[+pagetitle+]</a>`
+        ]]`]]
     </td>
     <td class="text-right">[+tv.vk_album_id+]</td>
     <td class="actions text-right">

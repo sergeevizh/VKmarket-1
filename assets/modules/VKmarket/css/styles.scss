@@ -5,6 +5,12 @@
                 text-decoration: none;
             }
         }
+
+        a {
+            &.unpublished {
+                color: #b68282;
+            }
+        }
     }
 }
 
