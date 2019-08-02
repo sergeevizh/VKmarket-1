@@ -1,20 +1,41 @@
 <tr>
+    <td style="width: 1%;">
+        <input name="" type="checkbox">
+    </td>
     <td>[+id+]</td>
-    <td>[+tv.vk_item_id+]</td>
-    <td>[+pagetitle+]</td>
+    <td>
+        [[if? &is=`[+tv.vk_item_id+]:empty` &then=`` &else=`
+        <i class="fa fa-check text-success mr-1"></i>`]]
+
+        [[if?
+        &is=`[+published+]:=:1`
+        &then=`<a class="published" title="Обзор ресурса" href="index.php?a=3&amp;id=[+id+]" target="main">[+pagetitle+]</a>`
+        &else=`[[if? &is=`[+deleted+]:=:1`
+        &then=`<a class="deleted text-danger" title="Обзор ресурса" href="index.php?a=3&amp;id=[+id+]" target="main">[+pagetitle+]</a>`
+        &else=`<a class="unpublished font-italic text-muted" title="Обзор ресурса" href="index.php?a=3&amp;id=[+id+]" target="main">[+pagetitle+]</a>`
+        ]]`
+        ]]
+    </td>
+    <td class="text-right">[+tv.vk_item_id+]</td>
     <td class="actions text-right">
         [[if?
         &is=`[+tv.vk_item_id+]:empty`
         &then=`
-        <a href="javascript:;" onclick="return true;">
-            <i class="fa fa-vk" title="Подключить к VK"></i>
+        <a href="index.php?a=27&amp;id=[+id+]" target="main" title="Редактировать">
+            <i class="fa fa-edit fa-fw"></i>
+        </a>
+        <a href="javascript:;" onclick="return true;" title="Опубликовать в VK">
+            <i class="fa fa-arrow-up fa-fw"></i>
         </a>`
         &else=`
-        <a href="javascript:;" onclick="return true;">
-            <i class="fa fa-refresh" title="Обновить данные в VK"></i>
+        <a href="javascript:;" onclick="return true;" title="Обновить данные в VK">
+            <i class="fa fa-refresh fa-fw"></i>
         </a>
-        <a href="javascript:;" onclick="return true;">
-            <i class="fa fa-power-off" title="Отключить от VK"></i>
+        <a href="index.php?a=27&amp;id=[+id+]" target="main" title="Редактировать">
+            <i class="fa fa-edit fa-fw"></i>
+        </a>
+        <a href="javascript:;" onclick="return true;" title="Отменить публикацию в VK">
+            <i class="fa fa-arrow-down fa-fw"></i>
         </a>`]]
     </td>
 </tr>

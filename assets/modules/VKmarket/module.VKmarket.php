@@ -61,6 +61,7 @@ if ($error_list !== "") {
 $items = $modx->runSnippet('DocLister', array(
     'parents' => 0,
     'showParent' => 1,
+    'showNoPublish' => 1,
     'depth' => 10,
     'addWhereList' => 'c.template=' . $template_item,
     'tvList' => $tv_list,
@@ -73,6 +74,7 @@ $items = $modx->runSnippet('DocLister', array(
 $albums = $modx->runSnippet('DocLister', array(
     'parents' => 0,
     'showParent' => 1,
+    'showNoPublish' => 1,
     'depth' => 10,
     'addWhereList' => 'c.template=' . $template_album,
     'tvList' => $tv_list,
