@@ -1,0 +1,26 @@
+.table {
+    &.data {
+        .actions {
+            a {
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+.pages {
+    display: flex;
+    align-items: center;
+    margin: 0 -8px;
+    padding: 8px 0;
+    font-size: 0.8125rem;
+
+    &__link {
+        line-height: 1;
+        padding: 8px;
+
+        &.active {
+            font-weight: bolder;
+        }
+    }
+}

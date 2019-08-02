@@ -59,6 +59,7 @@ if ($error_list !== "") {
 }
 
 $items = $modx->runSnippet('DocLister', array(
+    'id' => 'items',
     'parents' => 0,
     'showParent' => 1,
     'showNoPublish' => 1,
@@ -67,11 +68,21 @@ $items = $modx->runSnippet('DocLister', array(
     'tvList' => $tv_list,
     'tpl' => '@FILE:VKmarket/module_item',
     'ownerTPL' => '@FILE:VKmarket/module_items_wrap',
-    'display' => 15,
-    'paginate' => 'pages'
+    'display' => 12,
+    'orderBy' => 'pagetitle ASC',
+    'paginate' => 'pages',
+    'PrevNextAlwaysShow' => 0,
+    'pageAdjacents' => 4,
+    'TplWrapPaginate' => '@CODE:<ul class="pages">[+wrap+]</ul>',
+    'TplPrevP' => '',
+    'TplNextP' => '',
+    'TplPage' => '@CODE:<li class="pages__item"><a class="pages__link" href="index.php?a=112&amp;id=' . $market->module_id . '[[if? &is=`[+num+]:!=:1` &then=`&amp;items_page=[+num+]`]]">[+num+]</a></li>',
+    'TplCurrentPage' => '@CODE:<li class="pages__item"><span class="pages__link active">[+num+]</span></li>',
+    'TplDotsPage' => '@CODE:<li class="pages__item"><span class="pages__separ">...</span></li>'
 ));
 
 $albums = $modx->runSnippet('DocLister', array(
+    'id' => 'albums',
     'parents' => 0,
     'showParent' => 1,
     'showNoPublish' => 1,
@@ -80,8 +91,17 @@ $albums = $modx->runSnippet('DocLister', array(
     'tvList' => $tv_list,
     'tpl' => '@FILE:VKmarket/module_album',
     'ownerTPL' => '@FILE:VKmarket/module_albums_wrap',
-    'display' => 15,
-    'paginate' => 'pages'
+    'display' => 12,
+    'orderBy' => 'pagetitle ASC',
+    'paginate' => 'pages',
+    'PrevNextAlwaysShow' => 0,
+    'pageAdjacents' => 4,
+    'TplWrapPaginate' => '@CODE:<ul class="pages">[+wrap+]</ul>',
+    'TplPrevP' => '',
+    'TplNextP' => '',
+    'TplPage' => '@CODE:<li class="pages__item"><a class="pages__link" href="index.php?a=112&amp;id=' . $market->module_id . '[[if? &is=`[+num+]:!=:1` &then=`&amp;albums_page=[+num+]`]]">[+num+]</a></li>',
+    'TplCurrentPage' => '@CODE:<li class="pages__item"><span class="pages__link active">[+num+]</span></li>',
+    'TplDotsPage' => '@CODE:<li class="pages__item"><span class="pages__separ">...</span></li>'
 ));
 
 $placeholders = array(
