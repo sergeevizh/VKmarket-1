@@ -73,14 +73,14 @@ switch ($modx->event->name) {
 
                 // генерируем параметры "ДО"
                 $before = $sync->params($template, $id);
+                $check = $sync->check($template, $id);
+
                 // запоминаем параметры "ДО"
                 $_SESSION['before'] = $before;
+                $_SESSION['check'] = $check;
 
-                if ($template == $template_item)    $alert_title = 'Товар';
-                if ($template == $template_album)   $alert_title = 'Подборка';
-
-                $alert = $sync->check($template, $id);
-                return $sync->alert('success', $alert_title, $alert);
+                $alert = $check;
+                return $sync->alert('success', $template == $template_item ? 'Товар' : 'Подборки', $alert);
                 break;
         }
         break;
@@ -99,11 +99,8 @@ switch ($modx->event->name) {
                 // генерируем параметры "ПОСЛЕ"
                 $after = $sync->params($template, $id);
 
-                if ($template == $template_item)    $alert_title = 'Товар';
-                if ($template == $template_album)   $alert_title = 'Подборка';
-
                 #$alert = $sync->add($template, $id, $after);
-                #return $sync->alert('success', $alert_title, $alert);
+                #return $sync->alert('success', $template == $template_item ? 'Товар' : 'Подборка', $alert);
                 break;
         }
         break;

@@ -196,10 +196,11 @@ class VKsync
                         'api_method' => 'market.getById',
                         'access_token' => $this->access_token,
                         'group_id' => $this->group_id,
-                        'item_ids' => $vk_item_id
+                        'item_ids' => $vk_item_id,
+                        'extended' => 1
                     ));
                     if ($request['success']) {
-                        $result = (int) $vk_item_id;
+                        $result = $request;
                     } else {
                         $result = 0;
                         $this->modx->db->delete(
