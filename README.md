@@ -50,6 +50,7 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 - [market.edit](#marketedit) - редактирует товар
 - [market.editAlbum](#marketeditalbum) - редактирует подборку с товарами
 - [market.get](#marketget) - возвращает список товаров в сообществе
+- [market.getAlbumById](#marketgetalbumbyid) - возвращает информацию о подборках по id
 - [market.getAlbums](#marketgetalbums) - возвращает список подборок в сообществе
 - [market.getById](#marketgetbyid) - возвращает информацию о товарах по id
 - [market.getCategories](#marketgetcategories) - возвращает список категорий для товаров
@@ -535,6 +536,65 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 
 Подробнее о полях объекта "ТОВАР" смотрите [ниже](#товар)
 
+### [market.getAlbumById](https://vk.com/dev/market.getAlbumById)
+
+Возвращает информацию о подборках по идентификаторам
+
+**[Общие параметры](#общие-параметры)**
+
+**Обязательные параметры:**
+
+- **album_ids** - перечисленные через запятую идентификаторы
+
+**Дополнительные параметры:**
+
+- **response** - тип успешного результата<br>
+  `decode` - php-массив с подробностями
+
+  ```php
+  [
+      "success" => [
+          "message" => "Albums received",
+          "response" => [
+              "count" => (int) "количество запрашиваемых подборок",
+              "items" => [
+                  [ ПОДБОРКА ],
+                  [ ПОДБОРКА ]
+               ]
+          ],
+          "request_params" => [
+              "параметр" => "значение",
+              "параметр" => "значение"
+          ]
+      ]
+  ]
+  ```
+
+  `encode` - json с подробностями
+
+  ```javascript
+  {
+      "success" : {
+          "message" : "Albums received",
+          "response" : {
+              "count" : "количество запрашиваемых подборок",
+              "items" : [
+                  { "ПОДБОРКА" },
+                  { "ПОДБОРКА" }
+              ]
+          },
+          "request_params" : {
+              "параметр" : "значение",
+              "параметр" : "значение"
+          }
+      }
+  }
+  ```
+
+  _по умолчанию: `decode`_
+
+Подробнее о полях объекта "ПОДБОРКА" смотрите [ниже](#подборка-товаров)
+
 ### [market.getAlbums](https://vk.com/dev/market.getAlbums)
 
 Возвращает список подборок в сообществе
@@ -624,7 +684,7 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
       "success" => [
           "message" => "Items received",
           "response" => [
-              "count" => (int) "количество полученных товаров",
+              "count" => (int) "количество запрашиваемых товаров",
               "items" => [
                   [ ТОВАР ],
                   [ ТОВАР ]
@@ -645,7 +705,7 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
       "success" : {
           "message" : "Items received",
           "response" : {
-              "count" : "количество полученных товаров",
+              "count" : "количество запрашиваемых товаров",
               "items" : [
                   { "ТОВАР" },
                   { "ТОВАР" }
