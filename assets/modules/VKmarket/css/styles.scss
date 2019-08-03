@@ -1,22 +1,35 @@
+.vk {
+    &__item {
+        white-space: nowrap;
+
+        &:not(.sync) {
+            color: #5cb85c;
+        }
+
+        &.published-0 {
+            font-style: italic;
+            color: #b68282;
+        }
+
+        &.deleted-1 {
+            font-style: normal;
+            text-decoration: line-through;
+            color: #a52a2a;
+        }
+    }
+}
+
 .table {
     &.data {
+
+        td,
+        th {
+            white-space: nowrap;
+        }
+
         .actions {
             a {
                 text-decoration: none;
-            }
-        }
-
-        a {
-
-            &.published-0 {
-                font-style: italic;
-                color: #b68282;
-            }
-
-            &.deleted-1 {
-                font-style: normal;
-                text-decoration: line-through;
-                color: #a52a2a;
             }
         }
     }
@@ -31,10 +44,15 @@
 
     &__link {
         line-height: 1;
-        padding: 8px;
+        padding: 12px;
 
         &.active {
             font-weight: bolder;
         }
+    }
+
+    &__separ {
+        line-height: 1;
+        padding: 12px;
     }
 }

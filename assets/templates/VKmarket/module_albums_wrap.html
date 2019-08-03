@@ -8,11 +8,12 @@
         <br>
         <form action="" method="POST">
             <div class="table-responsive">
-                <table class="table data">
+                <table class="table data vk">
                     <thead>
                         <tr>
+                            <th style="width: 1%;"><input id="vkAlbumsAll" name="vk_album_all" type="checkbox"></th>
                             <th style="width: 1%;">ID</th>
-                            <th><i class="fa fa-folder fa-fw invisible mr-1"></i> Заголовок</th>
+                            <th style="width: 96%;"><i class="fa fa-folder fa-fw invisible mr-1"></i> Заголовок</th>
                             <th style="width: 1%;" class="text-right">ID ВКонтакте</th>
                             <th style="width: 1%;" class="text-right">Действия</th>
                         </tr>
@@ -20,25 +21,29 @@
                     <tbody>
                         [+dl.wrap+]
                         <tr>
-                            <td colspan="2">
-                                [+albums.pages+]
-                            </td>
-                            <td class="text-right text-nowrap">Действия для всех:</td>
-                            <td class="text-right">
-                                <div class="actions">
+                            <td colspan="3">Действия для отмеченных подборок:</td>
+                            <td colspan="2" class="text-right">
+                                <span class="actions">
                                     <a href="javascript:;" onclick="return true;" title="Опубликовать в VK">
                                         <i class="fa fa-arrow-up fa-fw"></i>
                                     </a>
                                     <a href="javascript:;" onclick="return true;" title="Обновить данные в VK">
                                         <i class="fa fa-refresh fa-fw"></i>
                                     </a>
-                                    <a href="javascript:;" onclick="return true;" title="Отменить публикацию в VK">
-                                        <i class="fa fa-arrow-down fa-fw"></i>
+                                    <a href="javascript:;" onclick="return true;" title="Удалить в VK">
+                                        <i class="fa fa-trash fa-fw"></i>
                                     </a>
-                                </div>
+                                </span>
                             </td>
                         </tr>
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="4">
+                                [+albums.pages+]
+                            </th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </form>

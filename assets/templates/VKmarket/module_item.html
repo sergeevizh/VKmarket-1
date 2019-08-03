@@ -1,11 +1,14 @@
 <tr>
+    <td>
+        <input name="vk_item" type="checkbox" value="[+id+]">
+    </td>
     <td>[+id+]</td>
     <td>
         [[if? &is=`[+tv.vk_item_id+]:empty`
         &then=`<i class="fa fa-file-o text-muted fa-fw mr-1" title="Товар не опубликован в VK"></i>`
         &else=`<i class="fa fa-check fa-fw text-success mr-1" title="Товар опубликован в VK"></i>`
         ]]
-        <a class="deleted-[+deleted+] published-[+published+]" title="Обзор ресурса" href="index.php?a=3&amp;id=[+id+]" target="main">
+        <a class="vk__item deleted-[+deleted+] published-[+published+] sync[+tv.vk_item_id+]" title="Обзор ресурса" href="index.php?a=3&amp;id=[+id+]" target="main">
             [+pagetitle+]
         </a>
     </td>
@@ -14,21 +17,21 @@
         [[if?
         &is=`[+tv.vk_item_id+]:empty`
         &then=`
-        <a href="index.php?a=27&amp;id=[+id+]" target="main" title="Редактировать">
-            <i class="fa fa-edit fa-fw"></i>
-        </a>
         <a href="javascript:;" onclick="return true;" title="Опубликовать в VK">
             <i class="fa fa-arrow-up fa-fw"></i>
+        </a>
+        <a href="index.php?a=27&amp;id=[+id+]" target="main" title="Редактировать">
+            <i class="fa fa-edit fa-fw"></i>
         </a>`
         &else=`
         <a href="javascript:;" onclick="return true;" title="Обновить данные в VK">
             <i class="fa fa-refresh fa-fw"></i>
         </a>
+        <a href="javascript:;" onclick="return true;" title="Удалить в VK">
+            <i class="fa fa-trash fa-fw"></i>
+        </a>
         <a href="index.php?a=27&amp;id=[+id+]" target="main" title="Редактировать">
             <i class="fa fa-edit fa-fw"></i>
-        </a>
-        <a href="javascript:;" onclick="return true;" title="Отменить публикацию в VK">
-            <i class="fa fa-arrow-down fa-fw"></i>
         </a>`]]
     </td>
 </tr>
