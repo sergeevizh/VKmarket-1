@@ -15,19 +15,23 @@ class VKsync
         $vk_category_tvid = $modx->db->getValue($modx->db->select('id', $site_tmplvars, 'name="vk_category_id"'));
 
         $this->modx                         = $modx;
-        $this->site_tmplvars                = $site_tmplvars;
-        $this->site_tmplvar_contentvalues   = $site_tmplvar_contentvalues;
         $this->access_token                 = $config['access_token'];
         $this->group_id                     = $config['group_id'];
         $this->v                            = $config['v'];
+
+        $this->site_tmplvars                = $site_tmplvars;
+        $this->site_tmplvar_contentvalues   = $site_tmplvar_contentvalues;
+
         $this->vk_item_id                   = $config['vk_item_id'];
         $this->vk_album_id                  = $config['vk_album_id'];
-        $this->vk_category_id               = $config['vk_category_idy'];
+        $this->vk_category_id               = $config['vk_category_id'];
         $this->vk_item_tvid                 = $vk_item_tvid;
         $this->vk_album_tvid                = $vk_album_tvid;
         $this->vk_category_tvid             = $vk_category_tvid;
+
         $this->template_item                = $config['template_item'];
         $this->template_album               = $config['template_album'];
+
         $this->tv_list                      = $config['tv_list'];
         $this->item_name_tpl                = $config['item_name_tpl'];
         $this->item_description_tpl         = $config['item_description_tpl'];
@@ -80,6 +84,11 @@ class VKsync
                     'field' => 'parent'
                 ));
 
+                $album = $this->modx->runSnippet('DocInfo', array(
+                    'docid' => $parent,
+                    'field' => $this->vk_album_id
+                ));
+
                 $name = $this->modx->runSnippet('DocLister', array(
                     'tvList' => $this->tv_list,
                     'documents' => $id,
@@ -96,7 +105,7 @@ class VKsync
 
                 $category_id = $this->modx->runSnippet('DocInfo', array(
                     'docid' => $parent,
-                    'field' => 'vk_category_id'
+                    'field' => $this->vk_category_id
                 ));
 
                 $price = $this->modx->runSnippet('DocLister', array(
@@ -113,12 +122,19 @@ class VKsync
                     'ownerTPL' => '@CODE:[+dl.wrap+]'
                 ));
 
+                $url = $this->modx->makeUrl($id, '', '', 'full');
+
                 $result = array(
+                    'access_token' => $this->access_token,
+                    'group_id' => $this->group_id,
+                    'v' => $this->v,
                     'name' => $name,
                     'description' => $description,
                     'category_id' => $category_id,
                     'price' => $price,
-                    'image' => $image
+                    'image' => $image,
+                    'url' => $url,
+                    'album' => $album
                 );
 
                 return $result;
@@ -143,6 +159,9 @@ class VKsync
                 ));
 
                 $result = array(
+                    'access_token' => $this->access_token,
+                    'group_id' => $this->group_id,
+                    'v' => $this->v,
                     'title' => $title,
                     'image' => $image
                 );
@@ -228,7 +247,7 @@ class VKsync
 
     public function differ($before, $after)
     {
-        /* проверяет, есть ли отличия ДО и ПОСЛЕ ====================
+        /* Проверяет, есть ли отличия ДО и ПОСЛЕ ====================
         -------------------------------------------------------------
         Параметры
         -------------------------------------------------------------
@@ -240,5 +259,87 @@ class VKsync
         $result = count($differs) == 0 ? 0 : $differs;
 
         return $result;
+    }
+
+    public function add($template, $id, $params)
+    {
+        /* Добавляет элемент в ВК ===================================
+        -------------------------------------------------------------
+        Параметры
+        -------------------------------------------------------------
+        & template          |  шаблон ресурса
+        & id                |  id ресурса
+        & params            |  параметры для API ВКонтакте
+        ============================================================= */
+
+        switch ($template) {
+            case $this->template_item:
+
+                // ТОВАР ============================================
+
+                $params['api_method'] = 'market.add';
+                $add = $this->modx->runSnippet('VKapi', $params);
+
+                if ($add['success']) {
+                    $market_item_id = (int) $add['success']['response'];
+
+                    // сохраняем id в TV (vk_item_id)
+                    $db_params = array(
+                        'tmplvarid' => $this->vk_item_tvid,
+                        'contentid' => $id,
+                        'value' => $market_item_id
+                    );
+                    $this->modx->db->insert(
+                        $db_params,
+                        $this->site_tmplvar_contentvalues
+                    );
+
+                    // добавляем товар в подборку
+                    if ($params['album']) {
+
+                        $to_params = array();
+                        $to_params['api_method'] = 'market.addToAlbum';
+                        $to_params['access_token'] = $params['access_token'];
+                        $to_params['group_id'] = $params['group_id'];
+                        $to_params['v'] = $params['v'];
+                        $to_params['item_id'] = $market_item_id;
+                        $to_params['album_ids'] = $params['album'];
+
+                        $this->modx->runSnippet('VKapi', $to_params);
+                    }
+                }
+
+                $result = $add;
+
+                return $result;
+                break;
+
+            case $this->template_album:
+
+                // ПОДБОРКА =========================================
+
+                $params['api_method'] = 'market.addAlbum';
+                $add = $this->modx->runSnippet('VKapi', $params);
+
+                if ($add['success']) {
+                    $market_album_id = (int) $add['success']['response'];
+
+                    // сохраняем id в TV (vk_item_id)
+                    $db_params = array(
+                        'tmplvarid' => $this->vk_album_tvid,
+                        'contentid' => $id,
+                        'value' => $market_album_id
+                    );
+                    $this->modx->db->insert(
+                        $db_params,
+                        $this->site_tmplvar_contentvalues
+                    );
+                }
+
+                $result = $add;
+
+                return $result;
+                break;
+        }
     }
 }

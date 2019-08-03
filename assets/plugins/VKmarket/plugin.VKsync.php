@@ -79,8 +79,8 @@ switch ($modx->event->name) {
                 if ($template == $template_item)    $alert_title = 'Товар';
                 if ($template == $template_album)   $alert_title = 'Подборка';
 
-                #$alert = $sync->check($template, $id);
-                #return $sync->alert('success', $alert_title, $alert);
+                $alert = $sync->check($template, $id);
+                return $sync->alert('success', $alert_title, $alert);
                 break;
         }
         break;
@@ -102,7 +102,7 @@ switch ($modx->event->name) {
                 if ($template == $template_item)    $alert_title = 'Товар';
                 if ($template == $template_album)   $alert_title = 'Подборка';
 
-                #$alert = $sync->differ($before, $after);
+                #$alert = $sync->add($template, $id, $after);
                 #return $sync->alert('success', $alert_title, $alert);
                 break;
         }

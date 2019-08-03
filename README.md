@@ -45,6 +45,7 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 
 - [market.add](#marketadd) - добавляет новый товар
 - [market.addAlbum](#marketaddalbum) - добавляет новую подборку с товарами
+- [market.addToAlbum](#marketaddtoalbum) - добавляет товар в одну или несколько подборок
 - [market.delete](#marketdelete) - удаляет товар
 - [market.deleteAlbum](#marketdeletealbum) - удаляет подборку с товарами
 - [market.edit](#marketedit) - редактирует товар
