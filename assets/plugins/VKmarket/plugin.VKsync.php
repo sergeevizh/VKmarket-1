@@ -46,9 +46,9 @@ $module_config = array(
     'access_token' => $access_token,
     'group_id' => $group_id,
     'v' => $v,
-    'tv_item_id' => 'vk_item_id',
-    'tv_album_id' => 'vk_album_id',
-    'tv_category_id' => 'vk_category_id',
+    'vk_item_id' => 'vk_item_id',
+    'vk_album_id' => 'vk_album_id',
+    'vk_category_id' => 'vk_category_id',
     'template_item' => $template_item,
     'template_album' => $template_album,
     'tv_list' => $tv_list,
@@ -71,10 +71,11 @@ switch ($modx->event->name) {
             case $template_item:
             case $template_album:
 
-                if ($template == $template_item) $alert_title = 'Параметры товара';
-                if ($template == $template_album) $alert_title = 'Параметры товара';
-                $params = $sync->params($template, $id);
-                return $sync->alert('success', $alert_title, $params);
+                if ($template == $template_item)    $alert_title = 'Товар';
+                if ($template == $template_album)   $alert_title = 'Подборка';
+
+                // $alert = $sync->check($template, $id);
+                // return $sync->alert('success', $alert_title, $alert);
                 break;
         }
         break;
