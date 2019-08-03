@@ -74,6 +74,10 @@ switch ($api_method) {
         return require MODX_BASE_PATH . 'assets/snippets/VKmarket/methods/market.getAlbums.php';
         break;
 
+    case 'market.getById':
+        return require MODX_BASE_PATH . 'assets/snippets/VKmarket/methods/market.getById.php';
+        break;
+
     case 'market.getCategories':
         return require MODX_BASE_PATH . 'assets/snippets/VKmarket/methods/market.getCategories.php';
         break;

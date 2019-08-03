@@ -51,6 +51,7 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 - [market.editAlbum](#marketeditalbum) - редактирует подборку с товарами
 - [market.get](#marketget) - возвращает список товаров в сообществе
 - [market.getAlbums](#marketgetalbums) - возвращает список подборок в сообществе
+- [market.getById](#marketgetbyid) - возвращает информацию о товарах по id
 - [market.getCategories](#marketgetcategories) - возвращает список категорий для товаров
 - [market.removeFromAlbum](#marketremovefromalbum) - удаляет товар из подборок
 - [market.search](#marketsearch) - ищет товары в каталоге сообщества
@@ -595,6 +596,72 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
   _по умолчанию: `decode`_
 
 Подробнее о полях объекта "ПОДБОРКА" смотрите [ниже](#подборка-товаров)
+
+### [market.getById](https://vk.com/dev/market.getById)
+
+Возвращает информацию о товарах по идентификаторам
+
+**[Общие параметры](#общие-параметры)**
+
+**Обязательные параметры:**
+
+- **item_ids** - перечисленные через запятую идентификаторы<br>
+  _указываются только id товаров (без параметров с подчёркиванием)_<br>
+  _ID будут приведены к виду: `-ownerId_itemId`_
+
+**Дополнительные параметры:**
+
+- **extended** - возвращать ли дополнительные поля `albums_ids`, `photos`, `likes`, `views_count`<br>
+  _`1` - возвращать_<br>
+  _`0` - не возвращать_<br>
+  _по умолчанию: `0`_
+
+- **response** - тип успешного результата<br>
+  `decode` - php-массив с подробностями
+
+  ```php
+  [
+      "success" => [
+          "message" => "Items received",
+          "response" => [
+              "count" => (int) "количество полученных товаров",
+              "items" => [
+                  [ ТОВАР ],
+                  [ ТОВАР ]
+               ]
+          ],
+          "request_params" => [
+              "параметр" => "значение",
+              "параметр" => "значение"
+          ]
+      ]
+  ]
+  ```
+
+  `encode` - json с подробностями
+
+  ```javascript
+  {
+      "success" : {
+          "message" : "Items received",
+          "response" : {
+              "count" : "количество полученных товаров",
+              "items" : [
+                  { "ТОВАР" },
+                  { "ТОВАР" }
+              ]
+          },
+          "request_params" : {
+              "параметр" : "значение",
+              "параметр" : "значение"
+          }
+      }
+  }
+  ```
+
+  _по умолчанию: `decode`_
+
+Подробнее о полях объекта "ТОВАР" смотрите [ниже](#товар)
 
 ### [market.getCategories](https://vk.com/dev/market.getCategories)
 
