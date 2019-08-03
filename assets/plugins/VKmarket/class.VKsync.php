@@ -236,7 +236,8 @@ class VKsync
         & after             |  параметры ПОСЛЕ
         ============================================================= */
 
-        $result = array_diff_assoc($after, $before);
+        $differs = array_diff_assoc($after, $before);
+        $result = count($differs) == 0 ? 0 : $differs;
 
         return $result;
     }
