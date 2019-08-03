@@ -73,14 +73,19 @@ switch ($modx->event->name) {
 
                 // генерируем параметры "ДО"
                 $before = $sync->params($template, $id);
+
                 $check = $sync->check($template, $id);
+                if ($check !== 0) {
+                    $vk_id = $check['id'];
+                    $before['vk_id'] = $vk_id;
+                }
 
                 // запоминаем параметры "ДО"
                 $_SESSION['before'] = $before;
-                $_SESSION['check'] = $check;
 
-                $alert = $check;
-                return $sync->alert('success', $template == $template_item ? 'Товар' : 'Подборки', $alert);
+                #$alert = $sync->add($template, $id, $before);
+                #return $sync->alert('success', $template == $template_item ? 'Товар' : 'Подборка', $alert);
+
                 break;
         }
         break;
@@ -96,8 +101,16 @@ switch ($modx->event->name) {
 
                 // вспоминаем параметры "ДО"
                 $before =  $_SESSION['before'];
+
                 // генерируем параметры "ПОСЛЕ"
                 $after = $sync->params($template, $id);
+                $differs = $sync->differ($before['params'], $after['params']);
+
+                if ($differs !== 0 && $before['vk_id']) {
+
+                    $alert = $sync->edit($template, $before, $differs);
+                    return $sync->alert('success', $template == $template_item ? 'Товар' : 'Подборка', $alert);
+                }
 
                 #$alert = $sync->add($template, $id, $after);
                 #return $sync->alert('success', $template == $template_item ? 'Товар' : 'Подборка', $alert);
