@@ -42,7 +42,7 @@ $request_params = array(
 $request = $api->request('market.getAlbumById', $request_params);
 
 // Если информация не получена
-if (!count($request['items'])) {
+if ($request['items'][0]['id'] == 0) {
     // выводим отчёт об ошибке
     return $api->report($response, $request);
 }
