@@ -71,11 +71,39 @@ switch ($modx->event->name) {
             case $template_item:
             case $template_album:
 
+                // генерируем параметры "ДО"
+                $before = $sync->params($template, $id);
+                // запоминаем параметры "ДО"
+                $_SESSION['before'] = $before;
+
                 if ($template == $template_item)    $alert_title = 'Товар';
                 if ($template == $template_album)   $alert_title = 'Подборка';
 
-                // $alert = $sync->check($template, $id);
-                // return $sync->alert('success', $alert_title, $alert);
+                #$alert = $sync->check($template, $id);
+                #return $sync->alert('success', $alert_title, $alert);
+                break;
+        }
+        break;
+
+    case 'OnDocFormSave':
+
+        $template = $modx->getDocument($id)['template'];
+
+        switch ($template) {
+
+            case $template_item:
+            case $template_album:
+
+                // вспоминаем параметры "ДО"
+                $before =  $_SESSION['before'];
+                // генерируем параметры "ПОСЛЕ"
+                $after = $sync->params($template, $id);
+
+                if ($template == $template_item)    $alert_title = 'Товар';
+                if ($template == $template_album)   $alert_title = 'Подборка';
+
+                #$alert = $sync->differ($before, $after);
+                #return $sync->alert('success', $alert_title, $alert);
                 break;
         }
         break;
