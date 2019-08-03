@@ -31,13 +31,13 @@ $error = array(
 if (!isset($album_id)) {
     $error['error']['error_msg'] = 'Not found required param: album_id';
     // выводим отчёт об ошибке
-    return $vk->report($response, $error);
+    return $api->report($response, $error);
 }
 
 if (!isset($title)) {
     $error['error']['error_msg'] = 'Not found required param: title';
     // выводим отчёт об ошибке
-    return $vk->report($response, $error);
+    return $api->report($response, $error);
 }
 
 // Если при вызове было указано изображение
@@ -47,22 +47,22 @@ if (isset($image)) {
     $server_params = array(
         'group_id' => $group_id
     );
-    $server = $vk->request('photos.getMarketAlbumUploadServer', $server_params);
+    $server = $api->request('photos.getMarketAlbumUploadServer', $server_params);
 
     // Если сервер VK не получен
     if (!isset($server['upload_url'])) {
         // выводим отчёт об ошибке
-        return $vk->report($response, $server);
+        return $api->report($response, $server);
     }
 
 
     // Загружаем изображение на сервер VK
-    $upload = $vk->upload($server['upload_url'], $image);
+    $upload = $api->upload($server['upload_url'], $image);
 
     // Если изображение не загружено
     if (!isset($upload['photo'])) {
         // выводим отчёт об ошибке
-        return $vk->report($response, $upload);
+        return $api->report($response, $upload);
     }
 
     // Сохраняем изображение на сервере VK
@@ -72,12 +72,12 @@ if (isset($image)) {
         'server' => $upload['server'],
         'hash' => $upload['hash']
     );
-    $save = $vk->request('photos.saveMarketAlbumPhoto', $save_params);
+    $save = $api->request('photos.saveMarketAlbumPhoto', $save_params);
 
     // Если изображение не сохранено на сервере VK
     if (!isset($save[0]['id'])) {
         // выводим отчёт об ошибке
-        return $vk->report($response, $save);
+        return $api->report($response, $save);
     }
 
     // Получаем ID загруженного изображения
@@ -97,12 +97,12 @@ if (isset($image)) {
 }
 
 // Редактируем подборку в сообществе
-$request = $vk->request('market.editAlbum', $request_params);
+$request = $api->request('market.editAlbum', $request_params);
 
 // Если подборка не отредактирована
 if ($request !== 1) {
     // выводим отчёт об ошибке
-    return $vk->report($response, $request);
+    return $api->report($response, $request);
 }
 
 // Генерируем отчёт об успехе
@@ -124,4 +124,4 @@ if (isset($image)) {
 }
 
 // Выводим отчёт об успехе
-return $vk->report($response, $result);
+return $api->report($response, $result);

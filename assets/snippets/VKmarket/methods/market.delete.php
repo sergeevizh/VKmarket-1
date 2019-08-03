@@ -29,7 +29,7 @@ $error = array(
 if (!isset($item_id)) {
     $error['error']['error_msg'] = 'Not found required param: item_id';
     // выводим отчёт об ошибке
-    return $vk->report($response, $error);
+    return $api->report($response, $error);
 }
 
 // Генерируем запрос обязательных параметров
@@ -39,12 +39,12 @@ $request_params = array(
 );
 
 // Удаляем товар из сообщества
-$request = $vk->request('market.delete', $request_params);
+$request = $api->request('market.delete', $request_params);
 
 // Если товар не удалён
 if ($request !== 1) {
     // выводим отчёт об ошибке
-    return $vk->report($response, $request);
+    return $api->report($response, $request);
 }
 
 // Генерируем отчёт об успехе
@@ -59,4 +59,4 @@ $result = array(
 );
 
 // Выводим отчёт об успехе
-return $vk->report($response, $result);
+return $api->report($response, $result);

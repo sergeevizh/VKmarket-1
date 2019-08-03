@@ -34,12 +34,12 @@ if (isset($count)) {
 }
 
 // Запрашиваем список подборок
-$request = $vk->request('market.getAlbums', $request_params);
+$request = $api->request('market.getAlbums', $request_params);
 
 // Если список не получен
 if (!isset($request['count'])) {
     // выводим отчёт об ошибке
-    return $vk->report($response, $request);
+    return $api->report($response, $request);
 }
 
 // Генерируем отчёт об успехе
@@ -59,4 +59,4 @@ if (isset($count)) {
 }
 
 // Выводим отчёт об успехе
-return $vk->report($response, $result);
+return $api->report($response, $result);

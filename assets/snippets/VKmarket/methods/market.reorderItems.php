@@ -32,7 +32,7 @@ $error = array(
 if (!isset($item_id)) {
     $error['error']['error_msg'] = 'Not found required param: item_id';
     // выводим отчёт об ошибке
-    return $vk->report($response, $error);
+    return $api->report($response, $error);
 }
 
 // Генерируем запрос обязательных параметров
@@ -53,12 +53,12 @@ if (isset($after)) {
 }
 
 // Изменяем положение товара
-$request = $vk->request('market.reorderItems', $request_params);
+$request = $api->request('market.reorderItems', $request_params);
 
 // Если товар не перемещен
 if ($request !== 1) {
     // выводим отчёт об ошибке
-    return $vk->report($response, $request);
+    return $api->report($response, $request);
 }
 
 // Генерируем отчёт об успехе
@@ -84,4 +84,4 @@ if (isset($after)) {
 }
 
 // Выводим отчёт об успехе
-return $vk->report($response, $result);
+return $api->report($response, $result);

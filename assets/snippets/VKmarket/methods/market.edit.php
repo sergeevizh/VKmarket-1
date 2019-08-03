@@ -36,7 +36,7 @@ $error = array(
 if (!isset($item_id)) {
     $error['error']['error_msg'] = 'Not found required param: item_id';
     // выводим отчёт об ошибке
-    return $vk->report($response, $error);
+    return $api->report($response, $error);
 }
 
 // Если при вызове было указано изображение
@@ -47,21 +47,21 @@ if (isset($image)) {
         'group_id' => $group_id,
         'main_photo' => 1
     );
-    $server = $vk->request('photos.getMarketUploadServer', $server_params);
+    $server = $api->request('photos.getMarketUploadServer', $server_params);
 
     // Если сервер VK не получен
     if (!isset($server['upload_url'])) {
         // выводим отчёт об ошибке
-        return $vk->report($response, $server);
+        return $api->report($response, $server);
     }
 
     // Загружаем изображение на сервер VK
-    $upload = $vk->upload($server['upload_url'], $image);
+    $upload = $api->upload($server['upload_url'], $image);
 
     // Если изображение не загружено
     if (!isset($upload['photo'])) {
         // выводим отчёт об ошибке
-        return $vk->report($response, $upload);
+        return $api->report($response, $upload);
     }
 
     // Сохраняем изображение на сервере VK
@@ -73,12 +73,12 @@ if (isset($image)) {
         'crop_data' => $upload['crop_data'],
         'crop_hash' => $upload['crop_hash']
     );
-    $save = $vk->request('photos.saveMarketPhoto', $save_params);
+    $save = $api->request('photos.saveMarketPhoto', $save_params);
 
     // Если изображение не сохранено на сервере VK
     if (!isset($save[0]['id'])) {
         // выводим отчёт об ошибке
-        return $vk->report($response, $save);
+        return $api->report($response, $save);
     }
 
     // Получаем ID загруженного изображения
@@ -115,12 +115,12 @@ if (isset($url)) {
 }
 
 // Редактируем товар в сообществе
-$request = $vk->request('market.edit', $request_params);
+$request = $api->request('market.edit', $request_params);
 
 // Если товар не отредактирован
 if ($request !== 1) {
     // выводим отчёт об ошибке
-    return $vk->report($response, $request);
+    return $api->report($response, $request);
 }
 
 // Генерируем отчёт об успехе
@@ -159,4 +159,4 @@ if (isset($url)) {
 }
 
 // Выводим отчёт об успехе
-return $vk->report($response, $result);
+return $api->report($response, $result);

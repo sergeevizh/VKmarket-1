@@ -31,7 +31,7 @@ $error = array(
 if (!isset($album_id)) {
     $error['error']['error_msg'] = 'Not found required param: album_id';
     // выводим отчёт об ошибке
-    return $vk->report($response, $error);
+    return $api->report($response, $error);
 }
 
 // Генерируем запрос обязательных параметров
@@ -49,12 +49,12 @@ if (isset($after)) {
 }
 
 // Изменяем положение подборки
-$request = $vk->request('market.reorderAlbums', $request_params);
+$request = $api->request('market.reorderAlbums', $request_params);
 
 // Если подборка не перемещена
 if ($request !== 1) {
     // выводим отчёт об ошибке
-    return $vk->report($response, $request);
+    return $api->report($response, $request);
 }
 
 // Генерируем отчёт об успехе
@@ -77,4 +77,4 @@ if (isset($after)) {
 }
 
 // Выводим отчёт об успехе
-return $vk->report($response, $result);
+return $api->report($response, $result);

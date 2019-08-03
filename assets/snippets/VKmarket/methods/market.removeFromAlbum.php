@@ -30,13 +30,13 @@ $error = array(
 if (!isset($item_id)) {
     $error['error']['error_msg'] = 'Not found required param: item_id';
     // выводим отчёт об ошибке
-    return $vk->report($response, $error);
+    return $api->report($response, $error);
 }
 
 if (!isset($album_ids)) {
     $error['error']['error_msg'] = 'Not found required param: album_ids';
     // выводим отчёт об ошибке
-    return $vk->report($response, $error);
+    return $api->report($response, $error);
 }
 
 // Генерируем запрос обязательных параметров
@@ -47,12 +47,12 @@ $request_params = array(
 );
 
 // Удаляем товар из указанных подборок
-$request = $vk->request('market.removeFromAlbum', $request_params);
+$request = $api->request('market.removeFromAlbum', $request_params);
 
 // Если товар не удалён из какой-либо подборки
 if ($request !== 1) {
     // выводим отчёт об ошибке
-    return $vk->report($response, $request);
+    return $api->report($response, $request);
 }
 
 // Генерируем отчёт об успехе
@@ -68,4 +68,4 @@ $result = array(
 );
 
 // Выводим отчёт об успехе
-return $vk->report($response, $result);
+return $api->report($response, $result);

@@ -14,7 +14,6 @@ if (!isset($v))                 $errors = $errors . '<li><strong>v (версия
 if (!isset($template_item))     $errors = $errors . '<li><strong>ID шаблона товаров</strong> : шаблон ресурсов, которые будут товарами ВКонтакте</li>';
 if (!isset($template_album))    $errors = $errors . '<li><strong>ID шаблона категорий (подборок)</strong> : шаблон ресурсов, которые будут подборками ВКонтакте</li>';
 
-// Генерируем фронт модуля
 $market = new VKmarket($modx);
 
 // Если есть ошибки

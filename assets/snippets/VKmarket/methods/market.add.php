@@ -35,31 +35,31 @@ $error = array(
 if (!isset($name)) {
     $error['error']['error_msg'] = 'Not found required param: name';
     // выводим отчёт об ошибке
-    return $vk->report($response, $error);
+    return $api->report($response, $error);
 }
 
 if (!isset($description)) {
     $error['error']['error_msg'] = 'Not found required param: description';
     // выводим отчёт об ошибке
-    return $vk->report($response, $error);
+    return $api->report($response, $error);
 }
 
 if (!isset($category_id)) {
     $error['error']['error_msg'] = 'Not found required param: category_id';
     // выводим отчёт об ошибке
-    return $vk->report($response, $error);
+    return $api->report($response, $error);
 }
 
 if (!isset($price)) {
     $error['error']['error_msg'] = 'Not found required param: price';
     // выводим отчёт об ошибке
-    return $vk->report($response, $error);
+    return $api->report($response, $error);
 }
 
 if (!isset($image)) {
     $error['error']['error_msg'] = 'Not found required param: image';
     // выводим отчёт об ошибке
-    return $vk->report($response, $error);
+    return $api->report($response, $error);
 }
 
 // Получаем сервер VK для загрузки изображения товара
@@ -67,21 +67,21 @@ $server_params = array(
     'group_id' => $group_id,
     'main_photo' => 1
 );
-$server = $vk->request('photos.getMarketUploadServer', $server_params);
+$server = $api->request('photos.getMarketUploadServer', $server_params);
 
 // Если сервер VK не получен
 if (!isset($server['upload_url'])) {
     // выводим отчёт об ошибке
-    return $vk->report($response, $server);
+    return $api->report($response, $server);
 }
 
 // Загружаем изображение на сервер VK
-$upload = $vk->upload($server['upload_url'], $image);
+$upload = $api->upload($server['upload_url'], $image);
 
 // Если изображение не загружено
 if (!isset($upload['photo'])) {
     // выводим отчёт об ошибке
-    return $vk->report($response, $upload);
+    return $api->report($response, $upload);
 }
 
 // Сохраняем изображение на сервере VK
@@ -93,12 +93,12 @@ $save_params = array(
     'crop_data' => $upload['crop_data'],
     'crop_hash' => $upload['crop_hash']
 );
-$save = $vk->request('photos.saveMarketPhoto', $save_params);
+$save = $api->request('photos.saveMarketPhoto', $save_params);
 
 // Если изображение не сохранено на сервере VK
 if (!isset($save[0]['id'])) {
     // выводим отчёт об ошибке
-    return $vk->report($response, $save);
+    return $api->report($response, $save);
 }
 
 // Получаем ID загруженного изображения
@@ -123,12 +123,12 @@ if (isset($deleted)) {
 }
 
 // Создаём товар в сообществе
-$request = $vk->request('market.add', $request_params);
+$request = $api->request('market.add', $request_params);
 
 // Если товар не создан
 if (!isset($request['market_item_id'])) {
     // выводим отчёт об ошибке
-    return $vk->report($response, $request);
+    return $api->report($response, $request);
 }
 
 // Получаем ID созданного товара
@@ -157,4 +157,4 @@ if (isset($url)) {
 }
 
 // Выводим отчёт об успехе
-return $vk->report($response, $result);
+return $api->report($response, $result);

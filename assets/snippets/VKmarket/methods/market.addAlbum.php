@@ -30,7 +30,7 @@ $error = array(
 if (!isset($title)) {
     $error['error']['error_msg'] = 'Not found required param: title';
     // выводим отчёт об ошибке
-    return $vk->report($response, $error);
+    return $api->report($response, $error);
 }
 
 // Если при вызове было указано изображение
@@ -40,22 +40,22 @@ if (isset($image)) {
     $server_params = array(
         'group_id' => $group_id
     );
-    $server = $vk->request('photos.getMarketAlbumUploadServer', $server_params);
+    $server = $api->request('photos.getMarketAlbumUploadServer', $server_params);
 
     // Если сервер VK не получен
     if (!isset($server['upload_url'])) {
         // выводим отчёт об ошибке
-        return $vk->report($response, $server);
+        return $api->report($response, $server);
     }
 
 
     // Загружаем изображение на сервер VK
-    $upload = $vk->upload($server['upload_url'], $image);
+    $upload = $api->upload($server['upload_url'], $image);
 
     // Если изображение не загружено
     if (!isset($upload['photo'])) {
         // выводим отчёт об ошибке
-        return $vk->report($response, $upload);
+        return $api->report($response, $upload);
     }
 
     // Сохраняем изображение на сервере VK
@@ -65,12 +65,12 @@ if (isset($image)) {
         'server' => $upload['server'],
         'hash' => $upload['hash']
     );
-    $save = $vk->request('photos.saveMarketAlbumPhoto', $save_params);
+    $save = $api->request('photos.saveMarketAlbumPhoto', $save_params);
 
     // Если изображение не сохранено на сервере VK
     if (!isset($save[0]['id'])) {
         // выводим отчёт об ошибке
-        return $vk->report($response, $save);
+        return $api->report($response, $save);
     }
 
     // Получаем ID загруженного изображения
@@ -89,12 +89,12 @@ if (isset($image)) {
 }
 
 // Создаём подборку в сообществе
-$request = $vk->request('market.addAlbum', $request_params);
+$request = $api->request('market.addAlbum', $request_params);
 
 // Если подборка не создана
 if (!isset($request['market_album_id'])) {
     // выводим отчёт об ошибке
-    return $vk->report($response, $request);
+    return $api->report($response, $request);
 }
 
 // Получаем ID созданной подборки
@@ -118,4 +118,4 @@ if (isset($image)) {
 }
 
 // Выводим отчёт об успехе
-return $vk->report($response, $result);
+return $api->report($response, $result);

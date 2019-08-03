@@ -19,22 +19,22 @@ $error = array(
 if (!isset($api_method)) {
     $error['error']['error_msg'] = 'Not found required param: api_method';
     // выводим отчёт об ошибке
-    return $vk->report($response, $error);
+    return $api->report($response, $error);
 }
 
 if (!isset($access_token)) {
     $error['error']['error_msg'] = 'Not found required param: access_token';
     // выводим отчёт об ошибке
-    return $vk->report($response, $error);
+    return $api->report($response, $error);
 }
 
 if (!isset($group_id)) {
     $error['error']['error_msg'] = 'Not found required param: group_id';
     // выводим отчёт об ошибке
-    return $vk->report($response, $error);
+    return $api->report($response, $error);
 }
 
-$vk = new VKapi($access_token, $v);
+$api = new VKapi($access_token, $v);
 
 switch ($api_method) {
 
