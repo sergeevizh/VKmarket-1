@@ -49,6 +49,15 @@
         </div>
     </div>
 
+    <script>
+        const checkAll = function (name, it) {
+            const items = document.querySelectorAll('[name="' + name + '"]');
+            for (let index = 0; index < items.length; index++) {
+                const item = items[index];
+                item.checked = it.checked;
+            }
+        }
+    </script>
 </body>
 
 </html>

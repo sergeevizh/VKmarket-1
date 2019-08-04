@@ -14,7 +14,9 @@
                 <table class="table data vk">
                     <thead>
                         <tr>
-                            <th style="width: 1%;"><input id="items_pub_all" name="items_pub_all" type="checkbox"></th>
+                            <th style="width: 1%;">
+                                <input id="items_pub_all" name="items_pub_all" type="checkbox" onchange="checkAll('items_pub', $(this));">
+                            </th>
                             <th style="width: 1%;">ID</th>
                             <th style="width: 96%;"><i class="fa fa-file-o fa-fw invisible mr-1"></i> Заголовок</th>
                             <th style="width: 1%;" class="text-right">ID VK</th>

@@ -13,7 +13,9 @@
                 <table class="table data vk">
                     <thead>
                         <tr>
-                            <th style="width: 1%;"><input id="albums_nopub_all" name="albums_nopub_all" type="checkbox"></th>
+                            <th style="width: 1%;">
+                                <input id="albums_nopub_all" name="albums_nopub_all" type="checkbox" onchange="checkAll('albums_nopub', $(this));">
+                            </th>
                             <th style="width: 1%;">ID</th>
                             <th style="width: 97%;"><i class="fa fa-folder fa-fw invisible mr-1"></i> Заголовок</th>
                             <th style="width: 1%;" class="text-right">Действия</th>
