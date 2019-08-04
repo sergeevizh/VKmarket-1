@@ -72,7 +72,7 @@ switch ($modx->event->name) {
             case $template_album:
 
                 // генерируем параметры "ДО"
-                $before = $sync->params($template, $id, 1);
+                $before = $sync->params($template, $id, 'evo,api,params,vk');
 
                 // запоминаем параметры "ДО"
                 $_SESSION['before'] = $before;
@@ -94,7 +94,7 @@ switch ($modx->event->name) {
                 $before =  $_SESSION['before'];
 
                 // генерируем параметры "ПОСЛЕ"
-                $after = $sync->params($template, $id, 0);
+                $after = $sync->params($template, $id, 'evo,api,params');
 
                 // если элемент еесть в ВК
                 if ($before['vk']['id']) {
@@ -102,21 +102,25 @@ switch ($modx->event->name) {
                     // ищем отличия
                     $albums_now = $before['vk']['albums_ids'];
                     $albums_now = implode($albums_now);
-                    $differ_albums = $albums_now !== $after['albums'];
+                    $differ_albums = $albums_now !== $after['params']['albums'];
                     $differ_params = $sync->differ($before['params'], $after['params']);
 
                     // если отличия есть
                     if ($differ_albums || $differ_params) {
-                        $differs['api'] = $before['api'];
+                        $differs['api'] = $after['api'];
                         $differs['vk'] = $before['vk'];
-                        $differs['evo'] = $before['evo'];
+                        $differs['evo'] = $after['evo'];
 
                         if ($differ_params) $differs['params'] = $differ_params;
-                        if ($differ_albums) $differs['albums'] = $after['albums'];
+                        if ($differ_albums) $differs['params']['albums'] = $after['params']['albums'];
 
                         // изменяем элемент в ВК
                         $result = $sync->edit($differs);
                         return $sync->alert('success', $template, $result);
+                    } else {
+                        // удаляем элемент из ВК
+                        // $result = $sync->delete($before);
+                        // return $sync->alert('success', $template, $result);
                     }
                 } else {
                     // если элемента нет в ВК

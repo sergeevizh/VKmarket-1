@@ -139,7 +139,7 @@ class VKsync
         }
     }
 
-    public function params($template, $id, $need_check)
+    public function params($template, $id, $groups)
     {
         /* Генерирует массив параметров =============================
         -------------------------------------------------------------
@@ -147,117 +147,128 @@ class VKsync
         -------------------------------------------------------------
         & template          |  шаблон ресурса
         & id                |  id ресурса
-        & check             |  проверка функцией check() [0,1]
+        & groups            |  группы через запятую [api,evo,params,vk]
         ============================================================= */
 
         $result = array();
+        $groups = explode(',', $groups);
 
-        switch ($template) {
-            case $this->template_item:
+        if (in_array('params', $groups)) {
 
-                // ТОВАР ============================================
+            switch ($template) {
+                case $this->template_item:
 
-                $parent = $this->modx->getDocument($id)['parent'];
-                $gparent = $this->modx->getDocument($parent)['parent'];
-                $ggparent = $this->modx->getDocument($gparent)['parent'];
+                    // ТОВАР ============================================
 
-                $name = $this->modx->runSnippet('DocLister', array(
-                    'tvList' => $this->tv_list,
-                    'documents' => $id,
-                    'tpl' => $this->item_name_tpl,
-                    'ownerTPL' => '@CODE:[+dl.wrap+]'
-                ));
+                    $parent = $this->modx->getDocument($id)['parent'];
+                    $gparent = $this->modx->getDocument($parent)['parent'];
+                    $ggparent = $this->modx->getDocument($gparent)['parent'];
 
-                $description = $this->modx->runSnippet('DocLister', array(
-                    'tvList' => $this->tv_list,
-                    'documents' => $id,
-                    'tpl' => $this->item_description_tpl,
-                    'ownerTPL' => '@CODE:[+dl.wrap+]'
-                ));
+                    $name = $this->modx->runSnippet('DocLister', array(
+                        'tvList' => $this->tv_list,
+                        'documents' => $id,
+                        'tpl' => $this->item_name_tpl,
+                        'ownerTPL' => '@CODE:[+dl.wrap+]'
+                    ));
 
-                $category_id = $this->modx->runSnippet('DocInfo', array(
-                    'docid' => $parent,
-                    'field' => $this->vk_category_id
-                ));
+                    $description = $this->modx->runSnippet('DocLister', array(
+                        'tvList' => $this->tv_list,
+                        'documents' => $id,
+                        'tpl' => $this->item_description_tpl,
+                        'ownerTPL' => '@CODE:[+dl.wrap+]'
+                    ));
 
-                $price = $this->modx->runSnippet('DocLister', array(
-                    'tvList' => $this->tv_list,
-                    'documents' => $id,
-                    'tpl' => $this->item_price_tpl,
-                    'ownerTPL' => '@CODE:[+dl.wrap+]'
-                ));
+                    $category_id = $this->modx->runSnippet('DocInfo', array(
+                        'docid' => $parent,
+                        'field' => $this->vk_category_id
+                    ));
 
-                $image = $this->modx->runSnippet('DocLister', array(
-                    'tvList' => $this->tv_list,
-                    'documents' => $id,
-                    'tpl' => $this->item_image_tpl,
-                    'ownerTPL' => '@CODE:[+dl.wrap+]'
-                ));
+                    $price = $this->modx->runSnippet('DocLister', array(
+                        'tvList' => $this->tv_list,
+                        'documents' => $id,
+                        'tpl' => $this->item_price_tpl,
+                        'ownerTPL' => '@CODE:[+dl.wrap+]'
+                    ));
 
-                $url = $this->modx->makeUrl($id, '', '', 'full');
+                    $image = $this->modx->runSnippet('DocLister', array(
+                        'tvList' => $this->tv_list,
+                        'documents' => $id,
+                        'tpl' => $this->item_image_tpl,
+                        'ownerTPL' => '@CODE:[+dl.wrap+]'
+                    ));
 
-                $result['params']['name'] = $name;
-                $result['params']['description'] = $description;
-                $result['params']['category_id'] = $category_id;
-                $result['params']['price'] = $price;
-                $result['params']['image'] = $image;
-                $result['params']['url'] = $url;
+                    $url = $this->modx->makeUrl($id, '', '', 'full');
 
-                $albums = array();
+                    $result['params']['name'] = $name;
+                    $result['params']['description'] = $description;
+                    $result['params']['category_id'] = $category_id;
+                    $result['params']['price'] = $price;
+                    $result['params']['image'] = $image;
+                    $result['params']['url'] = $url;
 
-                $parent_album_id = $this->modx->getTemplateVar($this->vk_album_id, '*', $parent);
+                    $albums = array();
 
-                if ($parent_album_id) {
-                    array_push($albums, $parent_album_id['value']);
-                    $gparent_album_id = $this->modx->getTemplateVar($this->vk_album_id, '*', $gparent);
+                    $parent_album_id = $this->modx->getTemplateVar($this->vk_album_id, '*', $parent);
 
-                    if ($gparent_album_id) {
-                        array_push($albums, $gparent_album_id['value']);
-                        $ggparent_album_id = $this->modx->getTemplateVar($this->vk_album_id, '*', $ggparent);
+                    if ($parent_album_id) {
+                        array_push($albums, $parent_album_id['value']);
+                        $gparent_album_id = $this->modx->getTemplateVar($this->vk_album_id, '*', $gparent);
 
-                        if ($ggparent_album_id) {
-                            array_push($albums, $ggparent_album_id['value']);
+                        if ($gparent_album_id) {
+                            array_push($albums, $gparent_album_id['value']);
+                            $ggparent_album_id = $this->modx->getTemplateVar($this->vk_album_id, '*', $ggparent);
+
+                            if ($ggparent_album_id) {
+                                array_push($albums, $ggparent_album_id['value']);
+                            }
                         }
                     }
-                }
 
-                $albums = implode(",", $albums);
-                $result['albums'] = $albums;
+                    $albums = implode(",", $albums);
+                    $result['params']['albums'] = $albums;
 
-                break;
+                    break;
 
-            case $this->template_album:
+                case $this->template_album:
 
-                // ПОДБОРКА =========================================
+                    // ПОДБОРКА =========================================
 
-                $title = $this->modx->runSnippet('DocLister', array(
-                    'tvList' => $this->tv_list,
-                    'documents' => $id,
-                    'tpl' => $this->album_title_tpl,
-                    'ownerTPL' => '@CODE:[+dl.wrap+]'
-                ));
+                    $title = $this->modx->runSnippet('DocLister', array(
+                        'tvList' => $this->tv_list,
+                        'documents' => $id,
+                        'tpl' => $this->album_title_tpl,
+                        'ownerTPL' => '@CODE:[+dl.wrap+]'
+                    ));
 
-                $image = $this->modx->runSnippet('DocLister', array(
-                    'tvList' => $this->tv_list,
-                    'documents' => $id,
-                    'tpl' => $this->album_image_tpl,
-                    'ownerTPL' => '@CODE:[+dl.wrap+]'
-                ));
+                    $image = $this->modx->runSnippet('DocLister', array(
+                        'tvList' => $this->tv_list,
+                        'documents' => $id,
+                        'tpl' => $this->album_image_tpl,
+                        'ownerTPL' => '@CODE:[+dl.wrap+]'
+                    ));
 
-                $result['params']['title'] = $title;
-                $result['params']['image'] = $image;
+                    $result['params']['title'] = $title;
+                    $result['params']['image'] = $image;
 
-                break;
+                    break;
+            }
         }
 
-        $result['api']['access_token'] = $this->access_token;
-        $result['api']['group_id'] = $this->group_id;
-        $result['api']['v'] = $this->v;
+        if (in_array('api', $groups)) {
 
-        $result['evo']['id'] = $id;
-        $result['evo']['template'] = $template;
+            $result['api']['access_token'] = $this->access_token;
+            $result['api']['group_id'] = $this->group_id;
+            $result['api']['v'] = $this->v;
+        }
 
-        if ($need_check) {
+        if (in_array('evo', $groups)) {
+
+            $result['evo']['id'] = $id;
+            $result['evo']['template'] = $template;
+        }
+
+        if (in_array('vk', $groups)) {
+
             $check = $this->check($template, $id);
             if ($check)  $result['vk'] = $check;
         }
@@ -315,12 +326,12 @@ class VKsync
                     );
 
                     // добавляем товар в подборки
-                    if ($params['albums']) {
+                    if ($params['params']['albums']) {
 
                         $request_params = $params['api'];
                         $request_params['api_method'] = 'market.addToAlbum';
                         $request_params['item_id'] = $market_item_id;
-                        $request_params['album_ids'] = $params['albums'];
+                        $request_params['album_ids'] = $params['params']['albums'];
 
                         $this->modx->runSnippet('VKapi', $request_params);
                     }
@@ -387,7 +398,7 @@ class VKsync
                     $edit = $this->modx->runSnippet('VKapi', $request_params);
                 }
 
-                if ($params['albums']) {
+                if ($params['params']['albums']) {
                     $albums_now = $params['vk']['albums_ids'];
                     $albums_now = implode($albums_now);
 
@@ -399,7 +410,7 @@ class VKsync
 
                     $add_params = $params['api'];
                     $add_params['item_id'] = $params['vk']['id'];
-                    $add_params['album_ids'] = $params['albums'];
+                    $add_params['album_ids'] = $params['params']['albums'];
                     $add_params['api_method'] = 'market.addToAlbum';
                     $this->modx->runSnippet('VKapi', $add_params);
                 }
