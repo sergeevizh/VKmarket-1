@@ -72,19 +72,10 @@ switch ($modx->event->name) {
             case $template_album:
 
                 // генерируем параметры "ДО"
-                $before = $sync->params($template, $id);
-
-                $check = $sync->check($template, $id);
-                if ($check !== 0) {
-                    $vk_id = $check['id'];
-                    $before['vk_id'] = $vk_id;
-                }
+                $before = $sync->params($template, $id, 1);
 
                 // запоминаем параметры "ДО"
                 $_SESSION['before'] = $before;
-
-                #$alert = $sync->add($template, $id, $before);
-                #return $sync->alert('success', $template == $template_item ? 'Товар' : 'Подборка', $alert);
 
                 break;
         }
@@ -103,29 +94,37 @@ switch ($modx->event->name) {
                 $before =  $_SESSION['before'];
 
                 // генерируем параметры "ПОСЛЕ"
-                $after = $sync->params($template, $id);
+                $after = $sync->params($template, $id, 0);
 
-                // если товар был ранее добавлен в ВК
-                if ($before['vk_id']) {
+                // если элемент еесть в ВК
+                if ($before['vk']['id']) {
 
                     // ищем отличия
+                    $albums_now = $before['vk']['albums_ids'];
+                    $albums_now = implode($albums_now);
+                    $differ_albums = $albums_now !== $after['albums'];
                     $differ_params = $sync->differ($before['params'], $after['params']);
-                    $differ_albums = $before['albums'] !== $after['albums'];
 
-                    if ($differ_params || $differ_albums) {
+                    // если отличия есть
+                    if ($differ_albums || $differ_params) {
                         $differs['api'] = $before['api'];
-                        $differs['vk_id'] = $before['vk_id'];
+                        $differs['vk'] = $before['vk'];
+                        $differs['evo'] = $before['evo'];
 
                         if ($differ_params) $differs['params'] = $differ_params;
                         if ($differ_albums) $differs['albums'] = $after['albums'];
 
-                        $alert = $sync->edit($template, $id, $differs);
-                        #return $sync->alert('success', $template == $template_item ? 'Товар' : 'Подборка', $alert);
+                        // изменяем элемент в ВК
+                        $result = $sync->edit($differs);
+                        return $sync->alert('success', $template, $result);
                     }
+                } else {
+                    // если элемента нет в ВК
+                    // добавляем его
+                    $result = $sync->add($after);
+                    return $sync->alert('success', $template, $result);
                 }
 
-                #$alert = $sync->add($template, $id, $after);
-                #return $sync->alert('success', $template == $template_item ? 'Товар' : 'Подборка', $alert);
                 break;
         }
         break;

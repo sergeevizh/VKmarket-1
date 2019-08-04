@@ -64,129 +64,6 @@ class VKsync
         }
     }
 
-    public function params($template, $id)
-    {
-        /* Генерирует массив параметров =============================
-        -------------------------------------------------------------
-        Параметры
-        -------------------------------------------------------------
-        & template          |  шаблон ресурса
-        & id                |  id ресурса
-        ============================================================= */
-
-        switch ($template) {
-            case $this->template_item:
-
-                // ТОВАР ============================================
-
-                $parent = $this->modx->getDocument($id)['parent'];
-                $gparent = $this->modx->getDocument($parent)['parent'];
-                $ggparent = $this->modx->getDocument($gparent)['parent'];
-
-                $name = $this->modx->runSnippet('DocLister', array(
-                    'tvList' => $this->tv_list,
-                    'documents' => $id,
-                    'tpl' => $this->item_name_tpl,
-                    'ownerTPL' => '@CODE:[+dl.wrap+]'
-                ));
-
-                $description = $this->modx->runSnippet('DocLister', array(
-                    'tvList' => $this->tv_list,
-                    'documents' => $id,
-                    'tpl' => $this->item_description_tpl,
-                    'ownerTPL' => '@CODE:[+dl.wrap+]'
-                ));
-
-                $category_id = $this->modx->runSnippet('DocInfo', array(
-                    'docid' => $parent,
-                    'field' => $this->vk_category_id
-                ));
-
-                $price = $this->modx->runSnippet('DocLister', array(
-                    'tvList' => $this->tv_list,
-                    'documents' => $id,
-                    'tpl' => $this->item_price_tpl,
-                    'ownerTPL' => '@CODE:[+dl.wrap+]'
-                ));
-
-                $image = $this->modx->runSnippet('DocLister', array(
-                    'tvList' => $this->tv_list,
-                    'documents' => $id,
-                    'tpl' => $this->item_image_tpl,
-                    'ownerTPL' => '@CODE:[+dl.wrap+]'
-                ));
-
-                $url = $this->modx->makeUrl($id, '', '', 'full');
-
-                $result = array();
-
-                $result['api']['access_token'] = $this->access_token;
-                $result['api']['group_id'] = $this->group_id;
-                $result['api']['v'] = $this->v;
-
-                $result['params']['name'] = $name;
-                $result['params']['description'] = $description;
-                $result['params']['category_id'] = $category_id;
-                $result['params']['price'] = $price;
-                $result['params']['image'] = $image;
-                $result['params']['url'] = $url;
-
-                $albums = array();
-
-                $parent_album_id = $this->modx->getTemplateVar($this->vk_album_id, '*', $parent);
-
-                if ($parent_album_id) {
-                    array_push($albums, $parent_album_id['value']);
-                    $gparent_album_id = $this->modx->getTemplateVar($this->vk_album_id, '*', $gparent);
-
-                    if ($gparent_album_id) {
-                        array_push($albums, $gparent_album_id['value']);
-                        $ggparent_album_id = $this->modx->getTemplateVar($this->vk_album_id, '*', $ggparent);
-
-                        if ($ggparent_album_id) {
-                            array_push($albums, $ggparent_album_id['value']);
-                        }
-                    }
-                }
-
-                $albums = implode(",", $albums);
-                $result['albums'] = $albums;
-
-                return $result;
-                break;
-
-            case $this->template_album:
-
-                // ПОДБОРКА =========================================
-
-                $title = $this->modx->runSnippet('DocLister', array(
-                    'tvList' => $this->tv_list,
-                    'documents' => $id,
-                    'tpl' => $this->album_title_tpl,
-                    'ownerTPL' => '@CODE:[+dl.wrap+]'
-                ));
-
-                $image = $this->modx->runSnippet('DocLister', array(
-                    'tvList' => $this->tv_list,
-                    'documents' => $id,
-                    'tpl' => $this->album_image_tpl,
-                    'ownerTPL' => '@CODE:[+dl.wrap+]'
-                ));
-
-                $result = array();
-
-                $result['api']['access_token'] = $this->access_token;
-                $result['api']['group_id'] = $this->group_id;
-                $result['api']['v'] = $this->v;
-
-                $result['params']['title'] = $title;
-                $result['params']['image'] = $image;
-
-                return $result;
-                break;
-        }
-    }
-
     public function check($template, $id)
     {
         /* Проверяет, есть ли связь элемента с ВК ===================
@@ -262,6 +139,132 @@ class VKsync
         }
     }
 
+    public function params($template, $id, $need_check)
+    {
+        /* Генерирует массив параметров =============================
+        -------------------------------------------------------------
+        Параметры
+        -------------------------------------------------------------
+        & template          |  шаблон ресурса
+        & id                |  id ресурса
+        & check             |  проверка функцией check() [0,1]
+        ============================================================= */
+
+        $result = array();
+
+        switch ($template) {
+            case $this->template_item:
+
+                // ТОВАР ============================================
+
+                $parent = $this->modx->getDocument($id)['parent'];
+                $gparent = $this->modx->getDocument($parent)['parent'];
+                $ggparent = $this->modx->getDocument($gparent)['parent'];
+
+                $name = $this->modx->runSnippet('DocLister', array(
+                    'tvList' => $this->tv_list,
+                    'documents' => $id,
+                    'tpl' => $this->item_name_tpl,
+                    'ownerTPL' => '@CODE:[+dl.wrap+]'
+                ));
+
+                $description = $this->modx->runSnippet('DocLister', array(
+                    'tvList' => $this->tv_list,
+                    'documents' => $id,
+                    'tpl' => $this->item_description_tpl,
+                    'ownerTPL' => '@CODE:[+dl.wrap+]'
+                ));
+
+                $category_id = $this->modx->runSnippet('DocInfo', array(
+                    'docid' => $parent,
+                    'field' => $this->vk_category_id
+                ));
+
+                $price = $this->modx->runSnippet('DocLister', array(
+                    'tvList' => $this->tv_list,
+                    'documents' => $id,
+                    'tpl' => $this->item_price_tpl,
+                    'ownerTPL' => '@CODE:[+dl.wrap+]'
+                ));
+
+                $image = $this->modx->runSnippet('DocLister', array(
+                    'tvList' => $this->tv_list,
+                    'documents' => $id,
+                    'tpl' => $this->item_image_tpl,
+                    'ownerTPL' => '@CODE:[+dl.wrap+]'
+                ));
+
+                $url = $this->modx->makeUrl($id, '', '', 'full');
+
+                $result['params']['name'] = $name;
+                $result['params']['description'] = $description;
+                $result['params']['category_id'] = $category_id;
+                $result['params']['price'] = $price;
+                $result['params']['image'] = $image;
+                $result['params']['url'] = $url;
+
+                $albums = array();
+
+                $parent_album_id = $this->modx->getTemplateVar($this->vk_album_id, '*', $parent);
+
+                if ($parent_album_id) {
+                    array_push($albums, $parent_album_id['value']);
+                    $gparent_album_id = $this->modx->getTemplateVar($this->vk_album_id, '*', $gparent);
+
+                    if ($gparent_album_id) {
+                        array_push($albums, $gparent_album_id['value']);
+                        $ggparent_album_id = $this->modx->getTemplateVar($this->vk_album_id, '*', $ggparent);
+
+                        if ($ggparent_album_id) {
+                            array_push($albums, $ggparent_album_id['value']);
+                        }
+                    }
+                }
+
+                $albums = implode(",", $albums);
+                $result['albums'] = $albums;
+
+                break;
+
+            case $this->template_album:
+
+                // ПОДБОРКА =========================================
+
+                $title = $this->modx->runSnippet('DocLister', array(
+                    'tvList' => $this->tv_list,
+                    'documents' => $id,
+                    'tpl' => $this->album_title_tpl,
+                    'ownerTPL' => '@CODE:[+dl.wrap+]'
+                ));
+
+                $image = $this->modx->runSnippet('DocLister', array(
+                    'tvList' => $this->tv_list,
+                    'documents' => $id,
+                    'tpl' => $this->album_image_tpl,
+                    'ownerTPL' => '@CODE:[+dl.wrap+]'
+                ));
+
+                $result['params']['title'] = $title;
+                $result['params']['image'] = $image;
+
+                break;
+        }
+
+        $result['api']['access_token'] = $this->access_token;
+        $result['api']['group_id'] = $this->group_id;
+        $result['api']['v'] = $this->v;
+
+        $result['evo']['id'] = $id;
+        $result['evo']['template'] = $template;
+
+        if ($need_check) {
+            $check = $this->check($template, $id);
+            if ($check)  $result['vk'] = $check;
+        }
+
+        return $result;
+    }
+
     public function differ($before, $after)
     {
         /* Проверяет, есть ли отличия ДО и ПОСЛЕ ====================
@@ -278,18 +281,16 @@ class VKsync
         return $result;
     }
 
-    public function add($template, $id, $params)
+    public function add($params)
     {
         /* Добавляет элемент в ВК ===================================
         -------------------------------------------------------------
         Параметры
         -------------------------------------------------------------
-        & template          |  шаблон ресурса
-        & id                |  id ресурса
         & params            |  параметры из функции params()
         ============================================================= */
 
-        switch ($template) {
+        switch ($params['evo']['template']) {
             case $this->template_item:
 
                 // ТОВАР ============================================
@@ -305,7 +306,7 @@ class VKsync
                     // сохраняем id в TV (vk_item_id)
                     $db_params = array(
                         'tmplvarid' => $this->vk_item_tvid,
-                        'contentid' => $id,
+                        'contentid' => $params['evo']['id'],
                         'value' => $market_item_id
                     );
                     $this->modx->db->insert(
@@ -345,7 +346,7 @@ class VKsync
                     // сохраняем id в TV (vk_item_id)
                     $db_params = array(
                         'tmplvarid' => $this->vk_album_tvid,
-                        'contentid' => $id,
+                        'contentid' => $params['evo']['id'],
                         'value' => $market_album_id
                     );
                     $this->modx->db->insert(
@@ -361,25 +362,23 @@ class VKsync
         }
     }
 
-    public function edit($template, $id, $params)
+    public function edit($params)
     {
         /* Редактирует элемент в ВК =================================
         -------------------------------------------------------------
         Параметры
         -------------------------------------------------------------
-        & template          |  шаблон ресурса
-        & id                |  id ресурса
-        & params            |  параметры для API ВКонтакте
+        & params            |  параметры из функции params()
         ============================================================= */
 
 
-        switch ($template) {
+        switch ($params['evo']['template']) {
             case $this->template_item:
 
                 // ТОВАР ============================================
 
                 $request_params = $params['api'];
-                $request_params['item_id'] = $params['vk_id'];
+                $request_params['item_id'] = $params['vk']['id'];
 
                 if ($params['params']) {
 
@@ -389,30 +388,20 @@ class VKsync
                 }
 
                 if ($params['albums']) {
-                    $get_params = $params['api'];
-                    $get_params['api_method'] = 'market.getById';
-                    $get_params['item_ids'] = $params['vk_id'];
-                    $get_params['extended'] = 1;
+                    $albums_now = $params['vk']['albums_ids'];
+                    $albums_now = implode($albums_now);
 
-                    $get = $this->modx->runSnippet('VKapi', $get_params);
-                    if ($get['success']) {
-                        $albums_now = $get['success']['response']['items'][0]['albums_ids'];
-                        $albums_now = implode($albums_now);
-                    }
+                    $remove_params = $params['api'];
+                    $remove_params['item_id'] = $params['vk']['id'];
+                    $remove_params['album_ids'] = $albums_now;
+                    $remove_params['api_method'] = 'market.removeFromAlbum';
+                    $this->modx->runSnippet('VKapi', $remove_params);
 
-                    if ($albums_now !== $params['albums']) {
-                        $remove_params = $params['api'];
-                        $remove_params['item_id'] = $params['vk_id'];
-                        $remove_params['album_ids'] = $albums_now;
-                        $remove_params['api_method'] = 'market.removeFromAlbum';
-                        $this->modx->runSnippet('VKapi', $remove_params);
-
-                        $add_params = $params['api'];
-                        $add_params['item_id'] = $params['vk_id'];
-                        $add_params['album_ids'] = $params['albums'];
-                        $add_params['api_method'] = 'market.addToAlbum';
-                        $this->modx->runSnippet('VKapi', $add_params);
-                    }
+                    $add_params = $params['api'];
+                    $add_params['item_id'] = $params['vk']['id'];
+                    $add_params['album_ids'] = $params['albums'];
+                    $add_params['api_method'] = 'market.addToAlbum';
+                    $this->modx->runSnippet('VKapi', $add_params);
                 }
 
                 $result = $edit;
@@ -426,11 +415,50 @@ class VKsync
 
                 $request_params = $params['api'];
                 $request_params['api_method'] = 'market.editAlbum';
-                $request_params['album_id'] = $params['vk_id'];
+                $request_params['album_id'] = $params['vk']['id'];
                 $request_params = $request_params + $params['params'];
                 $edit = $this->modx->runSnippet('VKapi', $request_params);
 
                 $result = $edit;
+
+                return $result;
+                break;
+        }
+    }
+
+    public function delete($params)
+    {
+        /* Редактирует элемент в ВК =================================
+        -------------------------------------------------------------
+        Параметры
+        -------------------------------------------------------------
+        & params            |  параметры из функции params()
+        ============================================================= */
+
+
+        switch ($params['evo']['template']) {
+            case $this->template_item:
+
+                // ТОВАР ============================================
+
+                $request_params = $params['api'];
+                $request_params['api_method'] = 'market.delete';
+                $request_params['item_id'] = $params['vk']['id'];
+
+                $result = $this->modx->runSnippet('VKapi', $request_params);
+
+                return $result;
+                break;
+
+            case $this->template_album:
+
+                // ПОДБОРКА =========================================
+
+                $request_params = $params['api'];
+                $request_params['api_method'] = 'market.deleteAlbum';
+                $request_params['album_id'] = $params['vk']['id'];
+
+                $result = $this->modx->runSnippet('VKapi', $request_params);
 
                 return $result;
                 break;
