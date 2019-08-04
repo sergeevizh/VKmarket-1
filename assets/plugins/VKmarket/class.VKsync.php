@@ -301,6 +301,10 @@ class VKsync
         & params            |  параметры из функции params()
         ============================================================= */
 
+        if ($params['vk']['id']) {
+            return true;
+        }
+
         switch ($params['evo']['template']) {
             case $this->template_item:
 
@@ -335,11 +339,13 @@ class VKsync
 
                         $this->modx->runSnippet('VKapi', $request_params);
                     }
+                    $this->alert('success', $params['params']['name'] . " (add)", $add);
+                    return true;
+                } else {
+                    $this->alert('error', $params['params']['name'] . " (add)", $add);
+                    return false;
                 }
 
-                $result = $add;
-
-                return $result;
                 break;
 
             case $this->template_album:
@@ -364,11 +370,13 @@ class VKsync
                         $db_params,
                         $this->site_tmplvar_contentvalues
                     );
+
+                    $this->alert('success', $params['params']['title'] . " (add)", $add);
+                    return true;
+                } else {
+                    $this->alert('error', $params['params']['title'] . " (add)", $add);
+                    return false;
                 }
-
-                $result = $add;
-
-                return $result;
                 break;
         }
     }
@@ -457,6 +465,10 @@ class VKsync
                 $request_params['item_id'] = $params['vk']['id'];
 
                 $result = $this->modx->runSnippet('VKapi', $request_params);
+                $this->modx->db->delete(
+                    $this->site_tmplvar_contentvalues,
+                    'tmplvarid="' . $this->vk_item_tvid . '" AND contentid="' . $params['evo']['id'] . '"'
+                );
 
                 return $result;
                 break;
@@ -470,8 +482,32 @@ class VKsync
                 $request_params['album_id'] = $params['vk']['id'];
 
                 $result = $this->modx->runSnippet('VKapi', $request_params);
+                $this->modx->db->delete(
+                    $this->site_tmplvar_contentvalues,
+                    'tmplvarid="' . $this->vk_album_tvid . '" AND contentid="' . $params['evo']['id'] . '"'
+                );
 
                 return $result;
+                break;
+        }
+    }
+
+    public function makeActions()
+    {
+        switch ($_POST['method']) {
+            case 'add':
+                $params = $this->params($_POST['template'], $_POST['id'], 'params,api,evo,vk');
+                $this->add($params);
+                break;
+
+            case 'edit':
+                $params = $this->params($_POST['template'], $_POST['id'], 'params,api,evo,vk');
+                $this->edit($params);
+                break;
+
+            case 'delete':
+                $params = $this->params($_POST['template'], $_POST['id'], 'api,evo,vk');
+                $this->delete($params);
                 break;
         }
     }

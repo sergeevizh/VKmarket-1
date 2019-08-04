@@ -13,6 +13,11 @@
             color: #a52a2a;
         }
     }
+
+    &__action {
+        display: inline-block;
+        margin: 0 0.075rem;
+    }
 }
 
 .table {

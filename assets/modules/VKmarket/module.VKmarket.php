@@ -5,6 +5,7 @@ if (!defined('MODX_BASE_PATH')) {
 }
 
 require_once MODX_BASE_PATH . 'assets/modules/VKmarket/class.VKmarket.php';
+require_once MODX_BASE_PATH . 'assets/plugins/VKmarket/class.VKsync.php';
 
 // Проверяем заполненность параметров конфигурации
 $errors = "";
@@ -14,7 +15,29 @@ if (!isset($v))                 $errors = $errors . '<li><strong>v (версия
 if (!isset($template_item))     $errors = $errors . '<li><strong>ID шаблона товаров</strong> : шаблон ресурсов, которые будут товарами ВКонтакте</li>';
 if (!isset($template_album))    $errors = $errors . '<li><strong>ID шаблона категорий (подборок)</strong> : шаблон ресурсов, которые будут подборками ВКонтакте</li>';
 
+// Конфигурация для класса VKsync
+$module_config = array(
+    'access_token'          => $access_token,
+    'group_id'              => $group_id,
+    'v'                     => $v,
+    'vk_item_id'            => 'vk_item_id',
+    'vk_album_id'           => 'vk_album_id',
+    'vk_category_id'        => 'vk_category_id',
+    'template_item'         => $template_item,
+    'template_album'        => $template_album,
+    'tv_list'               => $tv_list,
+    'item_name_tpl'         => $item_name_tpl,
+    'item_description_tpl'  => $item_description_tpl,
+    'item_price_tpl'        => $item_price_tpl,
+    'item_image_tpl'        => $item_image_tpl,
+    'album_title_tpl'       => $album_title_tpl,
+    'album_image_tpl'       => $album_image_tpl
+);
+
+$sync = new VKsync($modx, $module_config);
 $market = new VKmarket($modx);
+
+$sync->makeActions();
 
 // Если есть ошибки
 if ($errors) {

@@ -9,11 +9,21 @@
     </td>
     <td class="text-right">[+tv.vk_album_id+]</td>
     <td class="actions text-right">
-        <a href="javascript:;" onclick="return true;" title="Обновить данные в VK">
-            <i class="fa fa-refresh fa-fw"></i>
-        </a>
-        <a href="javascript:;" onclick="return true;" title="Удалить в VK">
-            <i class="fa fa-trash fa-fw"></i>
-        </a>
+        <form class="vk__action" action="" method="POST">
+            <input type="hidden" name="method" value="edit">
+            <input type="hidden" name="template" value="[+template+]">
+            <input type="hidden" name="id" value="[+id+]">
+            <button class="btn btn-sm" title="Обновить данные в VK" type="submit">
+                <i class="fa fa-refresh fa-fw"></i>
+            </button>
+        </form>
+        <form class="vk__action" action="" method="POST">
+            <input type="hidden" name="method" value="delete">
+            <input type="hidden" name="template" value="[+template+]">
+            <input type="hidden" name="id" value="[+id+]">
+            <button class="btn btn-sm btn-danger" title="Удалить в VK" type="submit">
+                <i class="fa fa-arrow-down fa-fw"></i>
+            </button>
+        </form>
     </td>
 </tr>

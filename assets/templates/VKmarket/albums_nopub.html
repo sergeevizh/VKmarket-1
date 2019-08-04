@@ -8,8 +8,13 @@
         <a class="vk__item deleted-[+deleted+] published-[+published+]" title="Обзор ресурса" href="index.php?a=27&amp;id=[+id+]" target="main">[+pagetitle+]</a>
     </td>
     <td class="actions text-right">
-        <a href="javascript:;" onclick="return true;" title="Опубликовать в VK">
-            <i class="fa fa-arrow-up fa-fw"></i>
-        </a>
+        <form class="vk__action" action="" method="POST">
+            <input type="hidden" name="method" value="add">
+            <input type="hidden" name="template" value="[+template+]">
+            <input type="hidden" name="id" value="[+id+]">
+            <button class="btn btn-sm btn-success" title="Опубликовать в VK" type="submit">
+                <i class="fa fa-arrow-up fa-fw"></i>
+            </button>
+        </form>
     </td>
 </tr>
