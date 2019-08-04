@@ -56,6 +56,8 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 - [market.getById](#marketgetbyid) - возвращает информацию о товарах по id
 - [market.getCategories](#marketgetcategories) - возвращает список категорий для товаров
 - [market.removeFromAlbum](#marketremovefromalbum) - удаляет товар из подборок
+- [market.reorderAlbums](#marketreorderalbums) - изменяет положение подборки с товарами в списке
+- [market.reorderItems](#marketreorderitems) - изменяет положение товара в подборке
 - [market.search](#marketsearch) - ищет товары в каталоге сообщества
 
 ## Загрузка изображений
@@ -858,7 +860,7 @@ https://oauth.vk.com/access_token?code=______&client_id=______&client_secret=___
 
   _по умолчанию: `decode`_
 
-### [market.reorderAlbums](https://vk.com/dev/market.reorderAlbums)
+### [market.reorderAlbums](https://vk.com/dev/**market.reorderAlbums**)
 
 Изменяет положение подборки с товарами в списке
 
