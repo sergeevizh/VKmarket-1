@@ -80,6 +80,8 @@ class VKsync
                 // ТОВАР ============================================
 
                 $parent = $this->modx->getDocument($id)['parent'];
+                $gparent = $this->modx->getDocument($parent)['parent'];
+                $ggparent = $this->modx->getDocument($gparent)['parent'];
 
                 $name = $this->modx->runSnippet('DocLister', array(
                     'tvList' => $this->tv_list,
@@ -129,12 +131,26 @@ class VKsync
                 $result['params']['image'] = $image;
                 $result['params']['url'] = $url;
 
+                $albums = array();
 
                 $parent_album_id = $this->modx->getTemplateVar($this->vk_album_id, '*', $parent);
+
                 if ($parent_album_id) {
-                    $album = $parent_album_id['value'];
-                    $result['albums'] = $album;
+                    array_push($albums, $parent_album_id['value']);
+                    $gparent_album_id = $this->modx->getTemplateVar($this->vk_album_id, '*', $gparent);
+
+                    if ($gparent_album_id) {
+                        array_push($albums, $gparent_album_id['value']);
+                        $ggparent_album_id = $this->modx->getTemplateVar($this->vk_album_id, '*', $ggparent);
+
+                        if ($ggparent_album_id) {
+                            array_push($albums, $ggparent_album_id['value']);
+                        }
+                    }
                 }
+
+                $albums = implode(",", $albums);
+                $result['albums'] = $albums;
 
                 return $result;
                 break;
@@ -190,7 +206,7 @@ class VKsync
                 $vk_item_id = $sync_item_id['value'];
                 $result = 0;
 
-                if ($vk_item_id !== '') {
+                if ($vk_item_id) {
                     $request = $this->modx->runSnippet('VKapi', array(
                         'api_method' => 'market.getById',
                         'access_token' => $this->access_token,
@@ -221,7 +237,7 @@ class VKsync
                 $vk_album_id = $sync_album_id['value'];
                 $result = 0;
 
-                if ($vk_album_id !== '') {
+                if ($vk_album_id) {
                     $request = $this->modx->runSnippet('VKapi', array(
                         'api_method' => 'market.getAlbumById',
                         'access_token' => $this->access_token,
@@ -270,7 +286,7 @@ class VKsync
         -------------------------------------------------------------
         & template          |  шаблон ресурса
         & id                |  id ресурса
-        & params            |  параметры для API ВКонтакте
+        & params            |  параметры из функции params()
         ============================================================= */
 
         switch ($template) {
@@ -278,11 +294,10 @@ class VKsync
 
                 // ТОВАР ============================================
 
-                $add_params = $params['api'];
-                $add_params['api_method'] = 'market.add';
-                $add_params = $add_params + $params['params'];
+                $request_params = $params['api'] + $params['params'];
+                $request_params['api_method'] = 'market.add';
 
-                $add = $this->modx->runSnippet('VKapi', $add_params);
+                $add = $this->modx->runSnippet('VKapi', $request_params);
 
                 if ($add['success']) {
                     $market_item_id = (int) $add['success']['response'];
@@ -298,15 +313,15 @@ class VKsync
                         $this->site_tmplvar_contentvalues
                     );
 
-                    // добавляем товар в подборку
+                    // добавляем товар в подборки
                     if ($params['albums']) {
 
-                        $to_params = $params['api'];
-                        $to_params['api_method'] = 'market.addToAlbum';
-                        $to_params['item_id'] = $market_item_id;
-                        $to_params['album_ids'] = $params['albums'];
+                        $request_params = $params['api'];
+                        $request_params['api_method'] = 'market.addToAlbum';
+                        $request_params['item_id'] = $market_item_id;
+                        $request_params['album_ids'] = $params['albums'];
 
-                        $this->modx->runSnippet('VKapi', $to_params);
+                        $this->modx->runSnippet('VKapi', $request_params);
                     }
                 }
 
@@ -319,11 +334,10 @@ class VKsync
 
                 // ПОДБОРКА =========================================
 
-                $add_params = $params['api'];
-                $add_params['api_method'] = 'market.addAlbum';
-                $add_params = $add_params + $params['params'];
+                $request_params = $params['api'] + $params['params'];
+                $request_params['api_method'] = 'market.addAlbum';
 
-                $add = $this->modx->runSnippet('VKapi', $add_params);
+                $add = $this->modx->runSnippet('VKapi', $request_params);
 
                 if ($add['success']) {
                     $market_album_id = (int) $add['success']['response'];
@@ -347,7 +361,7 @@ class VKsync
         }
     }
 
-    public function edit($template, $params, $differs)
+    public function edit($template, $id, $params)
     {
         /* Редактирует элемент в ВК =================================
         -------------------------------------------------------------
@@ -364,12 +378,42 @@ class VKsync
 
                 // ТОВАР ============================================
 
-                $edit_params = $params['api'];
-                $edit_params['api_method'] = 'market.edit';
-                $edit_params['item_id'] = $params['vk_id'];
-                $edit_params = $edit_params + $differs;
+                $request_params = $params['api'];
+                $request_params['item_id'] = $params['vk_id'];
 
-                $edit = $this->modx->runSnippet('VKapi', $edit_params);
+                if ($params['params']) {
+
+                    $request_params['api_method'] = 'market.edit';
+                    $request_params = $request_params + $params['params'];
+                    $edit = $this->modx->runSnippet('VKapi', $request_params);
+                }
+
+                if ($params['albums']) {
+                    $get_params = $params['api'];
+                    $get_params['api_method'] = 'market.getById';
+                    $get_params['item_ids'] = $params['vk_id'];
+                    $get_params['extended'] = 1;
+
+                    $get = $this->modx->runSnippet('VKapi', $get_params);
+                    if ($get['success']) {
+                        $albums_now = $get['success']['response']['items'][0]['albums_ids'];
+                        $albums_now = implode($albums_now);
+                    }
+
+                    if ($albums_now !== $params['albums']) {
+                        $remove_params = $params['api'];
+                        $remove_params['item_id'] = $params['vk_id'];
+                        $remove_params['album_ids'] = $albums_now;
+                        $remove_params['api_method'] = 'market.removeFromAlbum';
+                        $this->modx->runSnippet('VKapi', $remove_params);
+
+                        $add_params = $params['api'];
+                        $add_params['item_id'] = $params['vk_id'];
+                        $add_params['album_ids'] = $params['albums'];
+                        $add_params['api_method'] = 'market.addToAlbum';
+                        $this->modx->runSnippet('VKapi', $add_params);
+                    }
+                }
 
                 $result = $edit;
 
@@ -380,12 +424,11 @@ class VKsync
 
                 // ПОДБОРКА =========================================
 
-                $edit_params = $params['api'];
-                $edit_params['api_method'] = 'market.editAlbum';
-                $edit_params['album_id'] = $params['vk_id'];
-                $edit_params = $edit_params + $differs;
-
-                $edit = $this->modx->runSnippet('VKapi', $edit_params);
+                $request_params = $params['api'];
+                $request_params['api_method'] = 'market.editAlbum';
+                $request_params['album_id'] = $params['vk_id'];
+                $request_params = $request_params + $params['params'];
+                $edit = $this->modx->runSnippet('VKapi', $request_params);
 
                 $result = $edit;
 

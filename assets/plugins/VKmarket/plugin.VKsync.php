@@ -104,12 +104,24 @@ switch ($modx->event->name) {
 
                 // генерируем параметры "ПОСЛЕ"
                 $after = $sync->params($template, $id);
-                $differs = $sync->differ($before['params'], $after['params']);
 
-                if ($differs !== 0 && $before['vk_id']) {
+                // если товар был ранее добавлен в ВК
+                if ($before['vk_id']) {
 
-                    $alert = $sync->edit($template, $before, $differs);
-                    return $sync->alert('success', $template == $template_item ? 'Товар' : 'Подборка', $alert);
+                    // ищем отличия
+                    $differ_params = $sync->differ($before['params'], $after['params']);
+                    $differ_albums = $before['albums'] !== $after['albums'];
+
+                    if ($differ_params || $differ_albums) {
+                        $differs['api'] = $before['api'];
+                        $differs['vk_id'] = $before['vk_id'];
+
+                        if ($differ_params) $differs['params'] = $differ_params;
+                        if ($differ_albums) $differs['albums'] = $after['albums'];
+
+                        $alert = $sync->edit($template, $id, $differs);
+                        #return $sync->alert('success', $template == $template_item ? 'Товар' : 'Подборка', $alert);
+                    }
                 }
 
                 #$alert = $sync->add($template, $id, $after);
