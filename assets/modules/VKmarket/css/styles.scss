@@ -2,10 +2,6 @@
     &__item {
         white-space: nowrap;
 
-        &:not(.sync) {
-            color: #5cb85c;
-        }
-
         &.published-0 {
             font-style: italic;
             color: #b68282;
@@ -54,5 +50,11 @@
     &__separ {
         line-height: 1;
         padding: 12px;
+    }
+}
+
+.text {
+    &-normal {
+        text-transform: none !important;
     }
 }

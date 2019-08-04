@@ -1,8 +1,11 @@
-<div class="tab-page" id="tabAlbums">
-    <h2 class="tab"><i class="fa fa-folder"></i> Подборки</h2>
+<div class="tab-page" id="items_pub">
+    <h2 class="tab">
+        <i class="fa fa-check text-success"></i>
+        <span class="text-normal">Загруженные</span>
+    </h2>
     <div class="tab-body">
         <p>
-            В данной таблице приведены доступные модулю категории товаров. В сообществе ВК они будут опубликованы, как подборки.<br>
+            В данной таблице приведены доступные модулю товары.<br>
             Вы можете загружать / удалять / обновлять данные нажатием на кнопки соответствующих действий.
         </p>
         <br>
@@ -11,22 +14,19 @@
                 <table class="table data vk">
                     <thead>
                         <tr>
-                            <th style="width: 1%;"><input id="vkAlbumsAll" name="vk_album_all" type="checkbox"></th>
+                            <th style="width: 1%;"><input id="items_pub_all" name="items_pub_all" type="checkbox"></th>
                             <th style="width: 1%;">ID</th>
-                            <th style="width: 96%;"><i class="fa fa-folder fa-fw invisible mr-1"></i> Заголовок</th>
-                            <th style="width: 1%;" class="text-right">ID ВКонтакте</th>
+                            <th style="width: 96%;"><i class="fa fa-file-o fa-fw invisible mr-1"></i> Заголовок</th>
+                            <th style="width: 1%;" class="text-right">ID VK</th>
                             <th style="width: 1%;" class="text-right">Действия</th>
                         </tr>
                     </thead>
                     <tbody>
                         [+dl.wrap+]
                         <tr>
-                            <td colspan="3">Действия для отмеченных подборок:</td>
-                            <td colspan="2" class="text-right">
+                            <td colspan="4">Действия для отмеченных товаров:</td>
+                            <td class="text-right">
                                 <span class="actions">
-                                    <a href="javascript:;" onclick="return true;" title="Опубликовать в VK">
-                                        <i class="fa fa-arrow-up fa-fw"></i>
-                                    </a>
                                     <a href="javascript:;" onclick="return true;" title="Обновить данные в VK">
                                         <i class="fa fa-refresh fa-fw"></i>
                                     </a>
@@ -39,8 +39,8 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th colspan="4">
-                                [+albums.pages+]
+                            <th colspan="5">
+                                [+items_pub.pages+]
                             </th>
                         </tr>
                     </tfoot>
