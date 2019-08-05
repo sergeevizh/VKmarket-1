@@ -498,16 +498,19 @@ class VKsync
             case 'add':
                 $params = $this->params($_POST['template'], $_POST['id'], 'params,api,evo,vk');
                 $this->add($params);
+                header("Location: " . $_SERVER['REQUEST_URI']);
                 break;
 
             case 'edit':
                 $params = $this->params($_POST['template'], $_POST['id'], 'params,api,evo,vk');
                 $this->edit($params);
+                header("Location: " . $_SERVER['REQUEST_URI']);
                 break;
 
             case 'delete':
                 $params = $this->params($_POST['template'], $_POST['id'], 'api,evo,vk');
                 $this->delete($params);
+                header("Location: " . $_SERVER['REQUEST_URI']);
                 break;
         }
     }
