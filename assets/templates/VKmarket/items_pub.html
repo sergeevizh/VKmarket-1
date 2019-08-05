@@ -12,18 +12,20 @@
     <td class="text-right">[+tv.vk_item_id+]</td>
     <td class="actions text-right">
         <form class="vk__action" action="" method="POST">
-            <input type="hidden" name="method" value="edit">
+            <input type="hidden" name="function" value="edit">
             <input type="hidden" name="template" value="[+template+]">
             <input type="hidden" name="id" value="[+id+]">
-            <button class="btn btn-sm" title="Обновить данные в VK" type="submit">
+            <input type="hidden" name="vk_id" value="[+tv.vk_item_id+]">
+            <button class="btn btn-sm" title="Обновить данные в VK" type="submit" onclick="showLoader();">
                 <i class="fa fa-refresh fa-fw"></i>
             </button>
         </form>
         <form class="vk__action" action="" method="POST">
-            <input type="hidden" name="method" value="delete">
+            <input type="hidden" name="function" value="delete">
             <input type="hidden" name="template" value="[+template+]">
             <input type="hidden" name="id" value="[+id+]">
-            <button class="btn btn-sm btn-danger" title="Удалить в VK" type="submit">
+            <input type="hidden" name="vk_id" value="[+tv.vk_item_id+]">
+            <button class="btn btn-sm btn-danger" title="Удалить в VK" type="submit" onclick="showLoader();">
                 <i class="fa fa-arrow-down fa-fw"></i>
             </button>
         </form>

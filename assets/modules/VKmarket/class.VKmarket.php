@@ -160,48 +160,40 @@ class VKmarket
                 break;
 
             case 'edit':
-                $this->edit($_POST['id'], $_POST['template']);
+                $this->edit($_POST['id'], $_POST['template'], $_POST['vk_id']);
                 header("Location: " . $_SERVER['REQUEST_URI']);
                 break;
 
             case 'delete':
-                $this->delete($_POST['id'], $_POST['template']);
+                $this->delete($_POST['id'], $_POST['template'], $_POST['vk_id']);
                 header("Location: " . $_SERVER['REQUEST_URI']);
                 break;
         }
     }
 
-    public function check($id, $template)
+    public function check($id, $template, $vk_id)
     {
         switch ($template) {
             case $this->config['template_item']:
 
                 // ТОВАР ============================================
 
-                $vk_item_id = $this->modx->runSnippet('DocInfo', array(
-                    'docid' => $id,
-                    'field' => 'vk_item_id'
-                ));
+                $params_get = $this->config['api'];
+                $params_get['api_method'] = 'market.getById';
+                $params_get['item_ids'] = $vk_id;
+                $params_get['extended'] = 1;
+                $request_get = $this->modx->runSnippet('VKapi', $params_get);
 
-                if ($vk_item_id) {
-                    $params_get = $this->config['api'];
-                    $params_get['api_method'] = 'market.getById';
-                    $params_get['item_ids'] = $vk_item_id;
-                    $params_get['extended'] = 1;
-                    $request_get = $this->modx->runSnippet('VKapi', $params_get);
-
-                    if ($request_get['success']) {
-                        $result = $request_get['success']['response']['items'][0];
-                        return $result;
-                    } else {
-                        $this->modx->db->delete(
-                            $this->config['db']['tv_value'],
-                            'tmplvarid="' . $this->config['tmplvarid']['vk_item_id'] . '" AND contentid="' . $id . '"'
-                        );
-                        return 0;
-                    }
+                if ($request_get['success']) {
+                    $result = $request_get['success']['response']['items'][0];
+                    return $result;
+                } else {
+                    $this->modx->db->delete(
+                        $this->config['db']['tv_value'],
+                        'tmplvarid="' . $this->config['tmplvarid']['vk_item_id'] . '" AND contentid="' . $id . '"'
+                    );
+                    return 0;
                 }
-                return 0;
 
                 break;
 
@@ -209,30 +201,22 @@ class VKmarket
 
                 // ПОДБОРКА =========================================
 
-                $vk_album_id = $this->modx->runSnippet('DocInfo', array(
-                    'docid' => $id,
-                    'field' => 'vk_album_id'
-                ));
+                $params_get = $this->config['api'];
+                $params_get['api_method'] = 'market.getAlbumById';
+                $params_get['album_ids'] = $vk_id;
+                $request_get = $this->modx->runSnippet('VKapi', $params_get);
 
-                if ($vk_album_id) {
-                    $params_get = $this->config['api'];
-                    $params_get['api_method'] = 'market.getAlbumById';
-                    $params_get['album_ids'] = $vk_album_id;
-                    $request_get = $this->modx->runSnippet('VKapi', $params_get);
-
-                    if ($request_get['success']) {
-                        $result = $request_get['success']['response']['items'][0];
-                        return $result;
-                    } else {
-                        $this->modx->db->delete(
-                            $this->config['db']['tv_value'],
-                            'tmplvarid="' . $this->config['tmplvarid']['vk_album_id'] . '" AND contentid="' . $id . '"'
-                        );
-                        return 0;
-                    }
+                if ($request_get['success']) {
+                    $result = $request_get['success']['response']['items'][0];
+                    return $result;
+                } else {
+                    $this->modx->db->delete(
+                        $this->config['db']['tv_value'],
+                        'tmplvarid="' . $this->config['tmplvarid']['vk_album_id'] . '" AND contentid="' . $id . '"'
+                    );
+                    return 0;
                 }
 
-                return 0;
                 break;
         }
     }
@@ -319,9 +303,9 @@ class VKmarket
         }
     }
 
-    public function edit($id, $template)
+    public function edit($id, $template, $vk_id)
     {
-        $check = $this->check($id, $template);
+        $check = $this->check($id, $template, $vk_id);
 
         if ($check) {
             $params = $this->getParams($id, $template) + $this->config['api'];
@@ -332,7 +316,7 @@ class VKmarket
                     // ТОВАР ============================================
 
                     $params['api_method'] = 'market.edit';
-                    $params['item_id'] = $check['id'];
+                    $params['item_id'] = $vk_id;
                     $request = $this->modx->runSnippet('VKapi', $params);
 
                     if ($request['success']) {
@@ -349,7 +333,7 @@ class VKmarket
                     // ПОДБОРКА =========================================
 
                     $params['api_method'] = 'market.editAlbum';
-                    $params['album_id'] = $check['id'];
+                    $params['album_id'] = $vk_id;
                     $request = $this->modx->runSnippet('VKapi', $params);
 
                     if ($request['success']) {
@@ -361,6 +345,54 @@ class VKmarket
                     }
                     break;
             }
+        }
+
+        return false;
+    }
+
+    public function delete($id, $template, $vk_id)
+    {
+        $params = $this->config['api'];
+
+        switch ($template) {
+            case $this->config['template_item']:
+
+                // ТОВАР ============================================
+
+                $params['api_method'] = 'market.delete';
+                $params['item_id'] = $vk_id;
+                $request = $this->modx->runSnippet('VKapi', $params);
+
+                if ($request['success']) {
+                    $this->alert('success', '[ delete item ] - ' . $params['name'], $request);
+                    $this->modx->db->delete(
+                        $this->config['db']['tv_value'],
+                        'tmplvarid="' . $this->config['tmplvarid']['vk_item_id'] . '" AND contentid="' . $id . '"'
+                    );
+                    return 0;
+                    return true;
+                } else {
+                    $this->alert('error', '[ delete item ] - ' . $params['name'], $request);
+                    return false;
+                }
+                break;
+
+            case $this->config['template_album']:
+
+                // ПОДБОРКА =========================================
+
+                $params['api_method'] = 'market.deleteAlbum';
+                $params['album_id'] = $vk_id;
+                $request = $this->modx->runSnippet('VKapi', $params);
+
+                if ($request['success']) {
+                    $this->alert('success', '[ delete album ] - ' . $params['title'], $request);
+                    return true;
+                } else {
+                    $this->alert('error', '[ delete album ] - ' . $params['title'], $request);
+                    return false;
+                }
+                break;
         }
 
         return false;
