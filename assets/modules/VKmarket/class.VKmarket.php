@@ -160,13 +160,79 @@ class VKmarket
                 break;
 
             case 'edit':
-                $this->edit($_POST['id']);
+                $this->edit($_POST['id'], $_POST['template']);
                 header("Location: " . $_SERVER['REQUEST_URI']);
                 break;
 
             case 'delete':
-                $this->delete($_POST['id']);
+                $this->delete($_POST['id'], $_POST['template']);
                 header("Location: " . $_SERVER['REQUEST_URI']);
+                break;
+        }
+    }
+
+    public function check($id, $template)
+    {
+        switch ($template) {
+            case $this->config['template_item']:
+
+                // ТОВАР ============================================
+
+                $vk_item_id = $this->modx->runSnippet('DocInfo', array(
+                    'docid' => $id,
+                    'field' => 'vk_item_id'
+                ));
+
+                if ($vk_item_id) {
+                    $params_get = $this->config['api'];
+                    $params_get['api_method'] = 'market.getById';
+                    $params_get['item_ids'] = $vk_item_id;
+                    $params_get['extended'] = 1;
+                    $request_get = $this->modx->runSnippet('VKapi', $params_get);
+
+                    if ($request_get['success']) {
+                        $result = $request_get['success']['response']['items'][0];
+                        return $result;
+                    } else {
+                        $this->modx->db->delete(
+                            $this->config['db']['tv_value'],
+                            'tmplvarid="' . $this->config['tmplvarid']['vk_item_id'] . '" AND contentid="' . $id . '"'
+                        );
+                        return 0;
+                    }
+                }
+                return 0;
+
+                break;
+
+            case $this->config['template_album']:
+
+                // ПОДБОРКА =========================================
+
+                $vk_album_id = $this->modx->runSnippet('DocInfo', array(
+                    'docid' => $id,
+                    'field' => 'vk_album_id'
+                ));
+
+                if ($vk_album_id) {
+                    $params_get = $this->config['api'];
+                    $params_get['api_method'] = 'market.getAlbumById';
+                    $params_get['album_ids'] = $vk_album_id;
+                    $request_get = $this->modx->runSnippet('VKapi', $params_get);
+
+                    if ($request_get['success']) {
+                        $result = $request_get['success']['response']['items'][0];
+                        return $result;
+                    } else {
+                        $this->modx->db->delete(
+                            $this->config['db']['tv_value'],
+                            'tmplvarid="' . $this->config['tmplvarid']['vk_album_id'] . '" AND contentid="' . $id . '"'
+                        );
+                        return 0;
+                    }
+                }
+
+                return 0;
                 break;
         }
     }
@@ -215,10 +281,10 @@ class VKmarket
                         }
                     }
                     return true;
-                } else {
-                    $this->alert('error', '[ add item ] - ' . $params['name'], $request);
-                    return false;
                 }
+
+                $this->alert('error', '[ add item ] - ' . $params['name'], $request);
+                return false;
                 break;
 
             case $this->config['template_album']:
@@ -244,12 +310,59 @@ class VKmarket
 
                     $this->alert('success', '[ add album ] - ' . $params['title'], $request);
                     return true;
-                } else {
-                    $this->alert('error', '[ add album ] - ' . $params['title'], $request);
-                    return false;
                 }
+
+                $this->alert('error', '[ add album ] - ' . $params['title'], $request);
+                return false;
 
                 break;
         }
+    }
+
+    public function edit($id, $template)
+    {
+        $check = $this->check($id, $template);
+
+        if ($check) {
+            $params = $this->getParams($id, $template) + $this->config['api'];
+
+            switch ($template) {
+                case $this->config['template_item']:
+
+                    // ТОВАР ============================================
+
+                    $params['api_method'] = 'market.edit';
+                    $params['item_id'] = $check['id'];
+                    $request = $this->modx->runSnippet('VKapi', $params);
+
+                    if ($request['success']) {
+                        $this->alert('success', '[ edit item ] - ' . $params['name'], $request);
+                        return true;
+                    } else {
+                        $this->alert('error', '[ edit item ] - ' . $params['name'], $request);
+                        return false;
+                    }
+                    break;
+
+                case $this->config['template_album']:
+
+                    // ПОДБОРКА =========================================
+
+                    $params['api_method'] = 'market.editAlbum';
+                    $params['album_id'] = $check['id'];
+                    $request = $this->modx->runSnippet('VKapi', $params);
+
+                    if ($request['success']) {
+                        $this->alert('success', '[ edit album ] - ' . $params['title'], $request);
+                        return true;
+                    } else {
+                        $this->alert('error', '[ edit album ] - ' . $params['title'], $request);
+                        return false;
+                    }
+                    break;
+            }
+        }
+
+        return false;
     }
 }
