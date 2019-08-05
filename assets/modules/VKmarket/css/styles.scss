@@ -1,3 +1,13 @@
+.loading {
+    overflow: hidden;
+
+    #mainloader {
+        position: fixed;
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
 .vk {
     &__item {
         white-space: nowrap;

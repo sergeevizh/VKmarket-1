@@ -15,14 +15,15 @@ if (!isset($v))                 $errors = $errors . '<li><strong>v (версия
 if (!isset($template_item))     $errors = $errors . '<li><strong>ID шаблона товаров</strong> : шаблон ресурсов, которые будут товарами ВКонтакте</li>';
 if (!isset($template_album))    $errors = $errors . '<li><strong>ID шаблона категорий (подборок)</strong> : шаблон ресурсов, которые будут подборками ВКонтакте</li>';
 
-// Конфигурация для класса VKsync
+// Конфигурация для класса VKmarket
+
+$site_tmplvars = $modx->getFullTableName('site_tmplvars');
+$site_tmplvar_contentvalues = $modx->getFullTableName('site_tmplvar_contentvalues');
+$vk_item_tvid = $modx->db->getValue($modx->db->select('id', $site_tmplvars, 'name="vk_item_id"'));
+$vk_album_tvid = $modx->db->getValue($modx->db->select('id', $site_tmplvars, 'name="vk_album_id"'));
+$vk_category_tvid = $modx->db->getValue($modx->db->select('id', $site_tmplvars, 'name="vk_category_id"'));
+
 $module_config = array(
-    'access_token'          => $access_token,
-    'group_id'              => $group_id,
-    'v'                     => $v,
-    'vk_item_id'            => 'vk_item_id',
-    'vk_album_id'           => 'vk_album_id',
-    'vk_category_id'        => 'vk_category_id',
     'template_item'         => $template_item,
     'template_album'        => $template_album,
     'tv_list'               => $tv_list,
@@ -31,13 +32,26 @@ $module_config = array(
     'item_price_tpl'        => $item_price_tpl,
     'item_image_tpl'        => $item_image_tpl,
     'album_title_tpl'       => $album_title_tpl,
-    'album_image_tpl'       => $album_image_tpl
+    'album_image_tpl'       => $album_image_tpl,
+    'api' => array(
+        'access_token'      => $access_token,
+        'group_id'          => $group_id,
+        'v'                 => $v
+    ),
+    'db' => array(
+        'tvs'               => $site_tmplvars,
+        'tv_value'          => $site_tmplvar_contentvalues
+    ),
+    'tmplvarid' => array(
+        'vk_item_id'        => $vk_item_tvid,
+        'vk_album_id'       => $vk_album_tvid,
+        'vk_category_id'    => $vk_category_tvid
+    )
 );
 
-$sync = new VKsync($modx, $module_config);
-$market = new VKmarket($modx);
+$market = new VKmarket($modx, $module_config);
 
-$sync->makeActions();
+$market->makeActions();
 
 // Если есть ошибки
 if ($errors) {

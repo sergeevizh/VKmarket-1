@@ -78,7 +78,8 @@ if ($modx->event->name == 'OnManagerPageInit') {
         'name' => 'vk_category_id',
         'caption' => 'ID категории товаров ВКонтакте',
         'description' => 'В API ВКонтакте: <em>category_id</em>',
-        'category' => $module_category
+        'category' => $module_category,
+        'default_text' => 0
     );
 
     if ($vk_category_id) {
@@ -96,7 +97,8 @@ if ($modx->event->name == 'OnManagerPageInit') {
         'name' => 'vk_album_id',
         'caption' => 'ID подборки ВКонтакте',
         'description' => 'В API ВКонтакте: <em>market_album_id</em>',
-        'category' => $module_category
+        'category' => $module_category,
+        'default_text' => 0
     );
 
     if ($vk_album_id) {
@@ -114,7 +116,8 @@ if ($modx->event->name == 'OnManagerPageInit') {
         'name' => 'vk_item_id',
         'caption' => 'ID товара ВКонтакте',
         'description' => 'В API ВКонтакте: <em>market_item_id</em>',
-        'category' => $module_category
+        'category' => $module_category,
+        'default_text' => 0
     );
 
     if ($vk_item_id) {
