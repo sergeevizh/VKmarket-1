@@ -12,22 +12,6 @@
         function showLoader() {
             document.querySelector('body').classList.add('loading');
         }
-
-        function confirmDeleteCheck() {
-            return confirm("Вы уверены, что хотите удалить в VK выбранные элементы? \n\nЭто может занять некоторое время.");
-        }
-
-        function confirmDeleteOne() {
-            return confirm("Вы уверены, что хотите удалить в VK выбранный элемент?");
-        }
-
-        function confirmRefreshCheck() {
-            return confirm("Вы уверены, что хотите обновить данные выбранных элементов в VK? \n\nЭто может занять некоторое время.");
-        }
-
-        function confirmAddCheck() {
-            return confirm("Вы уверены, что хотите загрузить выбранные элементы в VK? \n\nЭто может занять некоторое время.");
-        }
     </script>
 </head>
 
@@ -39,11 +23,11 @@
 
     <div id="actions">
         <div class="btn-group">
-            <a class="btn btn-success" href="javascript:;" onclick="window.location.href=window.location.href;">
+            <a class="btn btn-secondary" href="javascript:;" onclick="window.location.href=window.location.href;">
                 <i class="fa fa-refresh"></i>
                 <span>Обновить</span>
             </a>
-            <a class="btn btn-secondary" href="javascript:;" onclick="window.location.href='index.php?a=106';">
+            <a class="btn btn-danger" href="javascript:;" onclick="window.location.href='index.php?a=106';">
                 <i class="fa fa-times-circle"></i>
                 <span>Закрыть</span>
             </a>
@@ -70,16 +54,6 @@
             </div>
         </div>
     </div>
-
-    <script>
-        const checkAll = function (name, it) {
-            const items = document.querySelectorAll('[name="' + name + '"]');
-            for (let index = 0; index < items.length; index++) {
-                const item = items[index];
-                item.checked = it.checked;
-            }
-        }
-    </script>
 </body>
 
 </html>

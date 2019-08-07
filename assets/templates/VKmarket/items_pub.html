@@ -11,23 +11,17 @@
     </td>
     <td class="text-right">[+tv.vk_item_id+]</td>
     <td class="actions text-right">
-        <form class="vk__action" action="" method="POST">
-            <input type="hidden" name="function" value="edit">
-            <input type="hidden" name="template" value="[+template+]">
-            <input type="hidden" name="id" value="[+id+]">
-            <input type="hidden" name="vk_id" value="[+tv.vk_item_id+]">
-            <button class="btn btn-sm" title="Обновить данные в VK" type="submit" onclick="showLoader();">
+        <label class="vk__action" title="Обновить данные в VK">
+            <input style="display: none;" type="checkbox" name="actions[]" value='{"function":"edit","id":[+id+],"template":[+template+],"vk_id":[+tv.vk_album_id+]}'>
+            <div class="btn btn-sm btn--edit">
                 <i class="fa fa-refresh fa-fw"></i>
-            </button>
-        </form>
-        <form class="vk__action" action="" method="POST">
-            <input type="hidden" name="function" value="delete">
-            <input type="hidden" name="template" value="[+template+]">
-            <input type="hidden" name="id" value="[+id+]">
-            <input type="hidden" name="vk_id" value="[+tv.vk_item_id+]">
-            <button class="btn btn-sm btn-danger" title="Удалить в VK" type="submit" onclick="showLoader();">
+            </div>
+        </label>
+        <label class="vk__action" title="Удалить в VK">
+            <input style="display: none;" type="checkbox" name="actions[]" value='{"function":"delete","id":[+id+],"template":[+template+],"vk_id":[+tv.vk_album_id+]}'>
+            <div class="btn btn-sm btn--delete">
                 <i class="fa fa-arrow-down fa-fw"></i>
-            </button>
-        </form>
+            </div>
+        </label>
     </td>
 </tr>

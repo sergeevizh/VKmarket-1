@@ -153,22 +153,31 @@ class VKmarket
 
     public function makeActions()
     {
-        switch ($_POST['function']) {
-            case 'add':
-                $this->add($_POST['id'], $_POST['template']);
-                header("Location: " . $_SERVER['REQUEST_URI']);
-                break;
+        $actions = $_POST['actions'];
+        if ($actions) {
 
-            case 'edit':
-                $this->edit($_POST['id'], $_POST['template'], $_POST['vk_id']);
-                header("Location: " . $_SERVER['REQUEST_URI']);
-                break;
+            foreach ($actions as $action) {
 
-            case 'delete':
-                $this->delete($_POST['id'], $_POST['template'], $_POST['vk_id']);
-                header("Location: " . $_SERVER['REQUEST_URI']);
-                break;
+                $action = json_decode($action, true);
+
+                switch ($action['function']) {
+                    case 'add':
+                        $this->add($action['id'], $action['template']);
+                        break;
+
+                    case 'edit':
+                        $this->edit($action['id'], $action['template'], $action['vk_id']);
+                        break;
+
+                    case 'delete':
+                        $this->delete($action['id'], $action['template'], $action['vk_id']);
+                        break;
+                }
+            }
+            header("Location: " . $_SERVER['REQUEST_URI']);
+            return true;
         }
+        return false;
     }
 
     public function check($id, $template, $vk_id)
@@ -369,7 +378,6 @@ class VKmarket
                         $this->config['db']['tv_value'],
                         'tmplvarid="' . $this->config['tmplvarid']['vk_item_id'] . '" AND contentid="' . $id . '"'
                     );
-                    return 0;
                     return true;
                 } else {
                     $this->alert('error', '[ delete item ] - ' . $params['name'], $request);
@@ -387,6 +395,10 @@ class VKmarket
 
                 if ($request['success']) {
                     $this->alert('success', '[ delete album ] - ' . $params['title'], $request);
+                    $this->modx->db->delete(
+                        $this->config['db']['tv_value'],
+                        'tmplvarid="' . $this->config['tmplvarid']['vk_album_id'] . '" AND contentid="' . $id . '"'
+                    );
                     return true;
                 } else {
                     $this->alert('error', '[ delete album ] - ' . $params['title'], $request);

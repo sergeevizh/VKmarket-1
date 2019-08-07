@@ -160,15 +160,15 @@ if ($errors) {
 }
 
 $placeholders = array(
-    'errors' => $errors,
-    'theme' => $market->theme,
-    'module_id' => $market->module_id,
-    'module_url' => $market->module_url,
-    'jquery_path' => $market->jquery_path,
-    'items_nopub' => $items_nopub,
-    'items_pub' => $items_pub,
-    'albums_nopub' => $albums_nopub,
-    'albums_pub' => $albums_pub
+    'errors'            => $errors,
+    'theme'             => $market->theme,
+    'module_id'         => $market->module_id,
+    'module_url'        => $market->module_url,
+    'jquery_path'       => $market->jquery_path,
+    'items_nopub'       => $items_nopub,
+    'items_pub'         => $items_pub,
+    'albums_nopub'      => $albums_nopub,
+    'albums_pub'        => $albums_pub
 );
 
 $output = $modx->parseText($tpl, $placeholders);

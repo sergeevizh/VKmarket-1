@@ -1,20 +1,15 @@
 <tr>
-    <td>
-        <input name="albums_nopub" type="checkbox" value="[+id+]">
-    </td>
     <td>[+id+]</td>
     <td>
         <i class="fa fa-folder fa-fw text-muted mr-1" title="Подборка не опубликована в VK"></i>
         <a class="vk__item deleted-[+deleted+] published-[+published+]" title="Обзор ресурса" href="index.php?a=27&amp;id=[+id+]" target="main">[+pagetitle+]</a>
     </td>
     <td class="actions text-right">
-        <form class="vk__action" action="" method="POST">
-            <input type="hidden" name="function" value="add">
-            <input type="hidden" name="template" value="[+template+]">
-            <input type="hidden" name="id" value="[+id+]">
-            <button class="btn btn-sm btn-success" title="Опубликовать в VK" type="submit" onclick="showLoader();">
+        <label class="vk__action" title="Опубликовать в VK">
+            <input style="display: none;" type="checkbox" name="actions[]" value='{"function":"add","id":[+id+],"template":[+template+]}'>
+            <div class="btn btn-sm btn--add">
                 <i class="fa fa-arrow-up fa-fw"></i>
-            </button>
-        </form>
+            </div>
+        </label>
     </td>
 </tr>
