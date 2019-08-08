@@ -12,6 +12,13 @@
         function showLoader() {
             document.querySelector('body').classList.add('loading');
         }
+        const checkAll = function (data_function, it) {
+            const items = document.querySelectorAll('[data-function="' + data_function + '"]');
+            for (let index = 0; index < items.length; index++) {
+                const item = items[index];
+                item.checked = it.checked;
+            }
+        }
     </script>
 </head>
 

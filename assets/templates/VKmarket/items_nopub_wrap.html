@@ -14,7 +14,14 @@
                     <tr>
                         <th style="width: 1%;">ID</th>
                         <th style="width: 98%;"><i class="fa fa-file-o fa-fw invisible mr-1"></i> Заголовок</th>
-                        <th style="width: 1%;" class="text-right">Действия</th>
+                        <th style="width: 1%;" class="text-right">
+                            <label class="vk__action" title="Опубликовать все в VK">
+                                <input style="display: none;" type="checkbox" name="all" onchange="checkAll('item_add', $(this));">
+                                <div class="btn btn-sm btn--add">
+                                    <i class="fa fa-arrow-up fa-fw"></i>
+                                </div>
+                            </label>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>

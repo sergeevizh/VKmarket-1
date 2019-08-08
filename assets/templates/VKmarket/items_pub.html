@@ -9,13 +9,13 @@
     <td class="text-right">[+tv.vk_item_id+]</td>
     <td class="actions text-right">
         <label class="vk__action" title="Обновить данные в VK">
-            <input style="display: none;" type="checkbox" name="actions[]" value='{"function":"edit","id":[+id+],"template":[+template+],"vk_id":[+tv.vk_item_id+]}'>
+            <input style="display: none;" type="checkbox" data-function="item_edit" name="actions[]" value='{"function":"edit","id":[+id+],"template":[+template+],"vk_id":[+tv.vk_album_id+]}'>
             <div class="btn btn-sm btn--edit">
                 <i class="fa fa-refresh fa-fw"></i>
             </div>
         </label>
         <label class="vk__action" title="Удалить в VK">
-            <input style="display: none;" type="checkbox" name="actions[]" value='{"function":"delete","id":[+id+],"template":[+template+],"vk_id":[+tv.vk_item_id+]}'>
+            <input style="display: none;" type="checkbox" data-function="item_delete" name="actions[]" value='{"function":"delete","id":[+id+],"template":[+template+],"vk_id":[+tv.vk_album_id+]}'>
             <div class="btn btn-sm btn--delete">
                 <i class="fa fa-arrow-down fa-fw"></i>
             </div>
