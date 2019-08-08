@@ -82,10 +82,7 @@ if ($modx->event->name == 'OnManagerPageInit') {
         'default_text' => 0
     );
 
-    if ($vk_category_id) {
-        // обновляем
-        $modx->db->update($vk_category_id_params, $TV, 'id="' . $vk_category_id . '"');
-    } else {
+    if (!$vk_category_id) {
         // создаём
         $modx->db->insert($vk_category_id_params, $TV);
     }
@@ -96,15 +93,12 @@ if ($modx->event->name == 'OnManagerPageInit') {
         'type' => 'text',
         'name' => 'vk_album_id',
         'caption' => 'ID подборки ВКонтакте',
-        'description' => 'В API ВКонтакте: <em>market_album_id</em>',
+        'description' => 'В API ВКонтакте: <em>album_id</em>',
         'category' => $module_category,
         'default_text' => 0
     );
 
-    if ($vk_album_id) {
-        // обновляем
-        $modx->db->update($vk_album_id_params, $TV, 'id="' . $vk_album_id . '"');
-    } else {
+    if (!$vk_album_id) {
         // создаём
         $modx->db->insert($vk_album_id_params, $TV);
     }
@@ -115,15 +109,12 @@ if ($modx->event->name == 'OnManagerPageInit') {
         'type' => 'text',
         'name' => 'vk_item_id',
         'caption' => 'ID товара ВКонтакте',
-        'description' => 'В API ВКонтакте: <em>market_item_id</em>',
+        'description' => 'В API ВКонтакте: <em>item_id</em>',
         'category' => $module_category,
         'default_text' => 0
     );
 
-    if ($vk_item_id) {
-        // обновляем
-        $modx->db->update($vk_item_id_params, $TV, 'id="' . $vk_item_id . '"');
-    } else {
+    if (!$vk_item_id) {
         // создаём
         $modx->db->insert($vk_item_id_params, $TV);
     }
