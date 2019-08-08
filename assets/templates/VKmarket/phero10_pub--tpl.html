@@ -1,0 +1,24 @@
+<tr>
+    <td>[+id+]</td>
+    <td>
+        <i class="fa fa-check fa-fw text-success mr-1" title="Загружен в ВК"></i>
+        <a class="vk__item deleted-[+deleted+] published-[+published+]" title="Обзор ресурса" href="index.php?a=27&amp;id=[+id+]" target="main">
+            [[DocInfo? &docid=`[+parent+]` &field=`pagetitle`]] - [+pagetitle+] (с феромонами)
+        </a>
+    </td>
+    <td class="text-right">[+tv.vk_phero10_id+]</td>
+    <td class="actions text-right">
+        <label class="vk__action" title="Обновить в ВК">
+            <input style="display: none;" type="checkbox" data-function="edit_phero10" name="actions[]" value='{"function":"edit","type":"phero10","id":[+id+],"template":[+template+],"vk_id":[+tv.vk_phero10_id+]}'>
+            <div class="btn btn-sm btn--edit">
+                <i class="fa fa-refresh fa-fw"></i>
+            </div>
+        </label>
+        <label class="vk__action" title="Удалить в ВК">
+            <input style="display: none;" type="checkbox" data-function="delete_phero10" name="actions[]" value='{"function":"delete","type":"phero10","id":[+id+],"template":[+template+],"vk_id":[+tv.vk_phero10_id+]}'>
+            <div class="btn btn-sm btn--delete">
+                <i class="fa fa-arrow-down fa-fw"></i>
+            </div>
+        </label>
+    </td>
+</tr>

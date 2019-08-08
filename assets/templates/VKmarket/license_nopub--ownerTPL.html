@@ -1,0 +1,43 @@
+<div class="tab-page" id="license_nopub_page">
+    <h2 class="tab">
+        <span class="text-normal">Не загруженные</span>
+    </h2>
+    <div class="tab-body">
+        <p>
+            В данной таблице приведены не загруженные в ВК лицензии. Вы можете их загрузить.<br>
+            Для этого отметьте соответствующие действия и отправьте данные на обработку.
+        </p>
+        <br>
+        <form class="table-responsive" action="" method="POST">
+            <table class="table data vk">
+                <thead>
+                    <tr>
+                        <th style="width: 1%;">ID</th>
+                        <th style="width: 98%;"><i class="fa fa-file-o fa-fw invisible mr-1"></i> Заголовок</th>
+                        <th style="width: 1%;" class="text-right">
+                            <label class="vk__action" title="Загрузить в ВК все">
+                                <input style="display: none;" type="checkbox" name="all" onchange="checkAll('add_license', $(this));">
+                                <div class="btn btn-sm btn--add">
+                                    <i class="fa fa-arrow-up fa-fw"></i>
+                                </div>
+                            </label>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    [+dl.wrap+]
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="2">
+                            [+license_nopub.pages+]
+                        </th>
+                        <th class="text-right">
+                            <button class="btn btn-success" type="submit" onclick="showLoader();">Отправить</button>
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </form>
+    </div>
+</div>

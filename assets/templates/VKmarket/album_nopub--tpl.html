@@ -1,12 +1,12 @@
 <tr>
     <td>[+id+]</td>
     <td>
-        <i class="fa fa-folder fa-fw text-muted mr-1" title="Подборка не опубликована в VK"></i>
+        <i class="fa fa-folder fa-fw text-muted mr-1" title="Не загружен в ВК"></i>
         <a class="vk__item deleted-[+deleted+] published-[+published+]" title="Обзор ресурса" href="index.php?a=27&amp;id=[+id+]" target="main">[+pagetitle+]</a>
     </td>
     <td class="actions text-right">
-        <label class="vk__action" title="Опубликовать в VK">
-            <input style="display: none;" type="checkbox" data-function="album_add" name="actions[]" value='{"function":"add","id":[+id+],"template":[+template+]}'>
+        <label class="vk__action" title="Загрузить в ВК">
+            <input style="display: none;" type="checkbox" data-function="add_album" name="actions[]" value='{"function":"add","type":"album","id":[+id+],"template":[+template+]}'>
             <div class="btn btn-sm btn--add">
                 <i class="fa fa-arrow-up fa-fw"></i>
             </div>

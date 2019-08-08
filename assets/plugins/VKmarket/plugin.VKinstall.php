@@ -79,7 +79,7 @@ if ($modx->event->name == 'OnManagerPageInit') {
         'caption' => 'ID категории товаров ВКонтакте',
         'description' => 'В API ВКонтакте: <em>category_id</em>',
         'category' => $module_category,
-        'default_text' => 0
+        'default_text' => 701
     );
 
     if (!$vk_category_id) {
@@ -104,20 +104,71 @@ if ($modx->event->name == 'OnManagerPageInit') {
     }
 
     // ТВ-параметр для ID товаров
-    $vk_item_id = $modx->db->getValue($modx->db->select('id', $TV, 'name="vk_item_id"'));
-    $vk_item_id_params = array(
+    $vk_original_id = $modx->db->getValue($modx->db->select('id', $TV, 'name="vk_original_id"'));
+    $vk_original_id_params = array(
         'type' => 'text',
-        'name' => 'vk_item_id',
+        'name' => 'vk_original_id',
         'caption' => 'ID товара ВКонтакте',
-        'description' => 'В API ВКонтакте: <em>item_id</em>',
+        'description' => 'Оригинал',
         'category' => $module_category,
         'default_text' => 0
     );
+    if (!$vk_original_id) $modx->db->insert($vk_original_id_params, $TV);
 
-    if (!$vk_item_id) {
-        // создаём
-        $modx->db->insert($vk_item_id_params, $TV);
-    }
+    $vk_license_id = $modx->db->getValue($modx->db->select('id', $TV, 'name="vk_license_id"'));
+    $vk_license_id_params = array(
+        'type' => 'text',
+        'name' => 'vk_license_id',
+        'caption' => 'ID товара ВКонтакте',
+        'description' => 'Лицензия',
+        'category' => $module_category,
+        'default_text' => 0
+    );
+    if (!$vk_license_id) $modx->db->insert($vk_license_id_params, $TV);
+
+    $vk_spray_id = $modx->db->getValue($modx->db->select('id', $TV, 'name="vk_spray_id"'));
+    $vk_spray_id_params = array(
+        'type' => 'text',
+        'name' => 'vk_spray_id',
+        'caption' => 'ID товара ВКонтакте',
+        'description' => 'Спрей',
+        'category' => $module_category,
+        'default_text' => 0
+    );
+    if (!$vk_spray_id) $modx->db->insert($vk_spray_id_params, $TV);
+
+    $vk_probnik_id = $modx->db->getValue($modx->db->select('id', $TV, 'name="vk_probnik_id"'));
+    $vk_probnik_id_params = array(
+        'type' => 'text',
+        'name' => 'vk_probnik_id',
+        'caption' => 'ID товара ВКонтакте',
+        'description' => 'Пробник',
+        'category' => $module_category,
+        'default_text' => 0
+    );
+    if (!$vk_probnik_id) $modx->db->insert($vk_probnik_id_params, $TV);
+
+    $vk_phero10_id = $modx->db->getValue($modx->db->select('id', $TV, 'name="vk_phero10_id"'));
+    $vk_phero10_id_params = array(
+        'type' => 'text',
+        'name' => 'vk_phero10_id',
+        'caption' => 'ID товара ВКонтакте',
+        'description' => 'С феромонами',
+        'category' => $module_category,
+        'default_text' => 0
+    );
+    if (!$vk_phero10_id) $modx->db->insert($vk_phero10_id_params, $TV);
+
+    $vk_mini_id = $modx->db->getValue($modx->db->select('id', $TV, 'name="vk_mini_id"'));
+    $vk_mini_id_params = array(
+        'type' => 'text',
+        'name' => 'vk_mini_id',
+        'caption' => 'ID товара ВКонтакте',
+        'description' => 'Миниатюра',
+        'category' => $module_category,
+        'default_text' => 0
+    );
+    if (!$vk_mini_id) $modx->db->insert($vk_mini_id_params, $TV);
 
     //удаляем плагин
     $pluginId  = $modx->db->getValue($modx->db->select('id', $P, 'name="VKinstall"'));
