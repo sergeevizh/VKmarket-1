@@ -1,34 +1,51 @@
 <tr>
-    <td><input type="checkbox" class="check-item" name="items" value='{"id":[+id+],"type":"probnik"}'></td>
-    <td>[+id+]</td>
-    <td>
-        <a class="vk__item deleted-[+deleted+] published-[+published+]" title="Обзор ресурса" href="index.php?a=27&amp;id=[+id+]" target="main">
-            [[DocInfo? &docid=`[+parent+]` &field=`pagetitle`]] - [+pagetitle+]
-        </a>
-    </td>
-    <td>пробник</td>
+    <td><input type="checkbox" class="check-item" name="items[]" value='{"id":[+id+],"template":[+template+],"type":"probnik"}'></td>
     [[if? &is=`[+tv.vk_probnik_id+]:=:0` &then=`
+    <td class="actions">
+        <a href="#" title="Загрузить в сообщество ВК">
+            <i class="fa fa-arrow-up fa-fw"></i>
+        </a>
+        <span title="Обновить данные в сообществе ВК">
+            <i class="fa fa-refresh fa-fw"></i>
+        </span>
+        <span title="Удалить из сообщества ВК">
+            <i class="fa fa-arrow-down fa-fw"></i>
+        </span>
+    </td>
     <td>
         <i class="fa fa-times text-muted" title="Не загружен"></i>
         <span style="display: none;">Не загружен</span>
     </td>
-    <td></td>
-    <td class="actions text-right">
-        <a href="#" title="Загрузить в сообщество ВК">
-            <i class="fa fa-arrow-up fa-fw"></i>
-        </a>
-    </td>` &else=`
     <td>
-        <i class="fa fa-check text-success" title="Загружен"></i>
-        <span style="display: none;">Загружен</span>
+        <a class="vk__item deleted-[+deleted+] published-[+published+]" title="Обзор ресурса" href="index.php?a=27&amp;id=[+id+]" target="main">
+            [+pagetitle+]
+        </a>
     </td>
-    <td>[+tv.vk_probnik_id+]</td>
-    <td class="actions text-right">
+    <td>пробник</td>
+    <td>[+id+]</td>
+    <td></td>
+    ` &else=`
+    <td class="actions">
+        <span title="Загрузить в сообщество ВК">
+            <i class="fa fa-arrow-up fa-fw"></i>
+        </span>
         <a href="#" title="Обновить данные в сообществе ВК">
             <i class="fa fa-refresh fa-fw"></i>
         </a>
         <a href="#" title="Удалить из сообщества ВК">
             <i class="fa fa-arrow-down fa-fw"></i>
         </a>
-    </td>`]]
+    </td>
+    <td>
+        <i class="fa fa-check text-success" title="Загружен"></i>
+        <span style="display: none;">Загружен</span>
+    </td>
+    <td>
+        <a class="vk__item deleted-[+deleted+] published-[+published+]" title="Обзор ресурса" href="index.php?a=27&amp;id=[+id+]" target="main">
+            [+pagetitle+]
+        </a>
+    </td>
+    <td>пробник</td>
+    <td>[+id+]</td>
+    <td>[+tv.vk_probnik_id+]</td>`]]
 </tr>

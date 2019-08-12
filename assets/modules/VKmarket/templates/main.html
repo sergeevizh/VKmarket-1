@@ -14,6 +14,13 @@
         function showLoader() {
             document.querySelector('body').classList.add('loading');
         }
+        const checkAll = function (selector, it) {
+            const items = document.querySelectorAll(selector);
+            for (let index = 0; index < items.length; index++) {
+                const item = items[index];
+                item.checked = it.checked;
+            }
+        }
     </script>
 </head>
 
@@ -38,7 +45,6 @@
 
     <div class="tab-pane vk" id="market_pane">
         <form class="tab-page" action="" method="POST">
-            <input type="hidden" name="template" value="[+template_item+]">
             <h2 class="tab">Товары</h2>
             <div class="tab-body">
                 <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum earum quasi tempore illo omnis voluptates quia, cum deleniti incidunt ullam numquam suscipit, culpa saepe quos enim, provident facere aperiam nostrum.</p>
@@ -47,16 +53,29 @@
                     <table class="display table data" id="item-table">
                         <thead>
                             <tr>
-                                <th class="vk__cell check"><input type="checkbox" class="check-item-all"></th>
-                                <th class="vk__cell id">ID</th>
-                                <th class="vk__cell title">Название</th>
-                                <th class="vk__cell type">Тип</th>
+                                <th class="vk__cell check">
+                                    <input type="checkbox" class="check-item-all" onchange="checkAll('.check-item', $(this));">
+                                </th>
+                                <th class="vk__cell actions">
+                                    <a href="javascript:;" onclick="postChecked('add');" title="Загрузить в сообщество ВК">
+                                        <i class="fa fa-arrow-up fa-fw"></i>
+                                    </a>
+                                    <a href="javascript:;" onclick="postChecked('edit');" title="Обновить данные в сообществе ВК">
+                                        <i class="fa fa-refresh fa-fw"></i>
+                                    </a>
+                                    <a href="javascript:;" onclick="postChecked('delete');" title="Удалить из сообщества ВК">
+                                        <i class="fa fa-arrow-down fa-fw"></i>
+                                    </a>
+                                </th>
                                 <th class="vk__cell status">
                                     <i class="fa fa-times text-muted" title="Не загружен"></i>
                                     /
-                                    <i class="fa fa-check text-success" title="Загружен"></i></th>
+                                    <i class="fa fa-check text-success" title="Загружен"></i>
+                                </th>
+                                <th class="vk__cell title">Название</th>
+                                <th class="vk__cell type">Тип</th>
+                                <th class="vk__cell id">ID</th>
                                 <th class="vk__cell id-vk">ID ВК</th>
-                                <th class="vk__cell actions text-right"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -79,11 +98,11 @@
                             }, {
                                 "orderable": true
                             }, {
+                                "orderable": false
+                            }, {
+                                "orderable": false
+                            }, {
                                 "orderable": true
-                            }, {
-                                "orderable": false
-                            }, {
-                                "orderable": false
                             }],
                             "order": [
                                 [2, 'asc']
@@ -120,7 +139,6 @@
         </form>
 
         <form class="tab-page" action="" method="POST">
-            <input type="hidden" name="template" value="[+template_album+]">
             <h2 class="tab">Подборки</h2>
             <div class="tab-body">
                 <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum earum quasi tempore illo omnis voluptates quia, cum deleniti incidunt ullam numquam suscipit, culpa saepe quos enim, provident facere aperiam nostrum.</p>
@@ -129,7 +147,32 @@
                     <table class="display table data" id="album-table">
                         <thead>
                             <tr>
-                                <th style="min-width: 1%;"><input type="checkbox" class="check-album-all"></th>
+                                <th class="vk__cell check">
+                                    <input type="checkbox" class="check-album-all" onchange="checkAll('.check-album', $(this));">
+                                </th>
+                                <th class="vk__cell actions">
+                                    <a href="javascript:;" onclick="postChecked('add');" title="Загрузить в сообщество ВК">
+                                        <i class="fa fa-arrow-up fa-fw"></i>
+                                    </a>
+                                    <a href="javascript:;" onclick="postChecked('edit');" title="Обновить данные в сообществе ВК">
+                                        <i class="fa fa-refresh fa-fw"></i>
+                                    </a>
+                                    <a href="javascript:;" onclick="postChecked('delete');" title="Удалить из сообщества ВК">
+                                        <i class="fa fa-arrow-down fa-fw"></i>
+                                    </a>
+                                </th>
+                                <th class="vk__cell status">
+                                    <i class="fa fa-times text-muted" title="Не загружен"></i>
+                                    /
+                                    <i class="fa fa-check text-success" title="Загружен"></i>
+                                </th>
+                                <th class="vk__cell title">Название</th>
+                                <th class="vk__cell id">ID</th>
+                                <th class="vk__cell id-vk">ID ВК</th>
+
+                                <th style="min-width: 1%;">
+                                    <input type="checkbox" class="check-album-all" onchange="checkAll('.check-album', $(this));">
+                                </th>
                                 <th style="min-width: 60px;">ID</th>
                                 <th style="width: 100%;">Название</th>
                                 <th style="min-width: 135px;">

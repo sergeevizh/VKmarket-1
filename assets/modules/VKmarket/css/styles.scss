@@ -15,26 +15,32 @@
             width: 1% !important;
             min-width: 1%;
         }
+
         &.id {
             width: 60px !important;
             min-width: 60px;
         }
+
         &.title {
             width: 100% !important;
             min-width: 100%;
         }
+
         &.type {
             width: 140px !important;
             min-width: 140px;
         }
+
         &.status {
             width: 75px !important;
             min-width: 75px;
         }
+
         &.id-vk {
             width: 85px !important;
             min-width: 85px;
         }
+
         &.actions {
             width: 95px !important;
             min-width: 95px;
@@ -116,6 +122,10 @@
         .actions {
             a {
                 text-decoration: none;
+            }
+
+            span {
+                opacity: 0.25;
             }
         }
     }
