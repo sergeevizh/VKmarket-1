@@ -13,8 +13,7 @@
         </span>
     </td>
     <td>
-        <i class="fa fa-times text-muted" title="Не загружен"></i>
-        <span style="display: none;">Не загружен</span>
+        <span class="text-muted">Не загружен</span>
     </td>
     <td>
         <a class="vk__item deleted-[+deleted+] published-[+published+]" title="Обзор ресурса" href="index.php?a=27&amp;id=[+id+]" target="main">
@@ -24,8 +23,31 @@
     <td>лицензия</td>
     <td>[+id+]</td>
     <td></td>
+    <td class="actions text-right">
+        <a href="#" title="Загрузить в сообщество ВК">
+            <i class="fa fa-arrow-up fa-fw"></i>
+        </a>
+        <span title="Обновить данные в сообществе ВК">
+            <i class="fa fa-refresh fa-fw"></i>
+        </span>
+        <span title="Удалить из сообщества ВК">
+            <i class="fa fa-arrow-down fa-fw"></i>
+        </span>
+    </td>
     ` &else=`
-    <td class="actions">
+    <td>
+        <i class="fa fa-check text-success"></i>
+        <span>Загружен</span>
+    </td>
+    <td>
+        <a class="vk__item deleted-[+deleted+] published-[+published+]" title="Обзор ресурса" href="index.php?a=27&amp;id=[+id+]" target="main">
+            [[DocInfo? &docid=`[+parent+]` &field=`pagetitle`]] - [+pagetitle+]
+        </a>
+    </td>
+    <td>лицензия</td>
+    <td>[+id+]</td>
+    <td>[+tv.vk_license_id+]</td>
+    <td class="actions text-right">
         <span title="Загрузить в сообщество ВК">
             <i class="fa fa-arrow-up fa-fw"></i>
         </span>
@@ -35,17 +57,5 @@
         <a href="#" title="Удалить из сообщества ВК">
             <i class="fa fa-arrow-down fa-fw"></i>
         </a>
-    </td>
-    <td>
-        <i class="fa fa-check text-success" title="Загружен"></i>
-        <span style="display: none;">Загружен</span>
-    </td>
-    <td>
-        <a class="vk__item deleted-[+deleted+] published-[+published+]" title="Обзор ресурса" href="index.php?a=27&amp;id=[+id+]" target="main">
-            [[DocInfo? &docid=`[+parent+]` &field=`pagetitle`]] - [+pagetitle+]
-        </a>
-    </td>
-    <td>лицензия</td>
-    <td>[+id+]</td>
-    <td>[+tv.vk_license_id+]</td>`]]
+    </td>`]]
 </tr>

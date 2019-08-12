@@ -158,3 +158,28 @@
         text-transform: none !important;
     }
 }
+
+.tab-page {
+    margin: 0 !important;
+}
+
+.dataTables_length {
+    display: none !important;
+}
+
+.dataTables_filter {
+    width: 100% !important;
+    float: none !important;
+
+    label {
+        display: flex;
+        align-items: center;
+        margin: 0;
+        padding: 1px;
+
+        input {
+            width: 100% !important;
+            margin-left: 12px !important;
+        }
+    }
+}

@@ -1,7 +1,18 @@
 <tr>
     <td><input type="checkbox" class="check-item" name="items[]" value='{"id":[+id+],"template":[+template+],"type":"spray"}'></td>
     [[if? &is=`[+tv.vk_spray_id+]:=:0` &then=`
-    <td class="actions">
+    <td>
+        <span class="text-muted">Не загружен</span>
+    </td>
+    <td>
+        <a class="vk__item deleted-[+deleted+] published-[+published+]" title="Обзор ресурса" href="index.php?a=27&amp;id=[+id+]" target="main">
+            [[DocInfo? &docid=`[+parent+]` &field=`pagetitle`]] - [+pagetitle+]
+        </a>
+    </td>
+    <td>спрейн</td>
+    <td>[+id+]</td>
+    <td></td>
+    <td class="actions text-right">
         <a href="#" title="Загрузить в сообщество ВК">
             <i class="fa fa-arrow-up fa-fw"></i>
         </a>
@@ -12,9 +23,10 @@
             <i class="fa fa-arrow-down fa-fw"></i>
         </span>
     </td>
+    ` &else=`
     <td>
-        <i class="fa fa-times text-muted" title="Не загружен"></i>
-        <span style="display: none;">Не загружен</span>
+        <i class="fa fa-check text-success"></i>
+        <span>Загружен</span>
     </td>
     <td>
         <a class="vk__item deleted-[+deleted+] published-[+published+]" title="Обзор ресурса" href="index.php?a=27&amp;id=[+id+]" target="main">
@@ -23,9 +35,8 @@
     </td>
     <td>спрейн</td>
     <td>[+id+]</td>
-    <td></td>
-    ` &else=`
-    <td class="actions">
+    <td>[+tv.vk_spray_id+]</td>
+    <td class="actions text-right">
         <span title="Загрузить в сообщество ВК">
             <i class="fa fa-arrow-up fa-fw"></i>
         </span>
@@ -35,17 +46,5 @@
         <a href="#" title="Удалить из сообщества ВК">
             <i class="fa fa-arrow-down fa-fw"></i>
         </a>
-    </td>
-    <td>
-        <i class="fa fa-check text-success" title="Загружен"></i>
-        <span style="display: none;">Загружен</span>
-    </td>
-    <td>
-        <a class="vk__item deleted-[+deleted+] published-[+published+]" title="Обзор ресурса" href="index.php?a=27&amp;id=[+id+]" target="main">
-            [[DocInfo? &docid=`[+parent+]` &field=`pagetitle`]] - [+pagetitle+]
-        </a>
-    </td>
-    <td>спрейн</td>
-    <td>[+id+]</td>
-    <td>[+tv.vk_spray_id+]</td>`]]
+    </td>`]]
 </tr>

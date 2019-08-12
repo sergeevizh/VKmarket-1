@@ -56,6 +56,11 @@
                                 <th class="vk__cell check">
                                     <input type="checkbox" class="check-item-all" onchange="checkAll('.check-item', $(this));">
                                 </th>
+                                <th class="vk__cell status">Статус</th>
+                                <th class="vk__cell title">Название</th>
+                                <th class="vk__cell type">Тип</th>
+                                <th class="vk__cell id">ID</th>
+                                <th class="vk__cell id-vk">ID ВК</th>
                                 <th class="vk__cell actions">
                                     <a href="javascript:;" onclick="postChecked('add');" title="Загрузить в сообщество ВК">
                                         <i class="fa fa-arrow-up fa-fw"></i>
@@ -67,15 +72,6 @@
                                         <i class="fa fa-arrow-down fa-fw"></i>
                                     </a>
                                 </th>
-                                <th class="vk__cell status">
-                                    <i class="fa fa-times text-muted" title="Не загружен"></i>
-                                    /
-                                    <i class="fa fa-check text-success" title="Загружен"></i>
-                                </th>
-                                <th class="vk__cell title">Название</th>
-                                <th class="vk__cell type">Тип</th>
-                                <th class="vk__cell id">ID</th>
-                                <th class="vk__cell id-vk">ID ВК</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -92,17 +88,17 @@
                             "columns": [{
                                 "orderable": false
                             }, {
-                                "orderable": false
-                            }, {
                                 "orderable": true
                             }, {
                                 "orderable": true
                             }, {
-                                "orderable": false
-                            }, {
-                                "orderable": false
-                            }, {
                                 "orderable": true
+                            }, {
+                                "orderable": false
+                            }, {
+                                "orderable": false
+                            }, {
+                                "orderable": false
                             }],
                             "order": [
                                 [2, 'asc']
@@ -150,6 +146,10 @@
                                 <th class="vk__cell check">
                                     <input type="checkbox" class="check-album-all" onchange="checkAll('.check-album', $(this));">
                                 </th>
+                                <th class="vk__cell status">Статус</th>
+                                <th class="vk__cell title">Название</th>
+                                <th class="vk__cell id">ID</th>
+                                <th class="vk__cell id-vk">ID ВК</th>
                                 <th class="vk__cell actions">
                                     <a href="javascript:;" onclick="postChecked('add');" title="Загрузить в сообщество ВК">
                                         <i class="fa fa-arrow-up fa-fw"></i>
@@ -161,14 +161,6 @@
                                         <i class="fa fa-arrow-down fa-fw"></i>
                                     </a>
                                 </th>
-                                <th class="vk__cell status">
-                                    <i class="fa fa-times text-muted" title="Не загружен"></i>
-                                    /
-                                    <i class="fa fa-check text-success" title="Загружен"></i>
-                                </th>
-                                <th class="vk__cell title">Название</th>
-                                <th class="vk__cell id">ID</th>
-                                <th class="vk__cell id-vk">ID ВК</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -180,11 +172,11 @@
                             "columns": [{
                                 "orderable": false
                             }, {
+                                "orderable": true
+                            }, {
+                                "orderable": true
+                            }, {
                                 "orderable": false
-                            }, {
-                                "orderable": true
-                            }, {
-                                "orderable": true
                             }, {
                                 "orderable": false
                             }, {
