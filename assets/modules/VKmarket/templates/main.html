@@ -47,24 +47,24 @@
                     <table class="display table data" id="item-table">
                         <thead>
                             <tr>
-                                <th style="width: 1%;"><input type="checkbox" class="check-item-all"></th>
-                                <th style="width: 1%;">ID</th>
-                                <th style="width: 94%;">Название</th>
-                                <th style="width: 1%;">Тип</th>
-                                <th style="width: 1%;">Состояние</th>
-                                <th style="width: 1%;">ID ВК</th>
-                                <th class="text-right" style="width: 1%;"></th>
+                                <th style="min-width: 1%;"><input type="checkbox" class="check-item-all"></th>
+                                <th style="min-width: 60px;">ID</th>
+                                <th style="width: 100%;">Название</th>
+                                <th style="min-width: 120px;">Тип</th>
+                                <th style="min-width: 135px;">Состояние</th>
+                                <th style="min-width: 85px;">ID ВК</th>
+                                <th class="text-right" style="min-width: 95px;"></th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
-                                <th style="width: 1%;"></th>
-                                <th style="width: 1%;">ID</th>
-                                <th style="width: 94%;">Название</th>
-                                <th style="width: 1%;">Тип</th>
-                                <th style="width: 1%;">Состояние</th>
-                                <th style="width: 1%;">ID ВК</th>
-                                <th class="text-right" style="width: 1%;"></th>
+                                <th style="min-width: 1%;"></th>
+                                <th style="min-width: 60px;">ID</th>
+                                <th style="width: 100%;">Название</th>
+                                <th style="min-width: 120px;">Тип</th>
+                                <th style="min-width: 135px;">Состояние</th>
+                                <th style="min-width: 85px;">ID ВК</th>
+                                <th class="text-right" style="min-width: 95px;"></th>
                             </tr>
                         </tfoot>
                         <tbody>
@@ -92,7 +92,10 @@
                                 "orderable": false
                             }, {
                                 "orderable": false
-                            }]
+                            }],
+                            "order": [
+                                [2, 'asc']
+                            ]
                         });
                     </script>
                 </div>
@@ -109,22 +112,22 @@
                     <table class="display table data" id="album-table">
                         <thead>
                             <tr>
-                                <th style="width: 1%;"><input type="checkbox" class="check-album-all"></th>
-                                <th style="width: 1%;">ID</th>
-                                <th style="width: 95%;">Название</th>
-                                <th style="width: 1%;">Состояние</th>
-                                <th style="width: 1%;">ID ВК</th>
-                                <th class="text-right" style="width: 1%;"></th>
+                                <th style="min-width: 1%;"><input type="checkbox" class="check-album-all"></th>
+                                <th style="min-width: 60px;">ID</th>
+                                <th style="width: 100%;">Название</th>
+                                <th style="min-width: 135px;">Состояние</th>
+                                <th style="min-width: 85px;">ID ВК</th>
+                                <th class="text-right" style="min-width: 95px;"></th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
-                                <th style="width: 1%;"></th>
-                                <th style="width: 1%;">ID</th>
-                                <th style="width: 95%;">Название</th>
-                                <th style="width: 1%;">Состояние</th>
-                                <th style="width: 1%;">ID ВК</th>
-                                <th class="text-right" style="width: 1%;"></th>
+                                <th style="min-width: 1%;"></th>
+                                <th style="min-width: 60px;">ID</th>
+                                <th style="width: 100%;">Название</th>
+                                <th style="min-width: 135px;">Состояние</th>
+                                <th style="min-width: 85px;">ID ВК</th>
+                                <th class="text-right" style="min-width: 95px;"></th>
                             </tr>
                         </tfoot>
                         <tbody>
@@ -145,7 +148,10 @@
                                 "orderable": false
                             }, {
                                 "orderable": false
-                            }]
+                            }],
+                            "order": [
+                                [2, 'asc']
+                            ]
                         });
                     </script>
                 </div>
