@@ -10,6 +10,7 @@
     [[if? &is=`[+tv.vk_original_id+]:=:0` &then=`
     <td>
         <i class="fa fa-times text-muted" title="Не загружен"></i>
+        <span style="display: none;">Не загружен</span>
     </td>
     <td></td>
     <td class="actions text-right">
@@ -19,6 +20,7 @@
     </td>` &else=`
     <td>
         <i class="fa fa-check text-success" title="Загружен"></i>
+        <span style="display: none;">Загружен</span>
     </td>
     <td>[+tv.vk_original_id+]</td>
     <td class="actions text-right">

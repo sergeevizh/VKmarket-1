@@ -47,13 +47,16 @@
                     <table class="display table data" id="item-table">
                         <thead>
                             <tr>
-                                <th style="min-width: 1%;"><input type="checkbox" class="check-item-all"></th>
-                                <th style="min-width: 60px;">ID</th>
-                                <th style="width: 100%;">Название</th>
-                                <th style="min-width: 120px;">Тип</th>
-                                <th style="min-width: 135px;">статус</th>
-                                <th style="min-width: 85px;">ID ВК</th>
-                                <th class="text-right" style="min-width: 95px;"></th>
+                                <th class="vk__cell check"><input type="checkbox" class="check-item-all"></th>
+                                <th class="vk__cell id">ID</th>
+                                <th class="vk__cell title">Название</th>
+                                <th class="vk__cell type">Тип</th>
+                                <th class="vk__cell status">
+                                    <i class="fa fa-times text-muted" title="Не загружен"></i>
+                                    /
+                                    <i class="fa fa-check text-success" title="Загружен"></i></th>
+                                <th class="vk__cell id-vk">ID ВК</th>
+                                <th class="vk__cell actions text-right"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -129,7 +132,11 @@
                                 <th style="min-width: 1%;"><input type="checkbox" class="check-album-all"></th>
                                 <th style="min-width: 60px;">ID</th>
                                 <th style="width: 100%;">Название</th>
-                                <th style="min-width: 135px;">Статус</th>
+                                <th style="min-width: 135px;">
+                                    <i class="fa fa-times text-muted" title="Не загружен"></i>
+                                    /
+                                    <i class="fa fa-check text-success" title="Загружен"></i>
+                                </th>
                                 <th style="min-width: 85px;">ID ВК</th>
                                 <th class="text-right" style="min-width: 95px;"></th>
                             </tr>
