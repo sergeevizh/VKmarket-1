@@ -39,63 +39,118 @@
     <div class="tab-pane vk" id="market_pane">
         <form class="tab-page" action="" method="POST">
             <input type="hidden" name="template" value="[+template_item+]">
-            <h2 class="tab">Оригиналы</h2>
-            [+original+]
+            <h2 class="tab">Товары</h2>
+            <div class="tab-body">
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum earum quasi tempore illo omnis voluptates quia, cum deleniti incidunt ullam numquam suscipit, culpa saepe quos enim, provident facere aperiam nostrum.</p>
+                <br>
+                <div class="table-responsive">
+                    <table class="display table" id="item-table">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" class="check-item-all"></th>
+                                <th>ID</th>
+                                <th>Название</th>
+                                <th>Тип</th>
+                                <th>Состояние</th>
+                                <th>ID ВК</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th></th>
+                                <th>ID</th>
+                                <th>Название</th>
+                                <th>Тип</th>
+                                <th>Состояние</th>
+                                <th>ID ВК</th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            [+original+]
+                            [+license+]
+                            [+spray+]
+                            [+probnik+]
+                            [+phero10+]
+                            [+mini+]
+                        </tbody>
+                    </table>
+                    <script>
+                        jQuery("#item-table").DataTable({
+                            "columns": [{
+                                "orderable": false
+                            }, {
+                                "orderable": false
+                            }, {
+                                "orderable": true
+                            }, {
+                                "orderable": true
+                            }, {
+                                "orderable": true
+                            }, {
+                                "orderable": false
+                            }, {
+                                "orderable": false
+                            }]
+                        });
+                    </script>
+                </div>
+            </div>
         </form>
-        <div class="tab-page" id="license_page">
-            <h2 class="tab">Лицензии</h2>
-            <div class="tab-body pl-0 pr-0">
-                <div class="tab-pane" id="license_pane">
-                    [+license_nopub+]
-                    [+license_pub+]
+
+        <form class="tab-page" action="" method="POST">
+            <input type="hidden" name="template" value="[+template_album+]">
+            <h2 class="tab">Подборки</h2>
+            <div class="tab-body">
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum earum quasi tempore illo omnis voluptates quia, cum deleniti incidunt ullam numquam suscipit, culpa saepe quos enim, provident facere aperiam nostrum.</p>
+                <br>
+                <div class="table-responsive">
+                    <table class="display table" id="album-table">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" class="check-album-all"></th>
+                                <th>ID</th>
+                                <th>Название</th>
+                                <th>Состояние</th>
+                                <th>ID ВК</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th></th>
+                                <th>ID</th>
+                                <th>Название</th>
+                                <th>Состояние</th>
+                                <th>ID ВК</th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            [+album+]
+                        </tbody>
+                    </table>
+                    <script>
+                        jQuery("#album-table").DataTable({
+                            "columns": [{
+                                "orderable": false
+                            }, {
+                                "orderable": false
+                            }, {
+                                "orderable": true
+                            }, {
+                                "orderable": true
+                            }, {
+                                "orderable": false
+                            }, {
+                                "orderable": false
+                            }]
+                        });
+                    </script>
                 </div>
             </div>
-        </div>
-        <div class="tab-page" id="spray_page">
-            <h2 class="tab">Спреи</h2>
-            <div class="tab-body pl-0 pr-0">
-                <div class="tab-pane" id="spray_pane">
-                    [+spray_nopub+]
-                    [+spray_pub+]
-                </div>
-            </div>
-        </div>
-        <div class="tab-page" id="probnik_page">
-            <h2 class="tab">Пробники</h2>
-            <div class="tab-body pl-0 pr-0">
-                <div class="tab-pane" id="probnik_pane">
-                    [+probnik_nopub+]
-                    [+probnik_pub+]
-                </div>
-            </div>
-        </div>
-        <div class="tab-page" id="phero10_page">
-            <h2 class="tab">С феромонами</h2>
-            <div class="tab-body pl-0 pr-0">
-                <div class="tab-pane" id="phero10_pane">
-                    [+phero10_nopub+]
-                    [+phero10_pub+]
-                </div>
-            </div>
-        </div>
-        <div class="tab-page" id="mini_page">
-            <h2 class="tab">Миниатюры</h2>
-            <div class="tab-body pl-0 pr-0">
-                <div class="tab-pane" id="mini_pane">
-                    [+mini_nopub+]
-                    [+mini_pub+]
-                </div>
-            </div>
-        </div>
-        <div class="tab-page" id="album_page">
-            <h2 class="tab"><i class="fa fa-folder"></i> Подборки</h2>
-            <div class="tab-body pl-0 pr-0">
-                <div class="tab-pane" id="album_pane">
-                    [+album_nopub+]
-                    [+album_pub+]
-                </div>
-            </div>
-        </div>
+        </form>
     </div>
 </body>
 

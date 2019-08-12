@@ -1,13 +1,13 @@
 <tr>
-    <td><input type="checkbox" class="check-item" name="items" value='{"id":[+id+],"type":"original"}'></td>
+    <td><input type="checkbox" class="check-item" name="items" value='{"id":[+id+],"type":"license"}'></td>
     <td>[+id+]</td>
     <td>
         <a class="vk__item deleted-[+deleted+] published-[+published+]" title="Обзор ресурса" href="index.php?a=27&amp;id=[+id+]" target="main">
             [[DocInfo? &docid=`[+parent+]` &field=`pagetitle`]] - [+pagetitle+]
         </a>
     </td>
-    <td>оригинал</td>
-    [[if? &is=`[+tv.vk_original_id+]:=:0` &then=`
+    <td>лицензия</td>
+    [[if? &is=`[+tv.vk_license_id+]:=:0` &then=`
     <td>
         <i class="fa fa-times text-muted mr-1"></i> не загружен
     </td>
@@ -20,7 +20,7 @@
     <td>
         <i class="fa fa-check text-success mr-1"></i> загружен
     </td>
-    <td>[+tv.vk_original_id+]</td>
+    <td>[+tv.vk_license_id+]</td>
     <td class="actions">
         <a href="#" title="Обновить данные в сообществе ВК">
             <i class="fa fa-refresh fa-fw"></i>

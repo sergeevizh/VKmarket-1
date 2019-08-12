@@ -108,123 +108,50 @@ if ($errors) {
         'depth' => 10,
         'tvList' => 'vk_original_id,vk_license_id,vk_spray_id,vk_probnik_id,vk_phero10_id,vk_mini_id,vk_album_id,slot-have',
         'display' => 'all',
-        'orderBy' => 'pagetitle ASC'
+        'orderBy' => 'pagetitle ASC',
+        'ownerTPL' => '@CODE:[+dl.wrap+]'
     );
 
     $original = $modx->runSnippet('DocLister', $params_doclister + array(
         'addWhereList' => 'c.template=' . $template_item,
         'filters' => 'AND(tv:slot-have:%:6)',
-        'tpl' => '@FILE:VKmarket/original--tpl',
-        'ownerTPL' => '@FILE:VKmarket/original--ownerTPL'
+        'tpl' => '@FILE:VKmarket/original--tpl'
     ));
 
-    $license_nopub = $modx->runSnippet('DocLister', $params_doclister + array(
-        'id' => 'license_nopub',
+    $license = $modx->runSnippet('DocLister', $params_doclister + array(
         'addWhereList' => 'c.template=' . $template_item,
-        'filters' => 'AND(tvd:vk_license_id:=:0;tv:slot-have:%:1)',
-        'tpl' => '@FILE:VKmarket/license_nopub--tpl',
-        'ownerTPL' => '@FILE:VKmarket/license_nopub--ownerTPL',
-        'TplPage' => '@CODE:<li class="pages__item"><a class="pages__link" href="index.php?a=112&amp;id=' . $market->module_id . '[[if? &is=`[+num+]:!=:1` &then=`&amp;license_nopub_page=[+num+]`]]">[+num+]</a></li>',
+        'filters' => 'AND(tv:slot-have:%:1)',
+        'tpl' => '@FILE:VKmarket/license--tpl'
     ));
 
-    $license_pub = $modx->runSnippet('DocLister', $params_doclister + array(
-        'id' => 'license_pub',
+    $spray = $modx->runSnippet('DocLister', $params_doclister + array(
         'addWhereList' => 'c.template=' . $template_item,
-        'filters' => 'AND(tvd:vk_license_id:!=:0;tv:slot-have:%:1)',
-        'tpl' => '@FILE:VKmarket/license_pub--tpl',
-        'ownerTPL' => '@FILE:VKmarket/license_pub--ownerTPL',
-        'TplPage' => '@CODE:<li class="pages__item"><a class="pages__link" href="index.php?a=112&amp;id=' . $market->module_id . '[[if? &is=`[+num+]:!=:1` &then=`&amp;license_pub_page=[+num+]`]]">[+num+]</a></li>',
+        'filters' => 'AND(tv:slot-have:%:2)',
+        'tpl' => '@FILE:VKmarket/spray--tpl'
     ));
 
-    $spray_nopub = $modx->runSnippet('DocLister', $params_doclister + array(
-        'id' => 'spray_nopub',
+    $probnik = $modx->runSnippet('DocLister', $params_doclister + array(
         'addWhereList' => 'c.template=' . $template_item,
-        'filters' => 'AND(tvd:vk_spray_id:=:0;tv:slot-have:%:2)',
-        'tpl' => '@FILE:VKmarket/spray_nopub--tpl',
-        'ownerTPL' => '@FILE:VKmarket/spray_nopub--ownerTPL',
-        'TplPage' => '@CODE:<li class="pages__item"><a class="pages__link" href="index.php?a=112&amp;id=' . $market->module_id . '[[if? &is=`[+num+]:!=:1` &then=`&amp;spray_nopub_page=[+num+]`]]">[+num+]</a></li>',
+        'filters' => 'AND(tv:slot-have:%:3)',
+        'tpl' => '@FILE:VKmarket/probnik--tpl'
     ));
 
-    $spray_pub = $modx->runSnippet('DocLister', $params_doclister + array(
-        'id' => 'spray_pub',
+    $phero10 = $modx->runSnippet('DocLister', $params_doclister + array(
         'addWhereList' => 'c.template=' . $template_item,
-        'filters' => 'AND(tvd:vk_spray_id:!=:0;tv:slot-have:%:2)',
-        'tpl' => '@FILE:VKmarket/spray_pub--tpl',
-        'ownerTPL' => '@FILE:VKmarket/spray_pub--ownerTPL',
-        'TplPage' => '@CODE:<li class="pages__item"><a class="pages__link" href="index.php?a=112&amp;id=' . $market->module_id . '[[if? &is=`[+num+]:!=:1` &then=`&amp;spray_pub_page=[+num+]`]]">[+num+]</a></li>',
+        'filters' => 'AND(tv:slot-have:%:4)',
+        'tpl' => '@FILE:VKmarket/phero10--tpl'
     ));
 
-    $probnik_nopub = $modx->runSnippet('DocLister', $params_doclister + array(
-        'id' => 'probnik_nopub',
+    $mini = $modx->runSnippet('DocLister', $params_doclister + array(
         'addWhereList' => 'c.template=' . $template_item,
-        'filters' => 'AND(tvd:vk_probnik_id:=:0;tv:slot-have:%:3)',
-        'tpl' => '@FILE:VKmarket/probnik_nopub--tpl',
-        'ownerTPL' => '@FILE:VKmarket/probnik_nopub--ownerTPL',
-        'TplPage' => '@CODE:<li class="pages__item"><a class="pages__link" href="index.php?a=112&amp;id=' . $market->module_id . '[[if? &is=`[+num+]:!=:1` &then=`&amp;probnik_nopub_page=[+num+]`]]">[+num+]</a></li>',
-    ));
-
-    $probnik_pub = $modx->runSnippet('DocLister', $params_doclister + array(
-        'id' => 'probnik_pub',
-        'addWhereList' => 'c.template=' . $template_item,
-        'filters' => 'AND(tvd:vk_probnik_id:!=:0;tv:slot-have:%:3)',
-        'tpl' => '@FILE:VKmarket/probnik_pub--tpl',
-        'ownerTPL' => '@FILE:VKmarket/probnik_pub--ownerTPL',
-        'TplPage' => '@CODE:<li class="pages__item"><a class="pages__link" href="index.php?a=112&amp;id=' . $market->module_id . '[[if? &is=`[+num+]:!=:1` &then=`&amp;probnik_pub_page=[+num+]`]]">[+num+]</a></li>',
-    ));
-
-    $phero10_nopub = $modx->runSnippet('DocLister', $params_doclister + array(
-        'id' => 'phero10_nopub',
-        'addWhereList' => 'c.template=' . $template_item,
-        'filters' => 'AND(tvd:vk_phero10_id:=:0;tv:slot-have:%:4)',
-        'tpl' => '@FILE:VKmarket/phero10_nopub--tpl',
-        'ownerTPL' => '@FILE:VKmarket/phero10_nopub--ownerTPL',
-        'TplPage' => '@CODE:<li class="pages__item"><a class="pages__link" href="index.php?a=112&amp;id=' . $market->module_id . '[[if? &is=`[+num+]:!=:1` &then=`&amp;phero10_nopub_page=[+num+]`]]">[+num+]</a></li>',
-    ));
-
-    $phero10_pub = $modx->runSnippet('DocLister', $params_doclister + array(
-        'id' => 'phero10_pub',
-        'addWhereList' => 'c.template=' . $template_item,
-        'filters' => 'AND(tvd:vk_phero10_id:!=:0;tv:slot-have:%:4)',
-        'tpl' => '@FILE:VKmarket/phero10_pub--tpl',
-        'ownerTPL' => '@FILE:VKmarket/phero10_pub--ownerTPL',
-        'TplPage' => '@CODE:<li class="pages__item"><a class="pages__link" href="index.php?a=112&amp;id=' . $market->module_id . '[[if? &is=`[+num+]:!=:1` &then=`&amp;phero10_pub_page=[+num+]`]]">[+num+]</a></li>',
-    ));
-
-    $mini_nopub = $modx->runSnippet('DocLister', $params_doclister + array(
-        'id' => 'mini_nopub',
-        'addWhereList' => 'c.template=' . $template_item,
-        'filters' => 'AND(tvd:vk_mini_id:=:0;tv:slot-have:%:4)',
-        'tpl' => '@FILE:VKmarket/mini_nopub--tpl',
-        'ownerTPL' => '@FILE:VKmarket/mini_nopub--ownerTPL',
-        'TplPage' => '@CODE:<li class="pages__item"><a class="pages__link" href="index.php?a=112&amp;id=' . $market->module_id . '[[if? &is=`[+num+]:!=:1` &then=`&amp;mini_nopub_page=[+num+]`]]">[+num+]</a></li>',
-    ));
-
-    $mini_pub = $modx->runSnippet('DocLister', $params_doclister + array(
-        'id' => 'mini_pub',
-        'addWhereList' => 'c.template=' . $template_item,
-        'filters' => 'AND(tvd:vk_mini_id:!=:0;tv:slot-have:%:4)',
-        'tpl' => '@FILE:VKmarket/mini_pub--tpl',
-        'ownerTPL' => '@FILE:VKmarket/mini_pub--ownerTPL',
-        'TplPage' => '@CODE:<li class="pages__item"><a class="pages__link" href="index.php?a=112&amp;id=' . $market->module_id . '[[if? &is=`[+num+]:!=:1` &then=`&amp;mini_pub_page=[+num+]`]]">[+num+]</a></li>',
+        'filters' => 'AND(tv:slot-have:%:5)',
+        'tpl' => '@FILE:VKmarket/mini--tpl'
     ));
 
     // Генерируем подборки
-    $album_nopub = $modx->runSnippet('DocLister', $params_doclister + array(
-        'id' => 'album_nopub',
+    $album = $modx->runSnippet('DocLister', $params_doclister + array(
         'addWhereList' => 'c.template=' . $template_album,
-        'filters' => 'AND(tvd:vk_album_id:=:0)',
-        'tpl' => '@FILE:VKmarket/album_nopub--tpl',
-        'ownerTPL' => '@FILE:VKmarket/album_nopub--ownerTPL',
-        'TplPage' => '@CODE:<li class="pages__item"><a class="pages__link" href="index.php?a=112&amp;id=' . $market->module_id . '[[if? &is=`[+num+]:!=:1` &then=`&amp;album_nopub_page=[+num+]`]]">[+num+]</a></li>'
-    ));
-
-    $album_pub = $modx->runSnippet('DocLister', $params_doclister + array(
-        'id' => 'album_pub',
-        'addWhereList' => 'c.template=' . $template_album,
-        'filters' => 'AND(tvd:vk_album_id:!=:0)',
-        'tpl' => '@FILE:VKmarket/album_pub--tpl',
-        'ownerTPL' => '@FILE:VKmarket/album_pub--ownerTPL',
-        'TplPage' => '@CODE:<li class="pages__item"><a class="pages__link" href="index.php?a=112&amp;id=' . $market->module_id . '[[if? &is=`[+num+]:!=:1` &then=`&amp;album_pub_page=[+num+]`]]">[+num+]</a></li>'
+        'tpl' => '@FILE:VKmarket/album--tpl'
     ));
 
     // Генерируем фронт с элементами
@@ -240,18 +167,12 @@ $placeholders = array(
     'template_item'     => $template_item,
     'template_album'    => $template_album,
     'original'          => $original,
-    'license_nopub'     => $license_nopub,
-    'license_pub'       => $license_pub,
-    'spray_nopub'       => $spray_nopub,
-    'spray_pub'         => $spray_pub,
-    'probnik_nopub'     => $probnik_nopub,
-    'probnik_pub'       => $probnik_pub,
-    'phero10_nopub'     => $phero10_nopub,
-    'phero10_pub'       => $phero10_pub,
-    'mini_nopub'        => $mini_nopub,
-    'mini_pub'          => $mini_pub,
-    'album_nopub'       => $album_nopub,
-    'album_pub'         => $album_pub
+    'license'           => $license,
+    'spray'             => $spray,
+    'probnik'           => $probnik,
+    'phero10'           => $phero10,
+    'mini'              => $mini,
+    'album'             => $album
 );
 
 $output = $modx->parseText($tpl, $placeholders);
