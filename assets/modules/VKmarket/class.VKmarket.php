@@ -51,7 +51,7 @@ class VKmarket
         }
     }
 
-    public function getParams($id, $template)
+    public function getParams($id, $template, $type)
     {
         switch ($template) {
             case $this->config['template_item']:
@@ -60,53 +60,6 @@ class VKmarket
 
                 $parents = $this->modx->getParentIds($id);
                 $parent = reset($parents);
-
-                $name = $this->modx->runSnippet('DocLister', array(
-                    'showNoPublish' => 1,
-                    'tvList' => $this->config['tv_list'],
-                    'documents' => $id,
-                    'tpl' => $this->config['item_name_tpl'],
-                    'ownerTPL' => '@CODE:[+dl.wrap+]'
-                ));
-
-                $description = $this->modx->runSnippet('DocLister', array(
-                    'showNoPublish' => 1,
-                    'tvList' => $this->config['tv_list'],
-                    'documents' => $id,
-                    'tpl' => $this->config['item_description_tpl'],
-                    'ownerTPL' => '@CODE:[+dl.wrap+]'
-                ));
-
-                $category_id = $this->modx->runSnippet('DocInfo', array(
-                    'docid' => $parent,
-                    'field' => 'vk_category_id'
-                ));
-
-                $price = $this->modx->runSnippet('DocLister', array(
-                    'showNoPublish' => 1,
-                    'tvList' => $this->config['tv_list'],
-                    'documents' => $id,
-                    'tpl' => $this->config['item_price_tpl'],
-                    'ownerTPL' => '@CODE:[+dl.wrap+]'
-                ));
-
-                $image = $this->modx->runSnippet('DocLister', array(
-                    'showNoPublish' => 1,
-                    'tvList' => $this->config['tv_list'],
-                    'documents' => $id,
-                    'tpl' => $this->config['item_image_tpl'],
-                    'ownerTPL' => '@CODE:[+dl.wrap+]'
-                ));
-
-                $url = $this->modx->makeUrl($id, '', '', 'full');
-
-                $result['name'] = $name;
-                $result['description'] = $description;
-                $result['category_id'] = $category_id;
-                $result['price'] = $price;
-                $result['image'] = $image;
-                $result['url'] = $url;
-
                 $albums = array();
 
                 $parent_album_id = $this->modx->runSnippet('DocInfo', array(
@@ -115,6 +68,268 @@ class VKmarket
                 ));
                 if ($parent_album_id)  array_push($albums, $parent_album_id);
 
+                switch ($type) {
+                    case 'original':
+
+                        $name = $this->modx->runSnippet('DocLister', array(
+                            'showNoPublish' => 1,
+                            'tvList' => $this->config['tv_list'],
+                            'documents' => $id,
+                            'tpl' => $this->config['original_name_tpl'],
+                            'ownerTPL' => '@CODE:[+dl.wrap+]'
+                        ));
+
+                        $description = $this->modx->runSnippet('DocLister', array(
+                            'showNoPublish' => 1,
+                            'tvList' => $this->config['tv_list'],
+                            'documents' => $id,
+                            'tpl' => $this->config['original_description_tpl'],
+                            'ownerTPL' => '@CODE:[+dl.wrap+]'
+                        ));
+
+                        $category_id = $this->modx->runSnippet('DocInfo', array(
+                            'docid' => $parent,
+                            'field' => 'vk_category_id'
+                        ));
+
+                        $price = $this->modx->runSnippet('DocLister', array(
+                            'showNoPublish' => 1,
+                            'tvList' => $this->config['tv_list'],
+                            'documents' => $id,
+                            'tpl' => $this->config['original_price_tpl'],
+                            'ownerTPL' => '@CODE:[+dl.wrap+]'
+                        ));
+
+                        $image = $this->modx->runSnippet('DocLister', array(
+                            'showNoPublish' => 1,
+                            'tvList' => $this->config['tv_list'],
+                            'documents' => $id,
+                            'tpl' => $this->config['original_image_tpl'],
+                            'ownerTPL' => '@CODE:[+dl.wrap+]'
+                        ));
+
+                        $url = $this->modx->makeUrl($id, '', '', 'full');
+                        break;
+
+                    case 'license':
+
+                        $name = $this->modx->runSnippet('DocLister', array(
+                            'showNoPublish' => 1,
+                            'tvList' => $this->config['tv_list'],
+                            'documents' => $id,
+                            'tpl' => $this->config['license_name_tpl'],
+                            'ownerTPL' => '@CODE:[+dl.wrap+]'
+                        ));
+
+                        $description = $this->modx->runSnippet('DocLister', array(
+                            'showNoPublish' => 1,
+                            'tvList' => $this->config['tv_list'],
+                            'documents' => $id,
+                            'tpl' => $this->config['license_description_tpl'],
+                            'ownerTPL' => '@CODE:[+dl.wrap+]'
+                        ));
+
+                        $category_id = $this->modx->runSnippet('DocInfo', array(
+                            'docid' => $parent,
+                            'field' => 'vk_category_id'
+                        ));
+
+                        $price = $this->modx->runSnippet('DocLister', array(
+                            'showNoPublish' => 1,
+                            'tvList' => $this->config['tv_list'],
+                            'documents' => $id,
+                            'tpl' => $this->config['license_price_tpl'],
+                            'ownerTPL' => '@CODE:[+dl.wrap+]'
+                        ));
+
+                        $image = $this->modx->runSnippet('DocLister', array(
+                            'showNoPublish' => 1,
+                            'tvList' => $this->config['tv_list'],
+                            'documents' => $id,
+                            'tpl' => $this->config['license_image_tpl'],
+                            'ownerTPL' => '@CODE:[+dl.wrap+]'
+                        ));
+
+                        $url = $this->modx->makeUrl($id, '', '', 'full');
+                        break;
+
+                    case 'spray':
+
+                        $name = $this->modx->runSnippet('DocLister', array(
+                            'showNoPublish' => 1,
+                            'tvList' => $this->config['tv_list'],
+                            'documents' => $id,
+                            'tpl' => $this->config['spray_name_tpl'],
+                            'ownerTPL' => '@CODE:[+dl.wrap+]'
+                        ));
+
+                        $description = $this->modx->runSnippet('DocLister', array(
+                            'showNoPublish' => 1,
+                            'tvList' => $this->config['tv_list'],
+                            'documents' => $id,
+                            'tpl' => $this->config['spray_description_tpl'],
+                            'ownerTPL' => '@CODE:[+dl.wrap+]'
+                        ));
+
+                        $category_id = $this->modx->runSnippet('DocInfo', array(
+                            'docid' => $parent,
+                            'field' => 'vk_category_id'
+                        ));
+
+                        $price = $this->modx->runSnippet('DocLister', array(
+                            'showNoPublish' => 1,
+                            'tvList' => $this->config['tv_list'],
+                            'documents' => $id,
+                            'tpl' => $this->config['spray_price_tpl'],
+                            'ownerTPL' => '@CODE:[+dl.wrap+]'
+                        ));
+
+                        $image = $this->modx->runSnippet('DocLister', array(
+                            'showNoPublish' => 1,
+                            'tvList' => $this->config['tv_list'],
+                            'documents' => $id,
+                            'tpl' => $this->config['spray_image_tpl'],
+                            'ownerTPL' => '@CODE:[+dl.wrap+]'
+                        ));
+
+                        $url = $this->modx->makeUrl($id, '', '', 'full');
+                        break;
+
+                    case 'probnik':
+
+                        $name = $this->modx->runSnippet('DocLister', array(
+                            'showNoPublish' => 1,
+                            'tvList' => $this->config['tv_list'],
+                            'documents' => $id,
+                            'tpl' => $this->config['probnik_name_tpl'],
+                            'ownerTPL' => '@CODE:[+dl.wrap+]'
+                        ));
+
+                        $description = $this->modx->runSnippet('DocLister', array(
+                            'showNoPublish' => 1,
+                            'tvList' => $this->config['tv_list'],
+                            'documents' => $id,
+                            'tpl' => $this->config['probnik_description_tpl'],
+                            'ownerTPL' => '@CODE:[+dl.wrap+]'
+                        ));
+
+                        $category_id = $this->modx->runSnippet('DocInfo', array(
+                            'docid' => $parent,
+                            'field' => 'vk_category_id'
+                        ));
+
+                        $price = $this->modx->runSnippet('DocLister', array(
+                            'showNoPublish' => 1,
+                            'tvList' => $this->config['tv_list'],
+                            'documents' => $id,
+                            'tpl' => $this->config['probnik_price_tpl'],
+                            'ownerTPL' => '@CODE:[+dl.wrap+]'
+                        ));
+
+                        $image = $this->modx->runSnippet('DocLister', array(
+                            'showNoPublish' => 1,
+                            'tvList' => $this->config['tv_list'],
+                            'documents' => $id,
+                            'tpl' => $this->config['probnik_image_tpl'],
+                            'ownerTPL' => '@CODE:[+dl.wrap+]'
+                        ));
+
+                        $url = $this->modx->makeUrl($id, '', '', 'full');
+                        break;
+
+                    case 'phero10':
+
+                        $name = $this->modx->runSnippet('DocLister', array(
+                            'showNoPublish' => 1,
+                            'tvList' => $this->config['tv_list'],
+                            'documents' => $id,
+                            'tpl' => $this->config['phero10_name_tpl'],
+                            'ownerTPL' => '@CODE:[+dl.wrap+]'
+                        ));
+
+                        $description = $this->modx->runSnippet('DocLister', array(
+                            'showNoPublish' => 1,
+                            'tvList' => $this->config['tv_list'],
+                            'documents' => $id,
+                            'tpl' => $this->config['phero10_description_tpl'],
+                            'ownerTPL' => '@CODE:[+dl.wrap+]'
+                        ));
+
+                        $category_id = $this->modx->runSnippet('DocInfo', array(
+                            'docid' => $parent,
+                            'field' => 'vk_category_id'
+                        ));
+
+                        $price = $this->modx->runSnippet('DocLister', array(
+                            'showNoPublish' => 1,
+                            'tvList' => $this->config['tv_list'],
+                            'documents' => $id,
+                            'tpl' => $this->config['phero10_price_tpl'],
+                            'ownerTPL' => '@CODE:[+dl.wrap+]'
+                        ));
+
+                        $image = $this->modx->runSnippet('DocLister', array(
+                            'showNoPublish' => 1,
+                            'tvList' => $this->config['tv_list'],
+                            'documents' => $id,
+                            'tpl' => $this->config['phero10_image_tpl'],
+                            'ownerTPL' => '@CODE:[+dl.wrap+]'
+                        ));
+
+                        $url = $this->modx->makeUrl($id, '', '', 'full');
+                        break;
+
+                    case 'mini':
+
+                        $name = $this->modx->runSnippet('DocLister', array(
+                            'showNoPublish' => 1,
+                            'tvList' => $this->config['tv_list'],
+                            'documents' => $id,
+                            'tpl' => $this->config['mini_name_tpl'],
+                            'ownerTPL' => '@CODE:[+dl.wrap+]'
+                        ));
+
+                        $description = $this->modx->runSnippet('DocLister', array(
+                            'showNoPublish' => 1,
+                            'tvList' => $this->config['tv_list'],
+                            'documents' => $id,
+                            'tpl' => $this->config['mini_description_tpl'],
+                            'ownerTPL' => '@CODE:[+dl.wrap+]'
+                        ));
+
+                        $category_id = $this->modx->runSnippet('DocInfo', array(
+                            'docid' => $parent,
+                            'field' => 'vk_category_id'
+                        ));
+
+                        $price = $this->modx->runSnippet('DocLister', array(
+                            'showNoPublish' => 1,
+                            'tvList' => $this->config['tv_list'],
+                            'documents' => $id,
+                            'tpl' => $this->config['mini_price_tpl'],
+                            'ownerTPL' => '@CODE:[+dl.wrap+]'
+                        ));
+
+                        $image = $this->modx->runSnippet('DocLister', array(
+                            'showNoPublish' => 1,
+                            'tvList' => $this->config['tv_list'],
+                            'documents' => $id,
+                            'tpl' => $this->config['mini_image_tpl'],
+                            'ownerTPL' => '@CODE:[+dl.wrap+]'
+                        ));
+
+                        $url = $this->modx->makeUrl($id, '', '', 'full');
+                        break;
+                }
+
+                $result['name'] = $name;
+                $result['description'] = $description;
+                $result['category_id'] = $category_id;
+                $result['price'] = $price;
+                $result['image'] = $image;
+                $result['url'] = $url;
+
+                #TODO добавление в альбомы (спреи, миниатюры и т.п.)
                 $albums = implode(",", $albums);
                 $result['albums'] = $albums;
 
@@ -162,15 +377,15 @@ class VKmarket
 
                 switch ($action['function']) {
                     case 'add':
-                        $this->add($action['id'], $action['template']);
+                        $this->add($action['id'], $action['template'], $action['type']);
                         break;
 
                     case 'edit':
-                        $this->edit($action['id'], $action['template'], $action['vk_id']);
+                        $this->edit($action['id'], $action['template'], $action['vk_id'], $action['type']);
                         break;
 
                     case 'delete':
-                        $this->delete($action['id'], $action['template'], $action['vk_id']);
+                        $this->delete($action['id'], $action['template'], $action['vk_id'], $action['type']);
                         break;
                 }
             }
@@ -180,7 +395,7 @@ class VKmarket
         return false;
     }
 
-    public function check($id, $template, $vk_id)
+    public function check($id, $template, $vk_id, $type)
     {
         switch ($template) {
             case $this->config['template_item']:
@@ -197,10 +412,50 @@ class VKmarket
                     $result = $request_get['success']['response']['items'][0];
                     return $result;
                 } else {
-                    $this->modx->db->delete(
-                        $this->config['db']['tv_value'],
-                        'tmplvarid="' . $this->config['tmplvarid']['vk_item_id'] . '" AND contentid="' . $id . '"'
-                    );
+                    switch ($type) {
+
+                        case 'original':
+                            $this->modx->db->delete(
+                                $this->config['db']['tv_value'],
+                                'tmplvarid="' . $this->config['tmplvarid']['vk_original_id'] . '" AND contentid="' . $id . '"'
+                            );
+                            break;
+
+                        case 'license':
+                            $this->modx->db->delete(
+                                $this->config['db']['tv_value'],
+                                'tmplvarid="' . $this->config['tmplvarid']['vk_license_id'] . '" AND contentid="' . $id . '"'
+                            );
+                            break;
+
+                        case 'spray':
+                            $this->modx->db->delete(
+                                $this->config['db']['tv_value'],
+                                'tmplvarid="' . $this->config['tmplvarid']['vk_spray_id'] . '" AND contentid="' . $id . '"'
+                            );
+                            break;
+
+                        case 'probnik':
+                            $this->modx->db->delete(
+                                $this->config['db']['tv_value'],
+                                'tmplvarid="' . $this->config['tmplvarid']['vk_probnik_id'] . '" AND contentid="' . $id . '"'
+                            );
+                            break;
+
+                        case 'phero10':
+                            $this->modx->db->delete(
+                                $this->config['db']['tv_value'],
+                                'tmplvarid="' . $this->config['tmplvarid']['vk_phero10_id'] . '" AND contentid="' . $id . '"'
+                            );
+                            break;
+
+                        case 'mini':
+                            $this->modx->db->delete(
+                                $this->config['db']['tv_value'],
+                                'tmplvarid="' . $this->config['tmplvarid']['vk_mini_id'] . '" AND contentid="' . $id . '"'
+                            );
+                            break;
+                    }
                     return 0;
                 }
 
@@ -230,9 +485,9 @@ class VKmarket
         }
     }
 
-    public function add($id, $template)
+    public function add($id, $template, $type)
     {
-        $params = $this->getParams($id, $template) + $this->config['api'];
+        $params = $this->getParams($id, $template, $type) + $this->config['api'];
 
         switch ($template) {
             case $this->config['template_item']:
@@ -243,19 +498,83 @@ class VKmarket
                 $request = $this->modx->runSnippet('VKapi', $params);
 
                 if ($request['success']) {
-                    $this->alert('success', '[ add item ] - ' . $params['name'], $request);
+                    $this->alert('success', '[ add ' . $type . ' ] - ' . $params['name'], $request);
                     $market_item_id = (int) $request['success']['response'];
 
-                    // сохраняем id в TV (vk_item_id)
-                    $db_params = array(
-                        'tmplvarid' => $this->config['tmplvarid']['vk_item_id'],
-                        'contentid' => $id,
-                        'value' => $market_item_id
-                    );
-                    $this->modx->db->insert(
-                        $db_params,
-                        $this->config['db']['tv_value']
-                    );
+                    switch ($type) {
+
+                        case 'original':
+                            $db_params = array(
+                                'tmplvarid' => $this->config['tmplvarid']['vk_original_id'],
+                                'contentid' => $id,
+                                'value' => $market_item_id
+                            );
+                            $this->modx->db->insert(
+                                $db_params,
+                                $this->config['db']['tv_value']
+                            );
+                            break;
+
+                        case 'license':
+                            $db_params = array(
+                                'tmplvarid' => $this->config['tmplvarid']['vk_license_id'],
+                                'contentid' => $id,
+                                'value' => $market_item_id
+                            );
+                            $this->modx->db->insert(
+                                $db_params,
+                                $this->config['db']['tv_value']
+                            );
+                            break;
+
+                        case 'spray':
+                            $db_params = array(
+                                'tmplvarid' => $this->config['tmplvarid']['vk_spray_id'],
+                                'contentid' => $id,
+                                'value' => $market_item_id
+                            );
+                            $this->modx->db->insert(
+                                $db_params,
+                                $this->config['db']['tv_value']
+                            );
+                            break;
+
+                        case 'probnik':
+                            $db_params = array(
+                                'tmplvarid' => $this->config['tmplvarid']['vk_probnik_id'],
+                                'contentid' => $id,
+                                'value' => $market_item_id
+                            );
+                            $this->modx->db->insert(
+                                $db_params,
+                                $this->config['db']['tv_value']
+                            );
+                            break;
+
+                        case 'phero10':
+                            $db_params = array(
+                                'tmplvarid' => $this->config['tmplvarid']['vk_phero10_id'],
+                                'contentid' => $id,
+                                'value' => $market_item_id
+                            );
+                            $this->modx->db->insert(
+                                $db_params,
+                                $this->config['db']['tv_value']
+                            );
+                            break;
+
+                        case 'mini':
+                            $db_params = array(
+                                'tmplvarid' => $this->config['tmplvarid']['vk_mini_id'],
+                                'contentid' => $id,
+                                'value' => $market_item_id
+                            );
+                            $this->modx->db->insert(
+                                $db_params,
+                                $this->config['db']['tv_value']
+                            );
+                            break;
+                    }
 
 
                     // добавляем товар в подборки
@@ -276,7 +595,7 @@ class VKmarket
                     return true;
                 }
 
-                $this->alert('error', '[ add item ] - ' . $params['name'], $request);
+                $this->alert('error', '[ add ' . $type . ' ] - ' . $params['name'], $request);
                 return false;
                 break;
 
@@ -312,12 +631,12 @@ class VKmarket
         }
     }
 
-    public function edit($id, $template, $vk_id)
+    public function edit($id, $template, $vk_id, $type)
     {
-        $check = $this->check($id, $template, $vk_id);
+        $check = $this->check($id, $template, $vk_id, $type);
 
         if ($check) {
-            $params = $this->getParams($id, $template) + $this->config['api'];
+            $params = $this->getParams($id, $template, $type) + $this->config['api'];
 
             switch ($template) {
                 case $this->config['template_item']:
@@ -329,10 +648,10 @@ class VKmarket
                     $request = $this->modx->runSnippet('VKapi', $params);
 
                     if ($request['success']) {
-                        $this->alert('success', '[ edit item ] - ' . $params['name'], $request);
+                        $this->alert('success', '[ edit ' . $type . ' ] - ' . $params['name'], $request);
                         return true;
                     } else {
-                        $this->alert('error', '[ edit item ] - ' . $params['name'], $request);
+                        $this->alert('error', '[ edit ' . $type . ' ] - ' . $params['name'], $request);
                         return false;
                     }
                     break;
@@ -359,7 +678,7 @@ class VKmarket
         return false;
     }
 
-    public function delete($id, $template, $vk_id)
+    public function delete($id, $template, $vk_id, $type)
     {
         $params = $this->config['api'];
 
@@ -373,14 +692,54 @@ class VKmarket
                 $request = $this->modx->runSnippet('VKapi', $params);
 
                 if ($request['success']) {
-                    $this->alert('success', '[ delete item ] - ' . $params['name'], $request);
-                    $this->modx->db->delete(
-                        $this->config['db']['tv_value'],
-                        'tmplvarid="' . $this->config['tmplvarid']['vk_item_id'] . '" AND contentid="' . $id . '"'
-                    );
+                    $this->alert('success', '[ delete ' . $type . ' ] - ' . $params['name'], $request);
+
+                    switch ($type) {
+                        case 'original':
+                            $this->modx->db->delete(
+                                $this->config['db']['tv_value'],
+                                'tmplvarid="' . $this->config['tmplvarid']['vk_original_id'] . '" AND contentid="' . $id . '"'
+                            );
+                            break;
+
+                        case 'license':
+                            $this->modx->db->delete(
+                                $this->config['db']['tv_value'],
+                                'tmplvarid="' . $this->config['tmplvarid']['vk_license_id'] . '" AND contentid="' . $id . '"'
+                            );
+                            break;
+
+                        case 'spray':
+                            $this->modx->db->delete(
+                                $this->config['db']['tv_value'],
+                                'tmplvarid="' . $this->config['tmplvarid']['vk_spray_id'] . '" AND contentid="' . $id . '"'
+                            );
+                            break;
+
+                        case 'probnik':
+                            $this->modx->db->delete(
+                                $this->config['db']['tv_value'],
+                                'tmplvarid="' . $this->config['tmplvarid']['vk_probnik_id'] . '" AND contentid="' . $id . '"'
+                            );
+                            break;
+
+                        case 'phero10':
+                            $this->modx->db->delete(
+                                $this->config['db']['tv_value'],
+                                'tmplvarid="' . $this->config['tmplvarid']['vk_phero10_id'] . '" AND contentid="' . $id . '"'
+                            );
+                            break;
+
+                        case 'mini':
+                            $this->modx->db->delete(
+                                $this->config['db']['tv_value'],
+                                'tmplvarid="' . $this->config['tmplvarid']['vk_mini_id'] . '" AND contentid="' . $id . '"'
+                            );
+                            break;
+                    }
                     return true;
                 } else {
-                    $this->alert('error', '[ delete item ] - ' . $params['name'], $request);
+                    $this->alert('error', '[ delete ' . $type . ' ] - ' . $params['name'], $request);
                     return false;
                 }
                 break;

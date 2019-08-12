@@ -21,7 +21,7 @@ $site_tmplvars = $modx->getFullTableName('site_tmplvars');
 $site_tmplvar_contentvalues = $modx->getFullTableName('site_tmplvar_contentvalues');
 
 $vk_original_id = $modx->db->getValue($modx->db->select('id', $site_tmplvars, 'name="vk_original_id"'));
-$vk_ilicense_id = $modx->db->getValue($modx->db->select('id', $site_tmplvars, 'name="vk_ilicense_id"'));
+$vk_license_id = $modx->db->getValue($modx->db->select('id', $site_tmplvars, 'name="vk_license_id"'));
 $vk_spray_id = $modx->db->getValue($modx->db->select('id', $site_tmplvars, 'name="vk_spray_id"'));
 $vk_probnik_id = $modx->db->getValue($modx->db->select('id', $site_tmplvars, 'name="vk_probnik_id"'));
 $vk_phero10_id = $modx->db->getValue($modx->db->select('id', $site_tmplvars, 'name="vk_phero10_id"'));
@@ -32,7 +32,7 @@ $vk_category_id = $modx->db->getValue($modx->db->select('id', $site_tmplvars, 'n
 $module_config = array(
     'tmplvarid' => array(
         'vk_original_id'        => $vk_original_id,
-        'vk_ilicense_id'        => $vk_ilicense_id,
+        'vk_license_id'        => $vk_license_id,
         'vk_spray_id'        => $vk_spray_id,
         'vk_probnik_id'        => $vk_probnik_id,
         'vk_phero10_id'        => $vk_phero10_id,
@@ -109,8 +109,6 @@ if ($errors) {
         'tvList' => 'vk_original_id,vk_license_id,vk_spray_id,vk_probnik_id,vk_phero10_id,vk_mini_id,vk_album_id,slot-have',
         'display' => 12,
         'orderBy' => 'pagetitle DESC',
-        'noneTPL' => '',
-        'noneWrapOuter' => 0,
         'paginate' => 'pages',
         'PrevNextAlwaysShow' => 0,
         'pageAdjacents' => 4,
@@ -151,7 +149,7 @@ if ($errors) {
     $license_pub = $modx->runSnippet('DocLister', $params_doclister + array(
         'id' => 'license_pub',
         'addWhereList' => 'c.template=' . $template_item,
-        'filters' => 'AND(tvd:vk_original_id:!=:0;tv:slot-have:%:1)',
+        'filters' => 'AND(tvd:vk_license_id:!=:0;tv:slot-have:%:1)',
         'tpl' => '@FILE:VKmarket/license_pub--tpl',
         'ownerTPL' => '@FILE:VKmarket/license_pub--ownerTPL',
         'TplPage' => '@CODE:<li class="pages__item"><a class="pages__link" href="index.php?a=112&amp;id=' . $market->module_id . '[[if? &is=`[+num+]:!=:1` &then=`&amp;license_pub_page=[+num+]`]]">[+num+]</a></li>',
@@ -230,7 +228,7 @@ if ($errors) {
     ));
 
     // Генерируем подборки
-    $album_nopub = $modx->runSnippet('DocLister', array(
+    $album_nopub = $modx->runSnippet('DocLister', $params_doclister + array(
         'id' => 'album_nopub',
         'addWhereList' => 'c.template=' . $template_album,
         'filters' => 'AND(tvd:vk_album_id:=:0)',
@@ -239,7 +237,7 @@ if ($errors) {
         'TplPage' => '@CODE:<li class="pages__item"><a class="pages__link" href="index.php?a=112&amp;id=' . $market->module_id . '[[if? &is=`[+num+]:!=:1` &then=`&amp;album_nopub_page=[+num+]`]]">[+num+]</a></li>'
     ));
 
-    $album_pub = $modx->runSnippet('DocLister', array(
+    $album_pub = $modx->runSnippet('DocLister', $params_doclister + array(
         'id' => 'album_pub',
         'addWhereList' => 'c.template=' . $template_album,
         'filters' => 'AND(tvd:vk_album_id:!=:0)',
