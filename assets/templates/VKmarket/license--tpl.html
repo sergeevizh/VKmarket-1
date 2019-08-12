@@ -1,17 +1,6 @@
 <tr>
     <td><input type="checkbox" class="check-item" name="items[]" value='{"id":[+id+],"template":[+template+],"type":"license"}'></td>
     [[if? &is=`[+tv.vk_license_id+]:=:0` &then=`
-    <td class="actions">
-        <a href="#" title="Загрузить в сообщество ВК">
-            <i class="fa fa-arrow-up fa-fw"></i>
-        </a>
-        <span title="Обновить данные в сообществе ВК">
-            <i class="fa fa-refresh fa-fw"></i>
-        </span>
-        <span title="Удалить из сообщества ВК">
-            <i class="fa fa-arrow-down fa-fw"></i>
-        </span>
-    </td>
     <td>
         <span class="text-muted">Не загружен</span>
     </td>
