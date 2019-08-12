@@ -9,16 +9,10 @@
     <script type="text/javascript" src="media/script/tabpane.js"></script>
     <script type="text/javascript" src="[+jquery_path+]"></script>
     <script type="text/javascript" src="media/script/mootools/mootools.js"></script>
+    <script src="../assets/modules/VKmarket/datatables/js/jquery.datatables.min.js"></script>
     <script>
         function showLoader() {
             document.querySelector('body').classList.add('loading');
-        }
-        const checkAll = function (data_function, it) {
-            const items = document.querySelectorAll('[data-function="' + data_function + '"]');
-            for (let index = 0; index < items.length; index++) {
-                const item = items[index];
-                item.checked = it.checked;
-            }
         }
     </script>
 </head>
@@ -43,7 +37,11 @@
     </div>
 
     <div class="tab-pane vk" id="market_pane">
-        [+original+]
+        <form class="tab-page" action="" method="POST">
+            <input type="hidden" name="template" value="[+template_item+]">
+            <h2 class="tab">Оригиналы</h2>
+            [+original+]
+        </form>
         <div class="tab-page" id="license_page">
             <h2 class="tab">Лицензии</h2>
             <div class="tab-body pl-0 pr-0">
@@ -99,11 +97,6 @@
             </div>
         </div>
     </div>
-
-    <script src="../assets/modules/VKmarket/datatables/js/jquery.datatables.min.js"></script>
-    <script>
-        $('.table').DataTable();
-    </script>
 </body>
 
 </html>
