@@ -1,0 +1,32 @@
+<tr>
+    <td><input type="checkbox" class="checkbox-original" name="ids" value="[+id+]"></td>
+    <td>[+id+]</td>
+    <td>
+        <a class="vk__item deleted-[+deleted+] published-[+published+]" title="Обзор ресурса" href="index.php?a=27&amp;id=[+id+]" target="main">
+            [[DocInfo? &docid=`[+parent+]` &field=`pagetitle`]] - [+pagetitle+]
+        </a>
+    </td>
+    <td>оригинал</td>
+    [[if? &is=`[+tv.vk_original_id+]:=:0` &then=`
+    <td>
+        <i class="fa fa-times text-muted mr-1"></i> Не загружен
+    </td>
+    <td></td>
+    <td class="actions">
+        <a class="btn btn-sm btn-success" href="#" title="Загрузить в сообщество ВК">
+            <i class="fa fa-arrow-up fa-fw"></i>
+        </a>
+    </td>` &else=`
+    <td>
+        <i class="fa fa-check text-success mr-1"></i> Загружен
+    </td>
+    <td>[+tv.vk_original_id+]</td>
+    <td class="actions">
+        <a class="btn btn-sm" href="#" title="Обновить данные в сообществе ВК">
+            <i class="fa fa-refresh fa-fw"></i>
+        </a>
+        <a class="btn btn-sm btn-danger" href="#" title="Удалить из сообщества ВК">
+            <i class="fa fa-arrow-down fa-fw"></i>
+        </a>
+    </td>`]]
+</tr>

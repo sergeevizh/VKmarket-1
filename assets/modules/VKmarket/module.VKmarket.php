@@ -107,34 +107,15 @@ if ($errors) {
         'showNoPublish' => 1,
         'depth' => 10,
         'tvList' => 'vk_original_id,vk_license_id,vk_spray_id,vk_probnik_id,vk_phero10_id,vk_mini_id,vk_album_id,slot-have',
-        'display' => 12,
-        'orderBy' => 'pagetitle DESC',
-        'paginate' => 'pages',
-        'PrevNextAlwaysShow' => 0,
-        'pageAdjacents' => 4,
-        'TplWrapPaginate' => '@CODE:<ul class="pages">[+wrap+]</ul>',
-        'TplPrevP' => '',
-        'TplNextP' => '',
-        'TplCurrentPage' => '@CODE:<li class="pages__item"><span class="pages__link active">[+num+]</span></li>',
-        'TplDotsPage' => '@CODE:<li class="pages__item"><span class="pages__separ">...</span></li>'
+        'display' => 'all',
+        'orderBy' => 'pagetitle ASC'
     );
 
-    $original_nopub = $modx->runSnippet('DocLister', $params_doclister + array(
-        'id' => 'original_nopub',
+    $original = $modx->runSnippet('DocLister', $params_doclister + array(
         'addWhereList' => 'c.template=' . $template_item,
-        'filters' => 'AND(tvd:vk_original_id:=:0;tv:slot-have:%:6)',
-        'tpl' => '@FILE:VKmarket/original_nopub--tpl',
-        'ownerTPL' => '@FILE:VKmarket/original_nopub--ownerTPL',
-        'TplPage' => '@CODE:<li class="pages__item"><a class="pages__link" href="index.php?a=112&amp;id=' . $market->module_id . '[[if? &is=`[+num+]:!=:1` &then=`&amp;original_nopub_page=[+num+]`]]">[+num+]</a></li>',
-    ));
-
-    $original_pub = $modx->runSnippet('DocLister', $params_doclister + array(
-        'id' => 'original_pub',
-        'addWhereList' => 'c.template=' . $template_item,
-        'filters' => 'AND(tvd:vk_original_id:!=:0;tv:slot-have:%:6)',
-        'tpl' => '@FILE:VKmarket/original_pub--tpl',
-        'ownerTPL' => '@FILE:VKmarket/original_pub--ownerTPL',
-        'TplPage' => '@CODE:<li class="pages__item"><a class="pages__link" href="index.php?a=112&amp;id=' . $market->module_id . '[[if? &is=`[+num+]:!=:1` &then=`&amp;original_pub_page=[+num+]`]]">[+num+]</a></li>',
+        'filters' => 'AND(tv:slot-have:%:6)',
+        'tpl' => '@FILE:VKmarket/original--tpl',
+        'ownerTPL' => '@FILE:VKmarket/original--ownerTPL'
     ));
 
     $license_nopub = $modx->runSnippet('DocLister', $params_doclister + array(
@@ -256,8 +237,9 @@ $placeholders = array(
     'module_id'         => $market->module_id,
     'module_url'        => $market->module_url,
     'jquery_path'       => $market->jquery_path,
-    'original_nopub'    => $original_nopub,
-    'original_pub'      => $original_pub,
+    'template_item'     => $template_item,
+    'template_album'    => $template_album,
+    'original'          => $original,
     'license_nopub'     => $license_nopub,
     'license_pub'       => $license_pub,
     'spray_nopub'       => $spray_nopub,
@@ -268,8 +250,8 @@ $placeholders = array(
     'phero10_pub'       => $phero10_pub,
     'mini_nopub'        => $mini_nopub,
     'mini_pub'          => $mini_pub,
-    'album_nopub'      => $album_nopub,
-    'album_pub'        => $album_pub
+    'album_nopub'       => $album_nopub,
+    'album_pub'         => $album_pub
 );
 
 $output = $modx->parseText($tpl, $placeholders);
