@@ -51,22 +51,11 @@
                                 <th style="min-width: 60px;">ID</th>
                                 <th style="width: 100%;">Название</th>
                                 <th style="min-width: 120px;">Тип</th>
-                                <th style="min-width: 135px;">Состояние</th>
+                                <th style="min-width: 135px;">статус</th>
                                 <th style="min-width: 85px;">ID ВК</th>
                                 <th class="text-right" style="min-width: 95px;"></th>
                             </tr>
                         </thead>
-                        <tfoot>
-                            <tr>
-                                <th style="min-width: 1%;"></th>
-                                <th style="min-width: 60px;">ID</th>
-                                <th style="width: 100%;">Название</th>
-                                <th style="min-width: 120px;">Тип</th>
-                                <th style="min-width: 135px;">Состояние</th>
-                                <th style="min-width: 85px;">ID ВК</th>
-                                <th class="text-right" style="min-width: 95px;"></th>
-                            </tr>
-                        </tfoot>
                         <tbody>
                             [+original+]
                             [+license+]
@@ -95,7 +84,32 @@
                             }],
                             "order": [
                                 [2, 'asc']
-                            ]
+                            ],
+                            "lengthMenu": [10],
+                            "language": {
+                                "decimal": "",
+                                "emptyTable": "Данные отсутствуют в таблице",
+                                "info": "Показаны строки с _START_ по _END_ из _TOTAL_",
+                                "infoEmpty": "Список пуст",
+                                "infoFiltered": "(отфильтровано из _MAX_ строк)",
+                                "infoPostFix": "",
+                                "thousands": ",",
+                                "lengthMenu": "Показывать по _MENU_ строк",
+                                "loadingRecords": "Загрузка...",
+                                "processing": "Подождите...",
+                                "search": "Поиск:",
+                                "zeroRecords": "Совпадений не найдено",
+                                "paginate": {
+                                    "first": "Начало",
+                                    "last": "Конец",
+                                    "next": "Далее",
+                                    "previous": "Назад"
+                                },
+                                "aria": {
+                                    "sortAscending": ": отсортировать по возрастанию",
+                                    "sortDescending": ": отсортировать по убыванию"
+                                }
+                            }
                         });
                     </script>
                 </div>
@@ -115,21 +129,11 @@
                                 <th style="min-width: 1%;"><input type="checkbox" class="check-album-all"></th>
                                 <th style="min-width: 60px;">ID</th>
                                 <th style="width: 100%;">Название</th>
-                                <th style="min-width: 135px;">Состояние</th>
+                                <th style="min-width: 135px;">Статус</th>
                                 <th style="min-width: 85px;">ID ВК</th>
                                 <th class="text-right" style="min-width: 95px;"></th>
                             </tr>
                         </thead>
-                        <tfoot>
-                            <tr>
-                                <th style="min-width: 1%;"></th>
-                                <th style="min-width: 60px;">ID</th>
-                                <th style="width: 100%;">Название</th>
-                                <th style="min-width: 135px;">Состояние</th>
-                                <th style="min-width: 85px;">ID ВК</th>
-                                <th class="text-right" style="min-width: 95px;"></th>
-                            </tr>
-                        </tfoot>
                         <tbody>
                             [+album+]
                         </tbody>
@@ -151,7 +155,32 @@
                             }],
                             "order": [
                                 [2, 'asc']
-                            ]
+                            ],
+                            "lengthMenu": [10],
+                            "language": {
+                                "decimal": "",
+                                "emptyTable": "Данные отсутствуют в таблице",
+                                "info": "Показаны строки с _START_ по _END_ из _TOTAL_",
+                                "infoEmpty": "Список пуст",
+                                "infoFiltered": "(отфильтровано из _MAX_ строк)",
+                                "infoPostFix": "",
+                                "thousands": ",",
+                                "lengthMenu": "Показывать по _MENU_ строк",
+                                "loadingRecords": "Загрузка...",
+                                "processing": "Подождите...",
+                                "search": "Поиск:",
+                                "zeroRecords": "Совпадений не найдено",
+                                "paginate": {
+                                    "first": "Начало",
+                                    "last": "Конец",
+                                    "next": "Далее",
+                                    "previous": "Назад"
+                                },
+                                "aria": {
+                                    "sortAscending": ": отсортировать по возрастанию",
+                                    "sortDescending": ": отсортировать по убыванию"
+                                }
+                            }
                         });
                     </script>
                 </div>
