@@ -402,15 +402,15 @@ class VKmarket
 
                 switch ($function) {
                     case 'add':
-                        $result = $this->add($item['id'], $template, $item['type']);
+                        $result = $this->add($item['id'], $template, $type);
                         break;
 
                     case 'edit':
-                        $result = $this->edit($item['id'], $template, $item['vk_id'], $item['type']);
+                        $result = $this->edit($item['id'], $template, $item['vk_id'], $type);
                         break;
 
                     case 'delete':
-                        $result = $this->delete($item['id'], $template, $item['vk_id'], $item['type']);
+                        $result = $this->delete($item['id'], $template, $item['vk_id'], $type);
                         break;
                 }
             }
