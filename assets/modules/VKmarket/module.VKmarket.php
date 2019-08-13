@@ -210,14 +210,20 @@ $placeholders = array(
     'jquery_path'       => $market->jquery_path,
     'template_item'     => $template_item,
     'template_album'    => $template_album,
-    'original'          => $original,
+    'original_nopub'           => $original_nopub,
+    'original_pub'           => $original_pub,
     'license_nopub'           => $license_nopub,
     'license_pub'           => $license_pub,
-    'spray'             => $spray,
-    'probnik'           => $probnik,
-    'phero10'           => $phero10,
-    'mini'              => $mini,
-    'album'             => $album
+    'spray_nopub'           => $spray_nopub,
+    'spray_pub'           => $spray_pub,
+    'probnik_nopub'         => $probnik_nopub,
+    'probnik_pub'           => $probnik_pub,
+    'phero10_nopub'         => $phero10_nopub,
+    'phero10_pub'           => $phero10_pub,
+    'mini_nopub'         => $mini_nopub,
+    'mini_pub'           => $mini_pub,
+    'album_nopub'         => $album_nopub,
+    'album_pub'           => $album_pub
 );
 
 $output = $modx->parseText($tpl, $placeholders);
