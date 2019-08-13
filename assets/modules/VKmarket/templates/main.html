@@ -21,6 +21,32 @@
                 item.checked = it.checked;
             }
         }
+
+        const postChecked = function (func, form_selector) {
+            const form = document.querySelector(form_selector);
+            const func_input = form.querySelector('input[name="function"]');
+            const id_input = form.querySelector('input[name="id"]');
+
+            func_input.value = func;
+            id_input.value = '';
+            form.submit();
+            showLoader();
+        }
+
+        const postOne = function (func, id, type, form_selector, vk_id) {
+            const form = document.querySelector(form_selector);
+            const func_input = form.querySelector('input[name="function"]');
+            const id_input = form.querySelector('input[name="id"]');
+            const vk_id_input = form.querySelector('input[name="vk_id"]');
+            const type_input = form.querySelector('input[name="type"]');
+
+            func_input.value = func;
+            type_input.value = type;
+            id_input.value = id;
+            vk_id_input.value = vk_id;
+            form.submit();
+            showLoader();
+        }
     </script>
 </head>
 
@@ -44,7 +70,14 @@
     </div>
 
     <div class="tab-pane vk" id="market_pane">
-        <form class="tab-page" action="" method="POST">
+        <form id="item-form" class="tab-page" action="" method="POST">
+
+            <input id="item-id-one" type="hidden" name="id" value="">
+            <input id="item-vk_id-one" type="hidden" name="vk_id" value="">
+            <input id="item-template-one" type="hidden" name="template" value="[+template_item+]">
+            <input id="item-function-one" type="hidden" name="function" value="">
+            <input id="item-type-one" type="hidden" name="type" value="">
+
             <h2 class="tab">Товары</h2>
             <div class="tab-body">
                 <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum earum quasi tempore illo omnis voluptates quia, cum deleniti incidunt ullam numquam suscipit, culpa saepe quos enim, provident facere aperiam nostrum.</p>
@@ -62,13 +95,13 @@
                                 <th class="vk__cell id">ID</th>
                                 <th class="vk__cell id-vk">ID ВК</th>
                                 <th class="vk__cell actions">
-                                    <a href="javascript:;" onclick="postChecked('add');" title="Загрузить в сообщество ВК">
+                                    <a href="javascript:;" onclick="postChecked('add', '#item-form');" title="Загрузить в сообщество ВК">
                                         <i class="fa fa-arrow-up fa-fw"></i>
                                     </a>
-                                    <a href="javascript:;" onclick="postChecked('edit');" title="Обновить данные в сообществе ВК">
+                                    <a href="javascript:;" onclick="postChecked('edit', '#item-form');" title="Обновить данные в сообществе ВК">
                                         <i class="fa fa-refresh fa-fw"></i>
                                     </a>
-                                    <a href="javascript:;" onclick="postChecked('delete');" title="Удалить из сообщества ВК">
+                                    <a href="javascript:;" onclick="postChecked('delete', '#item-form');" title="Удалить из сообщества ВК">
                                         <i class="fa fa-arrow-down fa-fw"></i>
                                     </a>
                                 </th>
@@ -134,7 +167,14 @@
             </div>
         </form>
 
-        <form class="tab-page" action="" method="POST">
+        <form id="album-form" class="tab-page" action="" method="POST">
+
+            <input id="album-id-one" type="hidden" name="id" value="">
+            <input id="album-vk_id-one" type="hidden" name="vk_id" value="">
+            <input id="album-template-one" type="hidden" name="template" value="[+template_album+]">
+            <input id="album-function-one" type="hidden" name="function" value="">
+            <input id="album-type-one" type="hidden" name="type" value="">
+
             <h2 class="tab">Подборки</h2>
             <div class="tab-body">
                 <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum earum quasi tempore illo omnis voluptates quia, cum deleniti incidunt ullam numquam suscipit, culpa saepe quos enim, provident facere aperiam nostrum.</p>
@@ -151,13 +191,13 @@
                                 <th class="vk__cell id">ID</th>
                                 <th class="vk__cell id-vk">ID ВК</th>
                                 <th class="vk__cell actions">
-                                    <a href="javascript:;" onclick="postChecked('add');" title="Загрузить в сообщество ВК">
+                                    <a href="javascript:;" onclick="postChecked('add', '#album-form');" title="Загрузить в сообщество ВК">
                                         <i class="fa fa-arrow-up fa-fw"></i>
                                     </a>
-                                    <a href="javascript:;" onclick="postChecked('edit');" title="Обновить данные в сообществе ВК">
+                                    <a href="javascript:;" onclick="postChecked('edit', '#album-form');" title="Обновить данные в сообществе ВК">
                                         <i class="fa fa-refresh fa-fw"></i>
                                     </a>
-                                    <a href="javascript:;" onclick="postChecked('delete');" title="Удалить из сообщества ВК">
+                                    <a href="javascript:;" onclick="postChecked('delete', '#album-form');" title="Удалить из сообщества ВК">
                                         <i class="fa fa-arrow-down fa-fw"></i>
                                     </a>
                                 </th>

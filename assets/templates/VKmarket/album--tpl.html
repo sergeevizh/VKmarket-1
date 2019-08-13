@@ -1,6 +1,6 @@
 <tr>
-    <td><input type="checkbox" class="check-album" name="items[]" value='{"id":[+id+],"template":[+template+],"type":"album"}'></td>
     [[if? &is=`[+tv.vk_album_id+]:=:0` &then=`
+    <td><input type="checkbox" class="check-album" name="items[]" value='{"id":[+id+],"type":"album"}'></td>
     <td>
         <span class="text-muted">Не загружен</span>
     </td>
@@ -12,7 +12,7 @@
     <td>[+id+]</td>
     <td></td>
     <td class="actions text-right">
-        <a href="#" title="Загрузить в сообщество ВК">
+        <a href="javascript:;" onclick="postOne('add', '[+id+]', 'album', '#album-form')" title="Загрузить в сообщество ВК">
             <i class="fa fa-arrow-up fa-fw"></i>
         </a>
         <span title="Обновить данные в сообществе ВК">
@@ -23,6 +23,7 @@
         </span>
     </td>
     ` &else=`
+    <td><input type="checkbox" class="check-album" name="items[]" value='{"id":[+id+],"type":"album","vk_id":[+tv.vk_album_id+]}'></td>
     <td>
         <i class="fa fa-check text-success"></i>
         <span>Загружен</span>
@@ -38,10 +39,10 @@
         <span title="Загрузить в сообщество ВК">
             <i class="fa fa-arrow-up fa-fw"></i>
         </span>
-        <a href="#" title="Обновить данные в сообществе ВК">
+        <a href="javascript:;" onclick="postOne('edit', '[+id+]', 'album', '#album-form', '[+tv.vk_album_id+]')" title="Обновить данные в сообществе ВК">
             <i class="fa fa-refresh fa-fw"></i>
         </a>
-        <a href="#" title="Удалить из сообщества ВК">
+        <a href="javascript:;" onclick="postOne('delete', '[+id+]', 'album', '#album-form', '[+tv.vk_album_id+]')" title="Удалить из сообщества ВК">
             <i class="fa fa-arrow-down fa-fw"></i>
         </a>
     </td>`]]

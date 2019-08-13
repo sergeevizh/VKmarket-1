@@ -368,30 +368,57 @@ class VKmarket
 
     public function makeActions()
     {
-        $actions = $_POST['actions'];
-        if ($actions) {
+        $function = $_POST['function'];
+        $id = $_POST['id'];
+        $template = $_POST['template'];
+        $type = $_POST['type'];
+        $vk_id = $_POST['vk_id'];
+        $items = $_POST['items'];
 
-            foreach ($actions as $action) {
+        if ($id) {
+            switch ($function) {
+                case 'add':
+                    $result = $this->add($id, $template, $type);
+                    break;
 
-                $action = json_decode($action, true);
+                case 'edit':
+                    $result = $this->edit($id, $template, $vk_id, $type);
+                    break;
 
-                switch ($action['function']) {
+                case 'delete':
+                    $result = $this->delete($id, $template, $vk_id, $type);
+                    break;
+            }
+
+            header("Location: " . $_SERVER['REQUEST_URI']);
+            return $result;
+        }
+
+        if ($items) {
+
+            foreach ($items as $item) {
+
+                $item = json_decode($item, true);
+
+                switch ($function) {
                     case 'add':
-                        $this->add($action['id'], $action['template'], $action['type']);
+                        $result = $this->add($item['id'], $template, $item['type']);
                         break;
 
                     case 'edit':
-                        $this->edit($action['id'], $action['template'], $action['vk_id'], $action['type']);
+                        $result = $this->edit($item['id'], $template, $item['vk_id'], $item['type']);
                         break;
 
                     case 'delete':
-                        $this->delete($action['id'], $action['template'], $action['vk_id'], $action['type']);
+                        $result = $this->delete($item['id'], $template, $item['vk_id'], $item['type']);
                         break;
                 }
             }
+
             header("Location: " . $_SERVER['REQUEST_URI']);
-            return true;
+            return $result;
         }
+
         return false;
     }
 
@@ -498,7 +525,6 @@ class VKmarket
                 $request = $this->modx->runSnippet('VKapi', $params);
 
                 if ($request['success']) {
-                    $this->alert('success', '[ add ' . $type . ' ] - ' . $params['name'], $request);
                     $market_item_id = (int) $request['success']['response'];
 
                     switch ($type) {
@@ -586,9 +612,7 @@ class VKmarket
                         $params_to['album_ids'] = $params['albums'];
 
                         $request = $this->modx->runSnippet('VKapi', $params_to);
-                        if ($request['success']) {
-                            $this->alert('success', '[ add to album ] - ' . $params['name'], $request);
-                        } else {
+                        if (!$request['success']) {
                             $this->alert('error', '[ add to album ] - ' . $params['name'], $request);
                         }
                     }
@@ -619,8 +643,6 @@ class VKmarket
                         $db_params,
                         $this->config['db']['tv_value']
                     );
-
-                    $this->alert('success', '[ add album ] - ' . $params['title'], $request);
                     return true;
                 }
 
