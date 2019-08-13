@@ -112,46 +112,90 @@ if ($errors) {
         'ownerTPL' => '@CODE:[+dl.wrap+]'
     );
 
-    $original = $modx->runSnippet('DocLister', $params_doclister + array(
+    $original_nopub = $modx->runSnippet('DocLister', $params_doclister + array(
         'addWhereList' => 'c.template=' . $template_item,
-        'filters' => 'AND(tv:slot-have:%:6)',
-        'tpl' => '@FILE:VKmarket/original--tpl'
+        'filters' => 'AND(tv:slot-have:%:6;tvd:vk_original_id:=:0)',
+        'tpl' => '@FILE:VKmarket/original_nopub--tpl'
     ));
 
-    $license = $modx->runSnippet('DocLister', $params_doclister + array(
+    $original_pub = $modx->runSnippet('DocLister', $params_doclister + array(
         'addWhereList' => 'c.template=' . $template_item,
-        'filters' => 'AND(tv:slot-have:%:1)',
-        'tpl' => '@FILE:VKmarket/license--tpl'
+        'filters' => 'AND(tv:slot-have:%:6;tvd:vk_original_id:!=:0)',
+        'tpl' => '@FILE:VKmarket/original_pub--tpl'
     ));
 
-    $spray = $modx->runSnippet('DocLister', $params_doclister + array(
+    $license_nopub = $modx->runSnippet('DocLister', $params_doclister + array(
         'addWhereList' => 'c.template=' . $template_item,
-        'filters' => 'AND(tv:slot-have:%:2)',
-        'tpl' => '@FILE:VKmarket/spray--tpl'
+        'filters' => 'AND(tv:slot-have:%:1;tvd:vk_license_id:=:0)',
+        'tpl' => '@FILE:VKmarket/license_nopub--tpl'
     ));
 
-    $probnik = $modx->runSnippet('DocLister', $params_doclister + array(
+    $license_pub = $modx->runSnippet('DocLister', $params_doclister + array(
         'addWhereList' => 'c.template=' . $template_item,
-        'filters' => 'AND(tv:slot-have:%:3)',
-        'tpl' => '@FILE:VKmarket/probnik--tpl'
+        'filters' => 'AND(tv:slot-have:%:1;tvd:vk_license_id:!=:0)',
+        'tpl' => '@FILE:VKmarket/license_pub--tpl'
     ));
 
-    $phero10 = $modx->runSnippet('DocLister', $params_doclister + array(
+    $spray_nopub = $modx->runSnippet('DocLister', $params_doclister + array(
         'addWhereList' => 'c.template=' . $template_item,
-        'filters' => 'AND(tv:slot-have:%:4)',
-        'tpl' => '@FILE:VKmarket/phero10--tpl'
+        'filters' => 'AND(tv:slot-have:%:2;tvd:vk_spray_id:=:0)',
+        'tpl' => '@FILE:VKmarket/spray_nopub--tpl'
     ));
 
-    $mini = $modx->runSnippet('DocLister', $params_doclister + array(
+    $spray_pub = $modx->runSnippet('DocLister', $params_doclister + array(
         'addWhereList' => 'c.template=' . $template_item,
-        'filters' => 'AND(tv:slot-have:%:5)',
-        'tpl' => '@FILE:VKmarket/mini--tpl'
+        'filters' => 'AND(tv:slot-have:%:2;tvd:vk_spray_id:!=:0)',
+        'tpl' => '@FILE:VKmarket/spray_pub--tpl'
+    ));
+
+    $probnik_nopub = $modx->runSnippet('DocLister', $params_doclister + array(
+        'addWhereList' => 'c.template=' . $template_item,
+        'filters' => 'AND(tv:slot-have:%:3;tvd:vk_probnik_id:=:0)',
+        'tpl' => '@FILE:VKmarket/probnik_nopub--tpl'
+    ));
+
+    $probnik_pub = $modx->runSnippet('DocLister', $params_doclister + array(
+        'addWhereList' => 'c.template=' . $template_item,
+        'filters' => 'AND(tv:slot-have:%:3;tvd:vk_probnik_id:!=:0)',
+        'tpl' => '@FILE:VKmarket/probnik_pub--tpl'
+    ));
+
+    $phero10_nopub = $modx->runSnippet('DocLister', $params_doclister + array(
+        'addWhereList' => 'c.template=' . $template_item,
+        'filters' => 'AND(tv:slot-have:%:4;tvd:vk_phero10_id:=:0)',
+        'tpl' => '@FILE:VKmarket/phero10_nopub--tpl'
+    ));
+
+    $phero10_pub = $modx->runSnippet('DocLister', $params_doclister + array(
+        'addWhereList' => 'c.template=' . $template_item,
+        'filters' => 'AND(tv:slot-have:%:4;tvd:vk_phero10_id:!=:0)',
+        'tpl' => '@FILE:VKmarket/phero10_pub--tpl'
+    ));
+
+    $mini_nopub = $modx->runSnippet('DocLister', $params_doclister + array(
+        'addWhereList' => 'c.template=' . $template_item,
+        'filters' => 'AND(tv:slot-have:%:5;tvd:vk_mini_id:=:0)',
+        'tpl' => '@FILE:VKmarket/mini_nopub--tpl'
+    ));
+
+    $mini_pub = $modx->runSnippet('DocLister', $params_doclister + array(
+        'addWhereList' => 'c.template=' . $template_item,
+        'filters' => 'AND(tv:slot-have:%:5;tvd:vk_mini_id:!=:0)',
+        'tpl' => '@FILE:VKmarket/mini_pub--tpl'
     ));
 
     // Генерируем подборки
-    $album = $modx->runSnippet('DocLister', $params_doclister + array(
+
+    $album_nopub = $modx->runSnippet('DocLister', $params_doclister + array(
         'addWhereList' => 'c.template=' . $template_album,
-        'tpl' => '@FILE:VKmarket/album--tpl'
+        'filters' => 'AND(tvd:vk_album_id:=:0)',
+        'tpl' => '@FILE:VKmarket/album_nopub--tpl'
+    ));
+
+    $album_pub = $modx->runSnippet('DocLister', $params_doclister + array(
+        'addWhereList' => 'c.template=' . $template_album,
+        'filters' => 'AND(tvd:vk_album_id:!=:0)',
+        'tpl' => '@FILE:VKmarket/album_pub--tpl'
     ));
 
     // Генерируем фронт с элементами
@@ -167,7 +211,8 @@ $placeholders = array(
     'template_item'     => $template_item,
     'template_album'    => $template_album,
     'original'          => $original,
-    'license'           => $license,
+    'license_nopub'           => $license_nopub,
+    'license_pub'           => $license_pub,
     'spray'             => $spray,
     'probnik'           => $probnik,
     'phero10'           => $phero10,

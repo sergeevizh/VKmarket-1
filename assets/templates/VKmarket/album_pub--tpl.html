@@ -1,0 +1,15 @@
+<tr>
+    <td><input type="checkbox" class="album_pub-check" name="items[]" value='{"id":[+id+],"template":[+template+]}'></td>
+    <td class="actions">
+        <a href="javascript:;" onclick="postOne('edit', '[+id+]', '#album_pub-form', '[+tv.vk_album_id+]')" title="Обновить данные в сообществе ВК">
+            <i class="fa fa-refresh fa-fw"></i>
+        </a>
+        <a href="javascript:;" onclick="postOne('delete', '[+id+]', '#album_pub-form', '[+tv.vk_album_id+]')" title="Удалить из сообщества ВК">
+            <i class="fa fa-arrow-down fa-fw"></i>
+        </a>
+    </td>
+    <td>
+        <a class="vk__item deleted-[+deleted+] published-[+published+]" title="Обзор ресурса" href="index.php?a=27&amp;id=[+id+]" target="main">[+pagetitle+]</a> - подборка ([+id+])
+    </td>
+    <td>[+tv.vk_album_id+]</td>
+</tr>

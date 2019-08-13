@@ -33,15 +33,13 @@
             showLoader();
         }
 
-        const postOne = function (func, id, type, form_selector, vk_id) {
+        const postOne = function (func, id, form_selector, vk_id) {
             const form = document.querySelector(form_selector);
             const func_input = form.querySelector('input[name="function"]');
             const id_input = form.querySelector('input[name="id"]');
             const vk_id_input = form.querySelector('input[name="vk_id"]');
-            const type_input = form.querySelector('input[name="type"]');
 
             func_input.value = func;
-            type_input.value = type;
             id_input.value = id;
             vk_id_input.value = vk_id;
             form.submit();
@@ -69,192 +67,638 @@
         </div>
     </div>
 
-    <div class="tab-pane vk" id="market_pane">
-        <form id="item-form" class="tab-page" action="" method="POST">
+    <div class="tab-pane vk">
 
-            <input id="item-id-one" type="hidden" name="id" value="">
-            <input id="item-vk_id-one" type="hidden" name="vk_id" value="">
-            <input id="item-template-one" type="hidden" name="template" value="[+template_item+]">
-            <input id="item-function-one" type="hidden" name="function" value="">
-            <input id="item-type-one" type="hidden" name="type" value="">
+        <div class="tab-page">
+            <h2 class="tab">Оригиналы</h2>
+            <div class="tab-body pl-0 pr-0">
+                <div class="tab-pane">
 
-            <h2 class="tab">Товары</h2>
-            <div class="tab-body">
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum earum quasi tempore illo omnis voluptates quia, cum deleniti incidunt ullam numquam suscipit, culpa saepe quos enim, provident facere aperiam nostrum.</p>
-                <br>
-                <div class="table-responsive">
-                    <table class="display table data" id="item-table">
-                        <thead>
-                            <tr>
-                                <th class="vk__cell check">
-                                    <input type="checkbox" class="check-item-all" onchange="checkAll('.check-item', $(this));">
-                                </th>
-                                <th class="vk__cell status">Статус</th>
-                                <th class="vk__cell title">Название</th>
-                                <th class="vk__cell type">Тип</th>
-                                <th class="vk__cell id">ID</th>
-                                <th class="vk__cell id-vk">ID ВК</th>
-                                <th class="vk__cell actions">
-                                    <a href="javascript:;" onclick="postChecked('add', '#item-form');" title="Загрузить в сообщество ВК">
-                                        <i class="fa fa-arrow-up fa-fw"></i>
-                                    </a>
-                                    <a href="javascript:;" onclick="postChecked('edit', '#item-form');" title="Обновить данные в сообществе ВК">
-                                        <i class="fa fa-refresh fa-fw"></i>
-                                    </a>
-                                    <a href="javascript:;" onclick="postChecked('delete', '#item-form');" title="Удалить из сообщества ВК">
-                                        <i class="fa fa-arrow-down fa-fw"></i>
-                                    </a>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            [+original+]
-                            [+license+]
-                            [+spray+]
-                            [+probnik+]
-                            [+phero10+]
-                            [+mini+]
-                        </tbody>
-                    </table>
-                    <script>
-                        jQuery("#item-table").DataTable({
-                            "columns": [{
-                                "orderable": false
-                            }, {
-                                "orderable": true
-                            }, {
-                                "orderable": true
-                            }, {
-                                "orderable": true
-                            }, {
-                                "orderable": false
-                            }, {
-                                "orderable": false
-                            }, {
-                                "orderable": false
-                            }],
-                            "order": [
-                                [2, 'asc']
-                            ],
-                            "lengthMenu": [10],
-                            "language": {
-                                "decimal": "",
-                                "emptyTable": "Данные отсутствуют в таблице",
-                                "info": "Показаны строки с _START_ по _END_ из _TOTAL_",
-                                "infoEmpty": "Список пуст",
-                                "infoFiltered": "(отфильтровано из _MAX_ строк)",
-                                "infoPostFix": "",
-                                "thousands": ",",
-                                "lengthMenu": "Показывать по _MENU_ строк",
-                                "loadingRecords": "Загрузка...",
-                                "processing": "Подождите...",
-                                "search": "Поиск:",
-                                "zeroRecords": "Совпадений не найдено",
-                                "paginate": {
-                                    "first": "Начало",
-                                    "last": "Конец",
-                                    "next": "Далее",
-                                    "previous": "Назад"
-                                },
-                                "aria": {
-                                    "sortAscending": ": отсортировать по возрастанию",
-                                    "sortDescending": ": отсортировать по убыванию"
-                                }
-                            }
-                        });
-                    </script>
+                    <form id="original_nopub-form" class="tab-page" action="" method="POST">
+                        <input type="hidden" name="id" value="">
+                        <input type="hidden" name="vk_id" value="">
+                        <input type="hidden" name="template" value="[+template_item+]">
+                        <input type="hidden" name="function" value="">
+                        <input type="hidden" name="type" value="original">
+                        <h2 class="tab">
+                            <span class="text-normal">Не загруженные</span>
+                        </h2>
+                        <div class="tab-body">
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum earum quasi tempore illo omnis voluptates quia, cum deleniti incidunt ullam numquam suscipit, culpa saepe quos enim, provident facere aperiam nostrum.</p>
+                            <br>
+                            <div class="table-responsive">
+                                <table class="display table data">
+                                    <thead>
+                                        <tr>
+                                            <th class="vk__cell check">
+                                                <input type="checkbox" onchange="checkAll('.original_nopub-check', $(this));">
+                                            </th>
+                                            <th class="vk__cell actions">
+                                                <a href="javascript:;" onclick="postChecked('add', '#original_nopub-form');" title="Загрузить в сообщество ВК">
+                                                    <i class="fa fa-arrow-up fa-fw"></i>
+                                                </a>
+                                            </th>
+                                            <th class="vk__cell title">Название</th>
+                                            <th class="vk__cell id-vk">ID ВК</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        [+original_nopub+]
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form id="original_pub-form" class="tab-page" action="" method="POST">
+                        <input type="hidden" name="id" value="">
+                        <input type="hidden" name="vk_id" value="">
+                        <input type="hidden" name="template" value="[+template_item+]">
+                        <input type="hidden" name="function" value="">
+                        <input type="hidden" name="type" value="original">
+                        <h2 class="tab">
+                            <span class="text-normal"><i class="fa fa-check text-success mr-1"></i>Загруженные</span>
+                        </h2>
+                        <div class="tab-body">
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum earum quasi tempore illo omnis voluptates quia, cum deleniti incidunt ullam numquam suscipit, culpa saepe quos enim, provident facere aperiam nostrum.</p>
+                            <br>
+                            <div class="table-responsive">
+                                <table class="display table data">
+                                    <thead>
+                                        <tr>
+                                            <th class="vk__cell check">
+                                                <input type="checkbox" onchange="checkAll('.original_pub-check', $(this));">
+                                            </th>
+                                            <th class="vk__cell actions">
+                                                <a href="javascript:;" onclick="postChecked('edit', '#original_pub-form');" title="Обновить данные в сообществе ВК">
+                                                    <i class="fa fa-refresh fa-fw"></i>
+                                                </a>
+                                                <a href="javascript:;" onclick="postChecked('delete', '#original_pub-form');" title="Удалить из сообщества ВК">
+                                                    <i class="fa fa-arrow-down fa-fw"></i>
+                                                </a>
+                                            </th>
+                                            <th class="vk__cell title">Название</th>
+                                            <th class="vk__cell id-vk">ID ВК</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        [+original_pub+]
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+
                 </div>
             </div>
-        </form>
+        </div>
 
-        <form id="album-form" class="tab-page" action="" method="POST">
+        <div class="tab-page">
+            <h2 class="tab">Лицензии</h2>
+            <div class="tab-body pl-0 pr-0">
+                <div class="tab-pane">
 
-            <input id="album-id-one" type="hidden" name="id" value="">
-            <input id="album-vk_id-one" type="hidden" name="vk_id" value="">
-            <input id="album-template-one" type="hidden" name="template" value="[+template_album+]">
-            <input id="album-function-one" type="hidden" name="function" value="">
-            <input id="album-type-one" type="hidden" name="type" value="">
+                    <form id="license_nopub-form" class="tab-page" action="" method="POST">
+                        <input type="hidden" name="id" value="">
+                        <input type="hidden" name="vk_id" value="">
+                        <input type="hidden" name="template" value="[+template_item+]">
+                        <input type="hidden" name="function" value="">
+                        <input type="hidden" name="type" value="license">
+                        <h2 class="tab">
+                            <span class="text-normal">Не загруженные</span>
+                        </h2>
+                        <div class="tab-body">
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum earum quasi tempore illo omnis voluptates quia, cum deleniti incidunt ullam numquam suscipit, culpa saepe quos enim, provident facere aperiam nostrum.</p>
+                            <br>
+                            <div class="table-responsive">
+                                <table class="display table data">
+                                    <thead>
+                                        <tr>
+                                            <th class="vk__cell check">
+                                                <input type="checkbox" onchange="checkAll('.license_nopub-check', $(this));">
+                                            </th>
+                                            <th class="vk__cell actions">
+                                                <a href="javascript:;" onclick="postChecked('add', '#license_nopub-form');" title="Загрузить в сообщество ВК">
+                                                    <i class="fa fa-arrow-up fa-fw"></i>
+                                                </a>
+                                            </th>
+                                            <th class="vk__cell title">Название</th>
+                                            <th class="vk__cell id-vk">ID ВК</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        [+license_nopub+]
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
 
+                    <form id="license_pub-form" class="tab-page" action="" method="POST">
+                        <input type="hidden" name="id" value="">
+                        <input type="hidden" name="vk_id" value="">
+                        <input type="hidden" name="template" value="[+template_item+]">
+                        <input type="hidden" name="function" value="">
+                        <input type="hidden" name="type" value="license">
+                        <h2 class="tab">
+                            <span class="text-normal"><i class="fa fa-check text-success mr-1"></i>Загруженные</span>
+                        </h2>
+                        <div class="tab-body">
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum earum quasi tempore illo omnis voluptates quia, cum deleniti incidunt ullam numquam suscipit, culpa saepe quos enim, provident facere aperiam nostrum.</p>
+                            <br>
+                            <div class="table-responsive">
+                                <table class="display table data">
+                                    <thead>
+                                        <tr>
+                                            <th class="vk__cell check">
+                                                <input type="checkbox" onchange="checkAll('.license_pub-check', $(this));">
+                                            </th>
+                                            <th class="vk__cell actions">
+                                                <a href="javascript:;" onclick="postChecked('edit', '#license_pub-form');" title="Обновить данные в сообществе ВК">
+                                                    <i class="fa fa-refresh fa-fw"></i>
+                                                </a>
+                                                <a href="javascript:;" onclick="postChecked('delete', '#license_pub-form');" title="Удалить из сообщества ВК">
+                                                    <i class="fa fa-arrow-down fa-fw"></i>
+                                                </a>
+                                            </th>
+                                            <th class="vk__cell title">Название</th>
+                                            <th class="vk__cell id-vk">ID ВК</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        [+license_pub+]
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-page">
+            <h2 class="tab">Спреи</h2>
+            <div class="tab-body pl-0 pr-0">
+                <div class="tab-pane">
+
+                    <form id="spray_nopub-form" class="tab-page" action="" method="POST">
+                        <input type="hidden" name="id" value="">
+                        <input type="hidden" name="vk_id" value="">
+                        <input type="hidden" name="template" value="[+template_item+]">
+                        <input type="hidden" name="function" value="">
+                        <input type="hidden" name="type" value="spray">
+                        <h2 class="tab">
+                            <span class="text-normal">Не загруженные</span>
+                        </h2>
+                        <div class="tab-body">
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum earum quasi tempore illo omnis voluptates quia, cum deleniti incidunt ullam numquam suscipit, culpa saepe quos enim, provident facere aperiam nostrum.</p>
+                            <br>
+                            <div class="table-responsive">
+                                <table class="display table data">
+                                    <thead>
+                                        <tr>
+                                            <th class="vk__cell check">
+                                                <input type="checkbox" onchange="checkAll('.spray_nopub-check', $(this));">
+                                            </th>
+                                            <th class="vk__cell actions">
+                                                <a href="javascript:;" onclick="postChecked('add', '#spray_nopub-form');" title="Загрузить в сообщество ВК">
+                                                    <i class="fa fa-arrow-up fa-fw"></i>
+                                                </a>
+                                            </th>
+                                            <th class="vk__cell title">Название</th>
+                                            <th class="vk__cell id-vk">ID ВК</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        [+spray_nopub+]
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form id="spray_pub-form" class="tab-page" action="" method="POST">
+                        <input type="hidden" name="id" value="">
+                        <input type="hidden" name="vk_id" value="">
+                        <input type="hidden" name="template" value="[+template_item+]">
+                        <input type="hidden" name="function" value="">
+                        <input type="hidden" name="type" value="spray">
+                        <h2 class="tab">
+                            <span class="text-normal"><i class="fa fa-check text-success mr-1"></i>Загруженные</span>
+                        </h2>
+                        <div class="tab-body">
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum earum quasi tempore illo omnis voluptates quia, cum deleniti incidunt ullam numquam suscipit, culpa saepe quos enim, provident facere aperiam nostrum.</p>
+                            <br>
+                            <div class="table-responsive">
+                                <table class="display table data">
+                                    <thead>
+                                        <tr>
+                                            <th class="vk__cell check">
+                                                <input type="checkbox" onchange="checkAll('.spray_pub-check', $(this));">
+                                            </th>
+                                            <th class="vk__cell actions">
+                                                <a href="javascript:;" onclick="postChecked('edit', '#spray_pub-form');" title="Обновить данные в сообществе ВК">
+                                                    <i class="fa fa-refresh fa-fw"></i>
+                                                </a>
+                                                <a href="javascript:;" onclick="postChecked('delete', '#spray_pub-form');" title="Удалить из сообщества ВК">
+                                                    <i class="fa fa-arrow-down fa-fw"></i>
+                                                </a>
+                                            </th>
+                                            <th class="vk__cell title">Название</th>
+                                            <th class="vk__cell id-vk">ID ВК</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        [+spray_pub+]
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-page">
+            <h2 class="tab">Пробники</h2>
+            <div class="tab-body pl-0 pr-0">
+                <div class="tab-pane">
+
+                    <form id="probnik_nopub-form" class="tab-page" action="" method="POST">
+                        <input type="hidden" name="id" value="">
+                        <input type="hidden" name="vk_id" value="">
+                        <input type="hidden" name="template" value="[+template_item+]">
+                        <input type="hidden" name="function" value="">
+                        <input type="hidden" name="type" value="probnik">
+                        <h2 class="tab">
+                            <span class="text-normal">Не загруженные</span>
+                        </h2>
+                        <div class="tab-body">
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum earum quasi tempore illo omnis voluptates quia, cum deleniti incidunt ullam numquam suscipit, culpa saepe quos enim, provident facere aperiam nostrum.</p>
+                            <br>
+                            <div class="table-responsive">
+                                <table class="display table data">
+                                    <thead>
+                                        <tr>
+                                            <th class="vk__cell check">
+                                                <input type="checkbox" onchange="checkAll('.probnik_nopub-check', $(this));">
+                                            </th>
+                                            <th class="vk__cell actions">
+                                                <a href="javascript:;" onclick="postChecked('add', '#probnik_nopub-form');" title="Загрузить в сообщество ВК">
+                                                    <i class="fa fa-arrow-up fa-fw"></i>
+                                                </a>
+                                            </th>
+                                            <th class="vk__cell title">Название</th>
+                                            <th class="vk__cell id-vk">ID ВК</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        [+probnik_nopub+]
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form id="probnik_pub-form" class="tab-page" action="" method="POST">
+                        <input type="hidden" name="id" value="">
+                        <input type="hidden" name="vk_id" value="">
+                        <input type="hidden" name="template" value="[+template_item+]">
+                        <input type="hidden" name="function" value="">
+                        <input type="hidden" name="type" value="probnik">
+                        <h2 class="tab">
+                            <span class="text-normal"><i class="fa fa-check text-success mr-1"></i>Загруженные</span>
+                        </h2>
+                        <div class="tab-body">
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum earum quasi tempore illo omnis voluptates quia, cum deleniti incidunt ullam numquam suscipit, culpa saepe quos enim, provident facere aperiam nostrum.</p>
+                            <br>
+                            <div class="table-responsive">
+                                <table class="display table data">
+                                    <thead>
+                                        <tr>
+                                            <th class="vk__cell check">
+                                                <input type="checkbox" onchange="checkAll('.probnik_pub-check', $(this));">
+                                            </th>
+                                            <th class="vk__cell actions">
+                                                <a href="javascript:;" onclick="postChecked('edit', '#probnik_pub-form');" title="Обновить данные в сообществе ВК">
+                                                    <i class="fa fa-refresh fa-fw"></i>
+                                                </a>
+                                                <a href="javascript:;" onclick="postChecked('delete', '#probnik_pub-form');" title="Удалить из сообщества ВК">
+                                                    <i class="fa fa-arrow-down fa-fw"></i>
+                                                </a>
+                                            </th>
+                                            <th class="vk__cell title">Название</th>
+                                            <th class="vk__cell id-vk">ID ВК</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        [+probnik_pub+]
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-page">
+            <h2 class="tab">С феромонами</h2>
+            <div class="tab-body pl-0 pr-0">
+                <div class="tab-pane">
+
+                    <form id="phero10_nopub-form" class="tab-page" action="" method="POST">
+                        <input type="hidden" name="id" value="">
+                        <input type="hidden" name="vk_id" value="">
+                        <input type="hidden" name="template" value="[+template_item+]">
+                        <input type="hidden" name="function" value="">
+                        <input type="hidden" name="type" value="phero10">
+                        <h2 class="tab">
+                            <span class="text-normal">Не загруженные</span>
+                        </h2>
+                        <div class="tab-body">
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum earum quasi tempore illo omnis voluptates quia, cum deleniti incidunt ullam numquam suscipit, culpa saepe quos enim, provident facere aperiam nostrum.</p>
+                            <br>
+                            <div class="table-responsive">
+                                <table class="display table data">
+                                    <thead>
+                                        <tr>
+                                            <th class="vk__cell check">
+                                                <input type="checkbox" onchange="checkAll('.phero10_nopub-check', $(this));">
+                                            </th>
+                                            <th class="vk__cell actions">
+                                                <a href="javascript:;" onclick="postChecked('add', '#phero10_nopub-form');" title="Загрузить в сообщество ВК">
+                                                    <i class="fa fa-arrow-up fa-fw"></i>
+                                                </a>
+                                            </th>
+                                            <th class="vk__cell title">Название</th>
+                                            <th class="vk__cell id-vk">ID ВК</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        [+phero10_nopub+]
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form id="phero10_pub-form" class="tab-page" action="" method="POST">
+                        <input type="hidden" name="id" value="">
+                        <input type="hidden" name="vk_id" value="">
+                        <input type="hidden" name="template" value="[+template_item+]">
+                        <input type="hidden" name="function" value="">
+                        <input type="hidden" name="type" value="phero10">
+                        <h2 class="tab">
+                            <span class="text-normal"><i class="fa fa-check text-success mr-1"></i>Загруженные</span>
+                        </h2>
+                        <div class="tab-body">
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum earum quasi tempore illo omnis voluptates quia, cum deleniti incidunt ullam numquam suscipit, culpa saepe quos enim, provident facere aperiam nostrum.</p>
+                            <br>
+                            <div class="table-responsive">
+                                <table class="display table data">
+                                    <thead>
+                                        <tr>
+                                            <th class="vk__cell check">
+                                                <input type="checkbox" onchange="checkAll('.phero10_pub-check', $(this));">
+                                            </th>
+                                            <th class="vk__cell actions">
+                                                <a href="javascript:;" onclick="postChecked('edit', '#phero10_pub-form');" title="Обновить данные в сообществе ВК">
+                                                    <i class="fa fa-refresh fa-fw"></i>
+                                                </a>
+                                                <a href="javascript:;" onclick="postChecked('delete', '#phero10_pub-form');" title="Удалить из сообщества ВК">
+                                                    <i class="fa fa-arrow-down fa-fw"></i>
+                                                </a>
+                                            </th>
+                                            <th class="vk__cell title">Название</th>
+                                            <th class="vk__cell id-vk">ID ВК</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        [+phero10_pub+]
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-page">
+            <h2 class="tab">Миниатюры</h2>
+            <div class="tab-body pl-0 pr-0">
+                <div class="tab-pane">
+
+                    <form id="mini_nopub-form" class="tab-page" action="" method="POST">
+                        <input type="hidden" name="id" value="">
+                        <input type="hidden" name="vk_id" value="">
+                        <input type="hidden" name="template" value="[+template_item+]">
+                        <input type="hidden" name="function" value="">
+                        <input type="hidden" name="type" value="mini">
+                        <h2 class="tab">
+                            <span class="text-normal">Не загруженные</span>
+                        </h2>
+                        <div class="tab-body">
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum earum quasi tempore illo omnis voluptates quia, cum deleniti incidunt ullam numquam suscipit, culpa saepe quos enim, provident facere aperiam nostrum.</p>
+                            <br>
+                            <div class="table-responsive">
+                                <table class="display table data">
+                                    <thead>
+                                        <tr>
+                                            <th class="vk__cell check">
+                                                <input type="checkbox" onchange="checkAll('.mini_nopub-check', $(this));">
+                                            </th>
+                                            <th class="vk__cell actions">
+                                                <a href="javascript:;" onclick="postChecked('add', '#mini_nopub-form');" title="Загрузить в сообщество ВК">
+                                                    <i class="fa fa-arrow-up fa-fw"></i>
+                                                </a>
+                                            </th>
+                                            <th class="vk__cell title">Название</th>
+                                            <th class="vk__cell id-vk">ID ВК</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        [+mini_nopub+]
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form id="mini_pub-form" class="tab-page" action="" method="POST">
+                        <input type="hidden" name="id" value="">
+                        <input type="hidden" name="vk_id" value="">
+                        <input type="hidden" name="template" value="[+template_item+]">
+                        <input type="hidden" name="function" value="">
+                        <input type="hidden" name="type" value="mini">
+                        <h2 class="tab">
+                            <span class="text-normal"><i class="fa fa-check text-success mr-1"></i>Загруженные</span>
+                        </h2>
+                        <div class="tab-body">
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum earum quasi tempore illo omnis voluptates quia, cum deleniti incidunt ullam numquam suscipit, culpa saepe quos enim, provident facere aperiam nostrum.</p>
+                            <br>
+                            <div class="table-responsive">
+                                <table class="display table data">
+                                    <thead>
+                                        <tr>
+                                            <th class="vk__cell check">
+                                                <input type="checkbox" onchange="checkAll('.mini_pub-check', $(this));">
+                                            </th>
+                                            <th class="vk__cell actions">
+                                                <a href="javascript:;" onclick="postChecked('edit', '#mini_pub-form');" title="Обновить данные в сообществе ВК">
+                                                    <i class="fa fa-refresh fa-fw"></i>
+                                                </a>
+                                                <a href="javascript:;" onclick="postChecked('delete', '#mini_pub-form');" title="Удалить из сообщества ВК">
+                                                    <i class="fa fa-arrow-down fa-fw"></i>
+                                                </a>
+                                            </th>
+                                            <th class="vk__cell title">Название</th>
+                                            <th class="vk__cell id-vk">ID ВК</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        [+mini_pub+]
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-page">
             <h2 class="tab">Подборки</h2>
-            <div class="tab-body">
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum earum quasi tempore illo omnis voluptates quia, cum deleniti incidunt ullam numquam suscipit, culpa saepe quos enim, provident facere aperiam nostrum.</p>
-                <br>
-                <div class="table-responsive">
-                    <table class="display table data" id="album-table">
-                        <thead>
-                            <tr>
-                                <th class="vk__cell check">
-                                    <input type="checkbox" class="check-album-all" onchange="checkAll('.check-album', $(this));">
-                                </th>
-                                <th class="vk__cell status">Статус</th>
-                                <th class="vk__cell title">Название</th>
-                                <th class="vk__cell id">ID</th>
-                                <th class="vk__cell id-vk">ID ВК</th>
-                                <th class="vk__cell actions">
-                                    <a href="javascript:;" onclick="postChecked('add', '#album-form');" title="Загрузить в сообщество ВК">
-                                        <i class="fa fa-arrow-up fa-fw"></i>
-                                    </a>
-                                    <a href="javascript:;" onclick="postChecked('edit', '#album-form');" title="Обновить данные в сообществе ВК">
-                                        <i class="fa fa-refresh fa-fw"></i>
-                                    </a>
-                                    <a href="javascript:;" onclick="postChecked('delete', '#album-form');" title="Удалить из сообщества ВК">
-                                        <i class="fa fa-arrow-down fa-fw"></i>
-                                    </a>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            [+album+]
-                        </tbody>
-                    </table>
-                    <script>
-                        jQuery("#album-table").DataTable({
-                            "columns": [{
-                                "orderable": false
-                            }, {
-                                "orderable": true
-                            }, {
-                                "orderable": true
-                            }, {
-                                "orderable": false
-                            }, {
-                                "orderable": false
-                            }, {
-                                "orderable": false
-                            }],
-                            "order": [
-                                [2, 'asc']
-                            ],
-                            "lengthMenu": [10],
-                            "language": {
-                                "decimal": "",
-                                "emptyTable": "Данные отсутствуют в таблице",
-                                "info": "Показаны строки с _START_ по _END_ из _TOTAL_",
-                                "infoEmpty": "Список пуст",
-                                "infoFiltered": "(отфильтровано из _MAX_ строк)",
-                                "infoPostFix": "",
-                                "thousands": ",",
-                                "lengthMenu": "Показывать по _MENU_ строк",
-                                "loadingRecords": "Загрузка...",
-                                "processing": "Подождите...",
-                                "search": "Поиск:",
-                                "zeroRecords": "Совпадений не найдено",
-                                "paginate": {
-                                    "first": "Начало",
-                                    "last": "Конец",
-                                    "next": "Далее",
-                                    "previous": "Назад"
-                                },
-                                "aria": {
-                                    "sortAscending": ": отсортировать по возрастанию",
-                                    "sortDescending": ": отсортировать по убыванию"
-                                }
-                            }
-                        });
-                    </script>
+            <div class="tab-body pl-0 pr-0">
+                <div class="tab-pane">
+
+                    <form id="album_nopub-form" class="tab-page" action="" method="POST">
+                        <input type="hidden" name="id" value="">
+                        <input type="hidden" name="vk_id" value="">
+                        <input type="hidden" name="template" value="[+template_album+]">
+                        <input type="hidden" name="function" value="">
+                        <input type="hidden" name="type" value="album">
+                        <h2 class="tab">
+                            <span class="text-normal">Не загруженные</span>
+                        </h2>
+                        <div class="tab-body">
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum earum quasi tempore illo omnis voluptates quia, cum deleniti incidunt ullam numquam suscipit, culpa saepe quos enim, provident facere aperiam nostrum.</p>
+                            <br>
+                            <div class="table-responsive">
+                                <table class="display table data">
+                                    <thead>
+                                        <tr>
+                                            <th class="vk__cell check">
+                                                <input type="checkbox" onchange="checkAll('.album_nopub-check', $(this));">
+                                            </th>
+                                            <th class="vk__cell actions">
+                                                <a href="javascript:;" onclick="postChecked('add', '#album_nopub-form');" title="Загрузить в сообщество ВК">
+                                                    <i class="fa fa-arrow-up fa-fw"></i>
+                                                </a>
+                                            </th>
+                                            <th class="vk__cell title">Название</th>
+                                            <th class="vk__cell id-vk">ID ВК</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        [+album_nopub+]
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form id="album_pub-form" class="tab-page" action="" method="POST">
+                        <input type="hidden" name="id" value="">
+                        <input type="hidden" name="vk_id" value="">
+                        <input type="hidden" name="template" value="[+template_album+]">
+                        <input type="hidden" name="function" value="">
+                        <input type="hidden" name="type" value="album">
+                        <h2 class="tab">
+                            <span class="text-normal"><i class="fa fa-check text-success mr-1"></i>Загруженные</span>
+                        </h2>
+                        <div class="tab-body">
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum earum quasi tempore illo omnis voluptates quia, cum deleniti incidunt ullam numquam suscipit, culpa saepe quos enim, provident facere aperiam nostrum.</p>
+                            <br>
+                            <div class="table-responsive">
+                                <table class="display table data">
+                                    <thead>
+                                        <tr>
+                                            <th class="vk__cell check">
+                                                <input type="checkbox" onchange="checkAll('.album_pub-check', $(this));">
+                                            </th>
+                                            <th class="vk__cell actions">
+                                                <a href="javascript:;" onclick="postChecked('edit', '#album_pub-form');" title="Обновить данные в сообществе ВК">
+                                                    <i class="fa fa-refresh fa-fw"></i>
+                                                </a>
+                                                <a href="javascript:;" onclick="postChecked('delete', '#album_pub-form');" title="Удалить из сообщества ВК">
+                                                    <i class="fa fa-arrow-down fa-fw"></i>
+                                                </a>
+                                            </th>
+                                            <th class="vk__cell title">Название</th>
+                                            <th class="vk__cell id-vk">ID ВК</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        [+album_pub+]
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+
                 </div>
             </div>
-        </form>
+        </div>
+
+        <script>
+            jQuery(".table.data").DataTable({
+                "columns": [{
+                    "orderable": false
+                }, {
+                    "orderable": false
+                }, {
+                    "orderable": true
+                }, {
+                    "orderable": false
+                }, ],
+                "order": [
+                    [2, 'asc']
+                ],
+                "lengthMenu": [10, 25, 50],
+                "language": {
+                    "decimal": "",
+                    "emptyTable": "Данные отсутствуют в таблице",
+                    "info": "Показаны строки с _START_ по _END_ из _TOTAL_",
+                    "infoEmpty": "Список пуст",
+                    "infoFiltered": "(отфильтровано из _MAX_ строк)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Показывать по _MENU_ строк",
+                    "loadingRecords": "Загрузка...",
+                    "processing": "Подождите...",
+                    "search": "Поиск:",
+                    "zeroRecords": "Совпадений не найдено",
+                    "paginate": {
+                        "first": "Начало",
+                        "last": "Конец",
+                        "next": "Далее",
+                        "previous": "Назад"
+                    },
+                    "aria": {
+                        "sortAscending": ": отсортировать по возрастанию",
+                        "sortDescending": ": отсортировать по убыванию"
+                    }
+                }
+            });
+        </script>
+
     </div>
 </body>
 
