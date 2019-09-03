@@ -70,7 +70,6 @@ class VKmarket
 
                 // TODO: Новинки / Хиты / Для кого
                 $albumsVK = array(
-                    'new' => 4,
                     'hit' => 3,
                     'female' => 140,
                     'male' => 141,
@@ -82,16 +81,10 @@ class VKmarket
                     'phero10' => 148,
                     'mini' => 149
                 );
-
-                $isNew = $this->modx->runSnippet('DocInfo', array(
-                    'docid' => $id,
-                    'field' => 'slot-new'
-                ));
                 $isHit = $this->modx->runSnippet('DocInfo', array(
                     'docid' => $id,
                     'field' => 'slot-hit'
                 ));
-                if ($isNew)  array_push($albums, $albumsVK['new']);
                 if ($isHit)  array_push($albums, $albumsVK['hit']);
 
                 $slotSex = $this->modx->runSnippet('DocInfo', array(
