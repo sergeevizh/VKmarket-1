@@ -68,8 +68,51 @@ class VKmarket
                 ));
                 if ($parent_album_id)  array_push($albums, $parent_album_id);
 
+                // TODO: Новинки / Хиты / Для кого
+                $albumsVK = array(
+                    'new' => 4,
+                    'hit' => 3,
+                    'female' => 140,
+                    'male' => 141,
+                    'unisex' => 142,
+                    'original' => 144,
+                    'license' => 145,
+                    'spray' => 146,
+                    'probnik' => 147,
+                    'phero10' => 148,
+                    'mini' => 149
+                );
+
+                $isNew = $this->modx->runSnippet('DocInfo', array(
+                    'docid' => $id,
+                    'field' => 'slot-new'
+                ));
+                $isHit = $this->modx->runSnippet('DocInfo', array(
+                    'docid' => $id,
+                    'field' => 'slot-hit'
+                ));
+                if ($isNew)  array_push($albums, $albumsVK['new']);
+                if ($isHit)  array_push($albums, $albumsVK['hit']);
+
+                $slotSex = $this->modx->runSnippet('DocInfo', array(
+                    'docid' => $id,
+                    'field' => 'slot-sex'
+                ));
+                switch ($slotSex) {
+                    case 1:
+                        array_push($albums, $albumsVK['female']);
+                        break;
+                    case 2:
+                        array_push($albums, $albumsVK['male']);
+                        break;
+                    case 3:
+                        array_push($albums, $albumsVK['unisex']);
+                        break;
+                }
+
                 switch ($type) {
                     case 'original':
+                        array_push($albums, $albumsVK['original']);
 
                         $name = $this->modx->runSnippet('DocLister', array(
                             'showNoPublish' => 1,
@@ -112,6 +155,7 @@ class VKmarket
                         break;
 
                     case 'license':
+                        array_push($albums, $albumsVK['license']);
 
                         $name = $this->modx->runSnippet('DocLister', array(
                             'showNoPublish' => 1,
@@ -154,6 +198,7 @@ class VKmarket
                         break;
 
                     case 'spray':
+                        array_push($albums, $albumsVK['spray']);
 
                         $name = $this->modx->runSnippet('DocLister', array(
                             'showNoPublish' => 1,
@@ -196,6 +241,7 @@ class VKmarket
                         break;
 
                     case 'probnik':
+                        array_push($albums, $albumsVK['probnik']);
 
                         $name = $this->modx->runSnippet('DocLister', array(
                             'showNoPublish' => 1,
@@ -238,6 +284,7 @@ class VKmarket
                         break;
 
                     case 'phero10':
+                        array_push($albums, $albumsVK['phero10']);
 
                         $name = $this->modx->runSnippet('DocLister', array(
                             'showNoPublish' => 1,
@@ -280,6 +327,7 @@ class VKmarket
                         break;
 
                     case 'mini':
+                        array_push($albums, $albumsVK['mini']);
 
                         $name = $this->modx->runSnippet('DocLister', array(
                             'showNoPublish' => 1,
