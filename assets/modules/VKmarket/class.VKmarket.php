@@ -70,7 +70,8 @@ class VKmarket
 
                 // TODO: Новинки / Хиты / Для кого
                 $albumsVK = array(
-                    'hit' => 3,
+                    'new' => 225,
+                    'hit' => 224,
                     'female' => 140,
                     'male' => 141,
                     'unisex' => 142,
@@ -85,27 +86,31 @@ class VKmarket
                     'docid' => $id,
                     'field' => 'slot-hit'
                 ));
-                if ($isHit)  array_push($albums, $albumsVK['hit']);
-
+                $isNew = $this->modx->runSnippet('DocInfo', array(
+                    'docid' => $id,
+                    'field' => 'slot-new'
+                ));
                 $slotSex = $this->modx->runSnippet('DocInfo', array(
                     'docid' => $id,
                     'field' => 'slot-sex'
                 ));
-                switch ($slotSex) {
-                    case 1:
-                        array_push($albums, $albumsVK['female']);
-                        break;
-                    case 2:
-                        array_push($albums, $albumsVK['male']);
-                        break;
-                    case 3:
-                        array_push($albums, $albumsVK['unisex']);
-                        break;
-                }
 
                 switch ($type) {
                     case 'original':
                         array_push($albums, $albumsVK['original']);
+                        if ($isHit)  array_push($albums, $albumsVK['hit']);
+                        if ($isNew)  array_push($albums, $albumsVK['new']);
+                        switch ($slotSex) {
+                            case 1:
+                                array_push($albums, $albumsVK['female']);
+                                break;
+                            case 2:
+                                array_push($albums, $albumsVK['male']);
+                                break;
+                            case 3:
+                                array_push($albums, $albumsVK['unisex']);
+                                break;
+                        }
 
                         $name = $this->modx->runSnippet('DocLister', array(
                             'showNoPublish' => 1,
@@ -149,6 +154,19 @@ class VKmarket
 
                     case 'license':
                         array_push($albums, $albumsVK['license']);
+                        if ($isHit)  array_push($albums, $albumsVK['hit']);
+                        if ($isNew)  array_push($albums, $albumsVK['new']);
+                        switch ($slotSex) {
+                            case 1:
+                                array_push($albums, $albumsVK['female']);
+                                break;
+                            case 2:
+                                array_push($albums, $albumsVK['male']);
+                                break;
+                            case 3:
+                                array_push($albums, $albumsVK['unisex']);
+                                break;
+                        }
 
                         $name = $this->modx->runSnippet('DocLister', array(
                             'showNoPublish' => 1,
